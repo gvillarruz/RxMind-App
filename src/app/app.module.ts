@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import {SliderModule} from 'primeng/slider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { RippleModule } from 'primeng/ripple';
     CommonModule,
     FormsModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
