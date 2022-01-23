@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
+//Notification and Reminder Location
 interface notification_locations{
   name : string;
 }
 
+//To Enable/Disable missed dose notifications
 interface missed_dose_notif{
   name: string;
 }
 
+//To select time period between missed dose and notification
+interface timefornotif{
+  name: string;
+}
 
 @Component({
   selector: 'app-settings',
@@ -23,6 +29,9 @@ selectednotiflocation!: notification_locations;
 missed_dose_option : missed_dose_notif[];
 selectedmissed_dose_option !: missed_dose_notif;
 
+timefornotification : timefornotif[];
+selectedtimefornotification !: timefornotif;
+
 
   constructor() { 
 
@@ -34,6 +43,11 @@ selectedmissed_dose_option !: missed_dose_notif;
     this.missed_dose_option = [
       {name: "Enable"},
       {name: "Disable"}];
+
+    this.timefornotification = [
+      {name: "15 minutes"},
+      {name: "30 minutes"},
+      {name: "60 minutes"}];
 
    }
 

@@ -13,6 +13,7 @@
 
 <div>
     <label><strong>Time between Missed Dose and Notification:</strong></label>
+    <p-listbox [options]= "timefornotification" [(ngModel)]= "selectedtimefornotification" optionLabel="name"></p-listbox>
 </div>
 
 <button pButton pRipple label = "Save" type = "button"></button>
