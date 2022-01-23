@@ -14,6 +14,7 @@ import { FormsModule }    from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import {SliderModule} from 'primeng/slider';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {SliderModule} from 'primeng/slider';
     FormsModule,
     ButtonModule,
     RippleModule,
-    SliderModule
+    SliderModule, 
+    ListboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
