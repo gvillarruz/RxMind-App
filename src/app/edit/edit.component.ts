@@ -17,7 +17,10 @@ interface med_per_dose{
 })
 export class EditComponent implements OnInit {
   cabinetid: any
-  
+  dispense1: any
+  dispense2: any
+  dispense3: any
+
   dosefreq_list : dose_frequency[];
   selected_dosefreq !: dose_frequency;
 

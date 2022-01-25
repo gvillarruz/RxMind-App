@@ -17,9 +17,13 @@
 
 <div>
     <label><strong>Dispense Time(s) (eg. 10:30 AM)</strong></label>
+    <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
+    <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/>
+    <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/>
 </div>
 
 <div>
     <label><strong>Cabinet ID (in Machine):</strong></label>
     <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
 </div>
+
