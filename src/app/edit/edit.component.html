@@ -12,12 +12,14 @@
 
 <div>
     <label><strong>Amount of Medication Per Dose:</strong></label>
+    <p-listbox [options]= "med_per_dose_list" [(ngModel)]= "selected_medperdose" optionLabel="amount"></p-listbox>
 </div>
 
 <div>
-    <label><strong>Dispense Time(s) (eg> 10:30 AM)</strong></label>
+    <label><strong>Dispense Time(s) (eg. 10:30 AM)</strong></label>
 </div>
 
 <div>
     <label><strong>Cabinet ID (in Machine):</strong></label>
+    <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
 </div>
