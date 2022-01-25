@@ -34,9 +34,9 @@ export class EditComponent implements OnInit {
       {frequency: "Three times a Day"},
       {frequency: "On Demand"}];
 
-      this.med_per_dose_list = [
-        {amount: "Single Pill"},
-        {amount: "Two Pills"}];
+    this.med_per_dose_list = [
+      {amount: "Single Pill"},
+      {amount: "Two Pills"}];
 
   }
 
