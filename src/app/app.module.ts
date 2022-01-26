@@ -15,6 +15,7 @@ import {ButtonModule} from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import {SliderModule} from 'primeng/slider';
 import {ListboxModule} from 'primeng/listbox';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {ListboxModule} from 'primeng/listbox';
     ButtonModule,
     RippleModule,
     SliderModule, 
-    ListboxModule
+    ListboxModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

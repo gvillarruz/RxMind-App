@@ -31,7 +31,7 @@ export class EditComponent implements OnInit {
   med_per_dose_list : med_per_dose[];
   selected_medperdose !: med_per_dose;
 
-  medication_list !: medication[];
+  medication_list : medication[];
   selectedmedication? :medication;
 
   onSelect(medication: medication) : void{
