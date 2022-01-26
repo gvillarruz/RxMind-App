@@ -10,6 +10,10 @@ interface med_per_dose{
   amount: string;
 }
 
+interface medication{
+  name : string;
+}
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -27,6 +31,13 @@ export class EditComponent implements OnInit {
   med_per_dose_list : med_per_dose[];
   selected_medperdose !: med_per_dose;
 
+  medication_list !: medication[];
+  selectedmedication? :medication;
+
+  onSelect(medication: medication) : void{
+    this.selectedmedication = medication;
+  }
+
   constructor() { 
     this.dosefreq_list = [
       {frequency: "Once a Day"},
@@ -37,6 +48,11 @@ export class EditComponent implements OnInit {
     this.med_per_dose_list = [
       {amount: "Single Pill"},
       {amount: "Two Pills"}];
+
+    this.medication_list = [
+      {name: "Medicine 1"},
+      {name: "Medicine 2"},
+      {name: "Medicine 3"}];
 
   }
 
