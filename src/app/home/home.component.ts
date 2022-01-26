@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Calendar } from 'primeng/calendar';
-
-interface calendar{
-  value : Date;
-}
 
 @Component({
   selector: 'app-home',
@@ -12,6 +7,9 @@ interface calendar{
 })
 export class HomeComponent implements OnInit {
   calendarvalue !: Date;
+  sliderval : number= 70;
+  medleft : string = "2 Weeks";
+  medprogressnum : number = 70;
 
   constructor() {  }
 

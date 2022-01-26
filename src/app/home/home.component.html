@@ -4,4 +4,11 @@
 
 <!---Add the same list that is implemented in the Edit page for medications-->
 
-<p-calendar [showWeek]="true" [inline]="true"></p-calendar>
+<p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
+
+<!---Adding the slider element to show the amount of medication left when selected from the list -->
+<div>
+    <h3>Time Until Refill: {{medleft}}</h3>
+    <!---<p-slider [(ngModel)]="sliderval" [min]='0' [max]='100'></p-slider>--->
+    <p-progressBar [value]="medprogressnum" [showValue]='false'></p-progressBar>
+</div>
