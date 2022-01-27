@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
  
   constructor() {
     this.menuitems = [
-      {label: 'Home'},
-      {label: 'Add or Edit Medications'},
-      {label: "Settings"}];
+      {label: 'Home', routerLink: ['/overview']},
+      {label: 'Add or Edit Medications', routerLink:['/edit']},
+      {label: "Settings", routerLink:['/settings']}];
   }
   
   ngOnInit():void{}
