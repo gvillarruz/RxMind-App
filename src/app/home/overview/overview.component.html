@@ -2,8 +2,19 @@
 
 <p>To begin, select a medication from the list</p>
 <!---Add the same list that is implemented in the Edit page for medications-->
+<div>
+    <label><strong>Medication List:</strong></label>
+    <ul>
+        <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
+        [class.selected]="medication === selectedmedication">
+        <span>{{medication.name}}</span>
+        </li>
+    </ul>
+</div>
 
-<p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
+<div>
+    <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
+</div>
 
 <!---Adding the slider element to show the amount of medication left when selected from the list -->
 <div>
