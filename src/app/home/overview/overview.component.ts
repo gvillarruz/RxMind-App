@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
+  calendarvalue !: Date;
+  sliderval : number= 70;
+  medleft : string = "2 Weeks";
+  medprogressnum : number = 70;
 
   constructor() { }
 

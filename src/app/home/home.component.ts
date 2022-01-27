@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api'
-
-interface NavMenu{
-  items : MenuItem[];
-}
+import {MenuItem} from 'primeng/api';
+import { Menubar } from 'primeng/menubar';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +8,15 @@ interface NavMenu{
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  calendarvalue !: Date;
-  sliderval : number= 70;
-  medleft : string = "2 Weeks";
-  medprogressnum : number = 70;
-
-  constructor() {  }
-
-  ngOnInit(): void{}
+  menuitems : MenuItem[];
+ 
+  constructor() {
+    this.menuitems = [
+      {label: 'Home'},
+      {label: 'Add or Edit Medications'},
+      {label: "Settings"}];
+  }
+  
+  ngOnInit():void{}
 
 }
