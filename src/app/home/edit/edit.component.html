@@ -1,0 +1,37 @@
+<h1>Edit or Add Medications</h1>
+<h4>Select a medication from the list to edit or add a new medication by added to the list</h4>
+
+<div>
+    <label><strong>Medication List:</strong></label>
+    <ul>
+        <li *ngfor="let medication of medication_list" (click) = "onSelect(medication)" 
+        [class.selected] ="medication === selectedmedication">
+        <span>{{medication.name}}</span>
+        </li>
+    </ul>
+</div>
+
+<div>
+    <label><strong>Frequency of Dosage:</strong></label>
+    <p-listbox [options]= "dosefreq_list" [(ngModel)]= "selected_dosefreq" optionLabel="frequency"></p-listbox>
+</div>
+
+<div>
+    <label><strong>Amount of Medication Per Dose:</strong></label>
+    <p-listbox [options]= "med_per_dose_list" [(ngModel)]= "selected_medperdose" optionLabel="amount"></p-listbox>
+</div>
+
+<div>
+    <label><strong>Dispense Time(s) (eg. 10:30 AM)</strong></label>
+    <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
+    <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/>
+    <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/>
+</div>
+
+<div>
+    <label><strong>Cabinet ID (in Machine):</strong></label>
+    <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
+</div>
+
+<button pButton pRipple type="button" label="Save" ></button>
+<button pButton pRipple type="button" label="Remove" class="p-button-secondary"></button>
