@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,7 +10,7 @@ import { Menubar } from 'primeng/menubar';
 })
 export class HomeComponent implements OnInit {
   menuitems : MenuItem[];
- 
+
   constructor() {
     this.menuitems = [
       {label: 'Home', routerLink: ['/overview']},
