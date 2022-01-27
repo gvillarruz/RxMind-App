@@ -17,6 +17,8 @@ import {SliderModule} from 'primeng/slider';
 import {ListboxModule} from 'primeng/listbox';
 import {CalendarModule} from 'primeng/calendar';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     SliderModule, 
     ListboxModule,
     CalendarModule,
-    ProgressBarModule
+    ProgressBarModule,
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
