@@ -4,8 +4,8 @@
 <div>
     <label><strong>Medication List:</strong></label>
     <ul>
-        <li *ngfor="let medication of medication_list" (click) = "onSelect(medication)" 
-        [class.selected] ="medication === selectedmedication">
+        <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
+        [class.selected]="medication === selectedmedication">
         <span>{{medication.name}}</span>
         </li>
     </ul>
