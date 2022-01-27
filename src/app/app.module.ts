@@ -18,6 +18,7 @@ import {ListboxModule} from 'primeng/listbox';
 import {CalendarModule} from 'primeng/calendar';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {MenubarModule} from 'primeng/menubar';
+import {ImageModule} from 'primeng/image';
 
 import { OverviewComponent } from './home/overview/overview.component';
 @NgModule({
@@ -42,7 +43,8 @@ import { OverviewComponent } from './home/overview/overview.component';
     ListboxModule,
     CalendarModule,
     ProgressBarModule,
-    MenubarModule
+    MenubarModule,
+    ImageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
