@@ -16,4 +16,4 @@
     <p-listbox [options]= "timefornotification" [(ngModel)]= "selectedtimefornotification" optionLabel="name"></p-listbox>
 </div>
 
-<button pButton pRipple label = "Save" type = "button"></button>
+<button pButton pRipple (onClick)="onSave()" label = "Save" type = "button"></button>

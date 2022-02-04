@@ -54,5 +54,10 @@ selectedtimefornotification !: timefornotif;
   ngOnInit(): void {
   }
 
+  onSave(){
+    //Gather all of the data placed in the view
+    //Send to the web server to parse and save 
+  }
+
 }
 
