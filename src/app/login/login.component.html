@@ -9,6 +9,6 @@
 
 <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true"></p-password>
 
-<button pButton pRipple type="button" label="Sign In" (click)="this.isSigninVisible = false" routerLink="home"></button>
+<button pButton pRipple type="button" label="Sign In" (click)="onUserSignIn" routerLink="home"></button>
 <button pButton pRipple type="button" label="Create Account" class="p-button-secondary"></button>
 </div>
