@@ -1,19 +1,26 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { LoginComponent } from "./login/login.component";
+import { SettingsComponent } from "./home/settings/settings.component";
+import { HomeComponent } from "./home/home.component";
+import { EditComponent } from "./home/edit/edit.component";
+import { InputTextModule } from "primeng/inputtext";
+import { PasswordModule } from "primeng/password";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { ButtonModule } from "primeng/button";
+import { RippleModule } from "primeng/ripple";
+import { SliderModule } from "primeng/slider";
+import { ListboxModule } from "primeng/listbox";
+import { CalendarModule } from "primeng/calendar";
+import { ProgressBarModule } from "primeng/progressbar";
+import { MenubarModule } from "primeng/menubar";
+import { ImageModule } from "primeng/image";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SettingsComponent } from './home/settings/settings.component';
-import { HomeComponent } from './home/home.component';
-import { EditComponent } from './home/edit/edit.component';
-import {InputTextModule} from 'primeng/inputtext';
-import {PasswordModule} from 'primeng/password';
-import { CommonModule } from '@angular/common';
-import { FormsModule }    from '@angular/forms';
-import {ButtonModule} from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { OverviewComponent } from './home/overview/overview.component';
+import { OverviewComponent } from "./home/overview/overview.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +28,7 @@ import { OverviewComponent } from './home/overview/overview.component';
     SettingsComponent,
     HomeComponent,
     EditComponent,
-    OverviewComponent
+    OverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +38,16 @@ import { OverviewComponent } from './home/overview/overview.component';
     CommonModule,
     FormsModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    SliderModule,
+    ListboxModule,
+    CalendarModule,
+    ProgressBarModule,
+    MenubarModule,
+    BrowserAnimationsModule,
+    ImageModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

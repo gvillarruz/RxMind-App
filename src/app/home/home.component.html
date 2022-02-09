@@ -1,3 +1,8 @@
-<p>menu bar here</p>
-<p>route here</p>
-<app-overview></app-overview> 
+<!--Menu Item to Navigate between pages-->
+<p-menubar [model]="menuitems"></p-menubar>
+<!--Permanent Image of the HomePage-->
+<p-image src="assets/images/RxMindLogo.jpg"></p-image>
+
+<router-outlet></router-outlet>
+
+<!--Use router outlet to load different page content-->
