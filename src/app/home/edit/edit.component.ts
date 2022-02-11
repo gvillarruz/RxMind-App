@@ -36,6 +36,19 @@ export class EditComponent implements OnInit {
 
   onSelect(medication: medication) : void{
     this.selectedmedication = medication;
+    //the user selects a medication
+    //load the associated medication metadata into the form fields
+  }
+
+  saveMedication(){
+    //take the data in all of the form fields, package it into an object
+    //send the data to save in the web server 
+    //wait for a success response from the web server & display success to user
+  }
+
+  removeMedication(){
+    //Take the medication data in all of the form fields, package it into an object
+    //Send the data to the web server to remove 
   }
 
   constructor() { 
