@@ -1,4 +1,9 @@
+<html>
 <div class="sign-in-div" *ngIf="this.isSigninVisible">
+    <span>
+        <p-image src="assets/images/RxMindLogo.jpg"></p-image>
+        <h1 class="sign-in-title">RxMind</h1>
+    </span>
 <h1 class="sign-in-title">Sign In</h1>
 <!--<p-image src={{imgname}} alt="">
     <ng-template pTemplate="indicator">
@@ -9,6 +14,8 @@
 
 <p-password class="password-input" [(ngModel)]="password" [feedback]="false" [toggleMask]="true"></p-password>
 <br>
-<button pButton pRipple type="button" label="Sign In" (click)="onUserSignIn" routerLink="home"></button>
+<button class="sign-in-btn" pButton pRipple type="button" label="Sign In" (click)="onUserSignIn" routerLink="home"></button>
+<br>
 <button pButton pRipple type="button" label="Create Account" class="p-button-secondary"></button>
 </div>
+</html>

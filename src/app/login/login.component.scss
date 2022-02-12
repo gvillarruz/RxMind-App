@@ -14,10 +14,20 @@ body{
     text-align: center;
 }
 
-input [type="text"]{
-    margin:auto;
+.input [type="text"]{
+    padding: 10px, 10px, 10px, 10px;
+    width:30%;
 }
 
 .password-input{
     align-items: center;
+    width: 30%;
+    padding: 10px, 10px, 10px, 10px;
+}
+
+.sign-in-btn{
+    padding: 15px, 15px, 15px, 15px;
+    margin: auto;
+    align-self: center;
+    width: 30%;
 }
