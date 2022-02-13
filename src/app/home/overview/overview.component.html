@@ -1,31 +1,43 @@
-<h3>Welcome to RxMind!</h3>
 
-<p>To begin, select a medication from the list</p>
+<div class="title-subtitle-div">
+    <h3>Welcome to RxMind!</h3>
+    <p>To begin, select a medication from the list</p>
+</div>
+
 <!---Add the same list that is implemented in the Edit page for medications-->
-<div>
-    <label><strong>Medication List:</strong></label>
-    <ul>
-        <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
-        [class.selected]="medication === selectedmedication">
-        <span>{{medication.name}}</span>
-        </li>
-    </ul>
-</div>
-
-<div>
-    <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
-</div>
+<div class="meds-list-calendar">
+    <div class="med-list">
+        <label><strong>Medication List:</strong></label>
+        <ul>
+            <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
+            [class.selected]="medication === selectedmedication">
+            <span>{{medication.name}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="med-calendar">
+        <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
+    </div>
+</div>    
 
 <!---Adding the slider element to show the amount of medication left when selected from the list -->
-<div>
-    <h3>Time Until Refill: {{medleft}}</h3>
-    <!---<p-slider [(ngModel)]="sliderval" [min]='0' [max]='100'></p-slider>--->
-    <p-progressBar [value]="medprogressnum" [showValue]='false'></p-progressBar>
+<div class="refill-div">
+    <h3 class="med-left-lbl">Time Until Refill: {{medleft}}</h3>
+    <div class="med-left-bar">
+        <p-progressBar  [value]="medprogressnum" [showValue]='false'></p-progressBar>
+    </div>
 </div>
 
-<div>
+<div class="missed-notif-div">
     <h4>Missed Notifications:</h4>
-    <p>You missed this morning's dose of Altoprev</p>
-    <!--You missed this {{timeOfDay}} dose of {{medicationName}}-->
-    <button pButton pRipple type="button" label="Dismiss" (click)="Dismiss_notif" class="p-button-secondary"></button>
+    <!--Could put in a list here with the missed medications-->
+    <!--The default of the list could be "All up to date!"-->
+    <div class="missed-notif">
+        <p>You missed this morning's dose of Altoprev</p>
+        <!--You missed this {{timeOfDay}} dose of {{medicationName}}-->
+    </div>
+    <div class="dismiss-notif-btn-div">
+        <button pButton pRipple type="button" label="Dismiss" (click)="Dismiss_notif" class="p-button-secondary"></button>
+    </div>
 </div>
+

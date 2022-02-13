@@ -1,0 +1,61 @@
+.title-subtitle-div{
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    width:100%;
+
+}
+
+.meds-list-calendar{
+    width:100%;
+    text-align:center;
+}
+
+.med-list{
+    font-family:Arial, Helvetica, sans-serif;
+    display:inline-block;
+    justify-content: left;
+    margin-right: 5%;
+}
+
+.med-calendar{
+    display:inline-block;
+    justify-content:center;
+}
+
+.refill-div{
+    margin-top:2%;
+    text-align: center;
+    width:100%;
+}
+
+.med-left-lbl{
+    display:inline-block;
+    justify-content:left;
+
+}
+
+.med-left-bar{
+    width:35%;
+    height:10%;
+    display:inline-block;
+    margin-left:5%;
+}
+
+.missed-notif-div{
+    text-align: center;
+    border: 1px solid lightskyblue;
+    width:50%;
+    margin:auto;
+    margin-top:1%;
+}
+
+.dismiss-notif-btn-div{
+    margin-bottom:1%;
+    display:inline-block;
+    padding:1%;
+}
+
+.missed-notif{
+    display:inline-block;
+    margin-right:1%;
+}
