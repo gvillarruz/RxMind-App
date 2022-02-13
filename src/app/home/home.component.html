@@ -4,7 +4,9 @@
     <h4 class="sign-in-title">RxMind</h4>
 </div>
 <!--Menu Item to Navigate between pages-->
-<p-menubar [model]="menuitems"></p-menubar>
+<p-menubar [model]="menuitems">
+    <button pButton label="Logout" icon="pi pi-power-off" class="p-button-outlined p-button-secondary"></button>
+</p-menubar>
 <!--Permanent Image on the HomePage-->
 <router-outlet></router-outlet>
 
