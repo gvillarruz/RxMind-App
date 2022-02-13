@@ -45,5 +45,8 @@
         <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
     </div>
 </div>
-<button pButton pRipple type="button" label="Save" (click)="saveMedication"></button>
+
+<div class="btn-div">
+<button class="save-btn" pButton pRipple type="button" label="Save" (click)="saveMedication"></button>
 <button pButton pRipple type="button" label="Remove" (click)="removeMedication" class="p-button-secondary"></button>
+</div>
