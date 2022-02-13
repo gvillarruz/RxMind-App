@@ -1,37 +1,49 @@
-<h1>Add or Edit Medications</h1>
-<h4>Select a medication from the list to edit or add a new medication by added to the list</h4>
+<h1 style="font-family:Arial, Helvetica, sans-serif">Add or Edit Medications</h1>
+<h4 style="font-family:Arial, Helvetica, sans-serif">Select a medication from the list to edit or add a new medication by added to the list</h4>
 
-<div>
-    <label><strong>Medication List:</strong></label>
-    <ul>
-        <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
-        [class.selected]="medication === selectedmedication">
-        <span>{{medication.name}}</span>
-        </li>
-    </ul>
+<div class="med-list-and-freq-div">
+    <div class="med-list">
+        <label><strong>Medication List:</strong></label>
+        <ul>
+            <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
+            [class.selected]="medication === selectedmedication">
+            <span>{{medication.name}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="med-freq">
+        <label class="dropdown-label"><strong>Frequency of Dosage:</strong></label>
+        <p-dropdown [options]= "dosefreq_list" [(ngModel)]= "selected_dosefreq" optionLabel="frequency"></p-dropdown>
+    </div>
+
+    <div class="med-per-dose">
+        <label class="dropdown-label"><strong>Amount of Medication Per Dose:</strong></label>
+        <p-dropdown [options]= "med_per_dose_list" [(ngModel)]= "selected_medperdose" optionLabel="amount"></p-dropdown>
+    </div>
 </div>
 
-<div>
-    <label><strong>Frequency of Dosage:</strong></label>
-    <p-listbox [options]= "dosefreq_list" [(ngModel)]= "selected_dosefreq" optionLabel="frequency"></p-listbox>
-</div>
+<div class="time-list-and-cabinetid-div">
+    <div class="dispense-time">
+        <label class="dropdown-label"><strong>Dispense Time(s) (eg. 10:30 AM):</strong></label>
+        <br>
+        <div class="dispense-time-input">
+            <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
+        </div>
+        <br>
+        <div class="dispense-time-input">
+            <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/>
+        </div>
+        <br>
+        <div class="dispense-time-input">
+            <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/>
+        </div>
+    </div>
 
-<div>
-    <label><strong>Amount of Medication Per Dose:</strong></label>
-    <p-listbox [options]= "med_per_dose_list" [(ngModel)]= "selected_medperdose" optionLabel="amount"></p-listbox>
+    <div class="cabinet-id">
+        <label class="dropdown-label"><strong>Cabinet ID (in Machine):</strong></label>
+        <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
+    </div>
 </div>
-
-<div>
-    <label><strong>Dispense Time(s) (eg. 10:30 AM)</strong></label>
-    <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
-    <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/>
-    <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/>
-</div>
-
-<div>
-    <label><strong>Cabinet ID (in Machine):</strong></label>
-    <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
-</div>
-
 <button pButton pRipple type="button" label="Save" (click)="saveMedication"></button>
 <button pButton pRipple type="button" label="Remove" (click)="removeMedication" class="p-button-secondary"></button>

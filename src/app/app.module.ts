@@ -19,6 +19,7 @@ import { CalendarModule } from "primeng/calendar";
 import { ProgressBarModule } from "primeng/progressbar";
 import { MenubarModule } from "primeng/menubar";
 import { ImageModule } from "primeng/image";
+import {DropdownModule} from 'primeng/dropdown';
 
 import { OverviewComponent } from "./home/overview/overview.component";
 @NgModule({
@@ -46,6 +47,7 @@ import { OverviewComponent } from "./home/overview/overview.component";
     MenubarModule,
     BrowserAnimationsModule,
     ImageModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent],
