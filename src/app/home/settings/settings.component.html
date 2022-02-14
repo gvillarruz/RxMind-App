@@ -1,19 +1,27 @@
-<h1>Settings</h1>
-<h4>Use the following selections to choose desired app and device preferences</h4>
+<body>
+<h2 style="font-family:Arial, Helvetica, sans-serif">Settings</h2>
+<h4 style="font-family:Arial, Helvetica, sans-serif">Use the following selections to choose desired app and device preferences</h4>
 
-<div>
-    <label><strong>Notification and Reminder Location:</strong></label>
-    <p-listbox [options]= "notifilocations_list" [(ngModel)]= "selectednotiflocation" optionLabel="name"></p-listbox>
+<div class="notif-location-missed-notif-div">
+    <div class="notif-location">
+        <label class="dropdown-label"><strong>Notification and Reminder Location:</strong></label>
+        <p-dropdown [options]= "notifilocations_list" [(ngModel)]= "selectednotiflocation" optionLabel="name"></p-dropdown>
+    </div>
+    
+    <div class="missed-notif">
+        <label class="dropdown-label"><strong>Missed Dose Notification:</strong></label>
+        <p-dropdown [options]= "missed_dose_option" [(ngModel)]= "selectedmissed_dose_option" optionLabel="name"></p-dropdown>
+    </div>
 </div>
 
-<div>
-    <label><strong>Missed Dose Notification:</strong></label>
-    <p-listbox [options]= "missed_dose_option" [(ngModel)]= "selectedmissed_dose_option" optionLabel="name"></p-listbox>
+<div class="missed-notif-time-div">
+    <label class="dropdown-label"><strong>Time between Missed Dose and Notification:</strong></label>
+    <br>
+    <p-dropdown [options]= "timefornotification" [(ngModel)]= "selectedtimefornotification" optionLabel="name"></p-dropdown>
 </div>
 
-<div>
-    <label><strong>Time between Missed Dose and Notification:</strong></label>
-    <p-listbox [options]= "timefornotification" [(ngModel)]= "selectedtimefornotification" optionLabel="name"></p-listbox>
+<div class="save-btn-div">
+    <button class="save-btn" pButton pRipple (onClick)="onSave()" label = "Save" type = "button"></button>
 </div>
 
-<button pButton pRipple (onClick)="onSave()" label = "Save" type = "button"></button>
+</body>
