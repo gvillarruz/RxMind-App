@@ -4,7 +4,7 @@
 
 <div class="med-list-and-freq-div">
     <div class="med-list">
-        <label><strong>Medication List:</strong></label>
+        <label class="dropdown-label"><strong>Medication List:</strong></label>
         <ul>
             <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
             [class.selected]="medication === selectedmedication">
