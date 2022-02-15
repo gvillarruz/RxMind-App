@@ -1,8 +1,13 @@
+<!--Class defintions for styling taken from the login.component-->
+<div class="logo-title-div">
+    <p-image class="logo-img" src="assets/images/RxMindLogo.jpg" height="50" width="40"></p-image>
+    <h4 class="sign-in-title">RxMind</h4>
+</div>
 <!--Menu Item to Navigate between pages-->
-<p-menubar [model]="menuitems"></p-menubar>
-<!--Permanent Image of the HomePage-->
-<p-image src="assets/images/RxMindLogo.jpg"></p-image>
-
+<p-menubar [model]="menuitems">
+    <button pButton label="Logout" icon="pi pi-power-off" class="p-button-outlined p-button-secondary"></button>
+</p-menubar>
+<!--Permanent Image on the HomePage-->
 <router-outlet></router-outlet>
 
 <!--Use router outlet to load different page content-->

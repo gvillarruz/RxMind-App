@@ -20,6 +20,13 @@ export class OverviewComponent implements OnInit {
 
   onSelect(medication: medication) : void{
     this.selectedmedication = medication;
+    //Populate the data in the view for the selected medication
+  }
+
+  Dismiss_notif(){
+    //Dismiss the missed notification when the user clicks this button 
+    //Clear the notification label
+    //Clear the notification in the web-server
   }
 
   constructor() {

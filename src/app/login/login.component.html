@@ -1,14 +1,25 @@
-<div *ngIf="this.isSigninVisible">
-<h1>Sign In</h1>
-<!--<p-image src={{imgname}} alt="">
-    <ng-template pTemplate="indicator">
-        Indicator Content
-    </ng-template>
-</p-image>-->
-<input id="disabled-input" type="text" pInputText [disabled]="false"  [(ngModel)]="username"/>
-
-<p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true"></p-password>
-
-<button pButton pRipple type="button" label="Sign In" (click)="this.isSigninVisible = false" routerLink="home"></button>
-<button pButton pRipple type="button" label="Create Account" class="p-button-secondary"></button>
+<body>
+<div class="sign-in-div" *ngIf="this.isSigninVisible">
+    <div class="logo-title-div">
+        <p-image class="logo-img" src="assets/images/RxMindLogo.jpg"></p-image>
+        <h1 class="sign-in-title">Sign In</h1>
+        <h4 class="input-descrip-h4">Enter the following fields to get started.</h4>
+    </div>
+    <div class="username-password-div">
+        <div class="u-p-div">
+            <input type="text" pInputText [disabled]="false" placeholder="Username" [(ngModel)]="username"/>
+        </div>
+        <br>
+        <div class="u-p-div">
+            <p-password [(ngModel)]="password" placeholder="Password" [feedback]="false" [toggleMask]="true"></p-password>
+        </div>
+    </div>
+    <div class="sign-in-btn-div">
+        <button class="sign-in-btn" pButton pRipple type="button" label="Sign In" (click)="onUserSignIn" routerLink="home"></button>
+    </div>
+    <br>
+    <div class="create-acc-btn-div">
+        <button pButton pRipple type="button" label="Create Account" class="p-button-outlined p-button-secondary"></button>
+    </div>
 </div>
+</body>
