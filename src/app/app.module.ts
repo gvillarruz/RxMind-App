@@ -19,8 +19,8 @@ import { CalendarModule } from "primeng/calendar";
 import { ProgressBarModule } from "primeng/progressbar";
 import { MenubarModule } from "primeng/menubar";
 import { ImageModule } from "primeng/image";
-import {DropdownModule} from 'primeng/dropdown';
 import { HttpClientModule } from "@angular/common/http";
+import {DropdownModule} from 'primeng/dropdown';
 import { OverviewComponent } from "./home/overview/overview.component";
 @NgModule({
   declarations: [
@@ -47,11 +47,8 @@ import { OverviewComponent } from "./home/overview/overview.component";
     MenubarModule,
     BrowserAnimationsModule,
     ImageModule,
-<<<<<<< HEAD
-    DropdownModule
-=======
-    HttpClientModule,
->>>>>>> main
+    DropdownModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
