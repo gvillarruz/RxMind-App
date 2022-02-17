@@ -16,15 +16,4 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  onUserSignIn(){
-    //Call the server to check if the entered account information exists
-    this.isSigninVisible = false;
-
-    //If exists, prepare to recieve medication info from the server 
-    //Route to home page and load information recieved here from server
-
   }
-
-
-}
