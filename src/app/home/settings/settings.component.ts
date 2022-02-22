@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 //Notification and Reminder Location
 interface notification_locations{
@@ -62,6 +64,7 @@ notifphone !: emailtextnotif;
     this.http
     .get("https://www.rxmind.tech/settings")
     .subscribe((data) => {
+      (data : any) => {};
       //this.selectednotiflocation =
       //this.selectedmissed_dose_option = data.valueOf(missedDose); 
       //this.selectedmissed_dose_option = data.missedDose;

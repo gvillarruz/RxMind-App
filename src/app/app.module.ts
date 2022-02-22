@@ -22,6 +22,7 @@ import { ImageModule } from "primeng/image";
 import { HttpClientModule } from "@angular/common/http";
 import {DropdownModule} from 'primeng/dropdown';
 import { OverviewComponent } from "./home/overview/overview.component";
+import {MultiSelectModule} from 'primeng/multiselect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { OverviewComponent } from "./home/overview/overview.component";
     BrowserAnimationsModule,
     ImageModule,
     DropdownModule,
-    HttpClientModule
+    HttpClientModule,
+    MultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

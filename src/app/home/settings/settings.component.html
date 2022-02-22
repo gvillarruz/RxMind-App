@@ -5,12 +5,12 @@
 <div class="notif-location-missed-notif-div">
     <div class="notif-location">
         <label class="dropdown-label"><strong>Notification and Reminder Location:</strong></label>
-        <p-dropdown [options]= "notifilocations_list" [(ngModel)]= "selectednotiflocation" optionLabel="name"></p-dropdown>
-        <div class="Emailtxt">
+        <p-multiSelect [options]= "notifilocations_list" [(ngModel)]= "selectednotiflocation" optionLabel="name"></p-multiSelect>
+        <div class="Emailtxt" style="padding:1%;">
             <label style="font-family: Arial, Helvetica, sans-serif; padding-right:1%;">Email:</label>
             <input id="NotifEmail" type="text" pInputText [disabled]="false" [(ngModel)]="notifemail"/>
         </div>
-        <div class="Textmsgtxt">
+        <div class="Textmsgtxt" style="padding:1%;">
             <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;">Text Number:</label>
             <input id="Notifphone" type="text" pInputText [disabled]="false" [(ngModel)]="notifphone"/>
         </div>
