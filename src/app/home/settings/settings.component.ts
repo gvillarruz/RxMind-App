@@ -31,7 +31,7 @@ interface emailtextnotif{
 export class SettingsComponent implements OnInit{
 
 notifilocations_list : notification_locations[];
-selectednotiflocation!: notification_locations;
+selectednotiflocation!: notification_locations[];
 
 missed_dose_option : missed_dose_notif[];
 selectedmissed_dose_option !: missed_dose_notif;
@@ -45,7 +45,7 @@ notifphone !: emailtextnotif;
   constructor(private http: HttpClient) { 
 
     this.notifilocations_list = [
-      { name: "Dispensing Device"},
+      {name: "Dispensing Device"},
       {name: "Email"},
       {name: "Text"} ];
 
@@ -63,12 +63,27 @@ notifphone !: emailtextnotif;
   ngOnInit(): void {
     this.http
     .get("https://www.rxmind.tech/settings")
-    .subscribe((data) => {
-      (data : any) => {};
-      //this.selectednotiflocation =
-      //this.selectedmissed_dose_option = data.valueOf(missedDose); 
-      //this.selectedmissed_dose_option = data.missedDose;
-      //if(data.missedDose == true)
+    .subscribe((data:any) => {
+
+      //Select values in the notification location multiselect
+      /*if(data.emailNotif != null){
+        //this.selectednotiflocation[2] = select;
+        this.notifemail.name = data.emailNotif;
+        console.log("Seting email");
+        //console.log(this.selectednotiflocation[2]);
+      }
+      if(data.deviceNotif == true){
+        //this.selectednotiflocation.name = "Device";
+        //console.log(this.selectednotiflocation[1]);
+      }
+      if(data.textNotif != null){
+        //this.selectednotiflocation[3];
+        this.notifphone.name = data.textNotif;
+        console.log("Setting text number");
+      }
+    
+      this.selectedmissed_dose_option = data.missedDose;
+      */
       console.log(data);
     });
 
@@ -79,12 +94,21 @@ notifphone !: emailtextnotif;
     //Send to the web server to parse and save 
     this.http
     .post("https://www.rxmind.tech/settings", {
-      missedDose: "true",
+      missedDose: this.selectedmissed_dose_option.name,
+      deviceNotif: this.selectednotiflocation[1],
+      emailNotif: this.notifemail,
+      textNotif: this.notifphone,
+      timeForNotif: this.selectedtimefornotification
+    })
+
+      
+
+      /*missedDose: "true",this.selectedmissed_dose_option.name,
       deviceNotif: "true",
       emailNotif: "gvillarruz@ryerson.ca", //null to disable
       textNotif: 6476873576,
-      timeForNotif: "5min"
-    })
+      timeForNotif: "5min"*/ 
+      
     .subscribe((data) => {
       console.log(data);
     });
