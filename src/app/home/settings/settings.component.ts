@@ -16,6 +16,10 @@ interface timefornotif{
   name: string;
 }
 
+interface emailtextnotif{
+  name : string;
+}
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -33,6 +37,8 @@ selectedmissed_dose_option !: missed_dose_notif;
 timefornotification : timefornotif[];
 selectedtimefornotification !: timefornotif;
 
+notifemail !: emailtextnotif;
+notifphone !: emailtextnotif;
 
   constructor(private http: HttpClient) { 
 
@@ -56,6 +62,10 @@ selectedtimefornotification !: timefornotif;
     this.http
     .get("https://www.rxmind.tech/settings")
     .subscribe((data) => {
+      //this.selectednotiflocation =
+      //this.selectedmissed_dose_option = data.valueOf(missedDose); 
+      //this.selectedmissed_dose_option = data.missedDose;
+      //if(data.missedDose == true)
       console.log(data);
     });
 
