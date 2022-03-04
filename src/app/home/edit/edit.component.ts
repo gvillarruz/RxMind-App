@@ -35,6 +35,8 @@ export class EditComponent implements OnInit {
   medication_list : medication[];
   selectedmedication? :medication;
 
+  addmedicine!: string;
+
   constructor(private http: HttpClient) { 
     this.dosefreq_list = [
       {frequency: "Once a Day"},
@@ -48,9 +50,7 @@ export class EditComponent implements OnInit {
 
     this.medication_list = [
       {name: "Medicine 1"},
-      {name: "Medicine 2"},
-      {name: "Medicine 3"}];
-
+      {name: "Medicine 2"},];
   }
 
   ngOnInit(): void {
