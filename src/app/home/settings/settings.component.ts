@@ -45,6 +45,7 @@ export class SettingsComponent implements OnInit {
     this.missed_dose_option = [{ name: "Enable" }, { name: "Disable" }];
 
     this.timefornotification = [
+      { name: "5 minutes"},
       { name: "15 minutes" },
       { name: "30 minutes" },
       { name: "60 minutes" },
@@ -69,8 +70,28 @@ export class SettingsComponent implements OnInit {
         this.notifphone = data.textNotif;
       }
 
-      this.selectedmissed_dose_option = data.missedDose;
+      if (data.timeForNotif == "5min") {
+        this.selectedtimefornotification = {name: "5 minutes"};
+        this.selectedtimefornotification = data.timeForNotif;
+      }
 
+      if (data.timeForNotif == "10min") {
+        this.selectedtimefornotification = {name: "10 minutes"};
+        this.selectedtimefornotification = data.timeForNotif;
+      }
+
+      if(data.timefornotif == "15min"){
+        this.selectedtimefornotification = {name: "15 minutes"};
+        this.selectedtimefornotification = data.timeForNotif;
+      }
+
+      if(data.missedDose == true){
+        this.selectedmissed_dose_option = {name: "Enable"};
+      }
+
+      if(data.missedDose == false){
+        this.selectedmissed_dose_option = {name: "Disable"};
+      }
       console.log(data);
     });
   }
