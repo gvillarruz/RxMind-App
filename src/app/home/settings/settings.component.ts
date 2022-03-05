@@ -36,6 +36,7 @@ export class SettingsComponent implements OnInit {
   notifemail!: string;
   notifphone!: string;
   notifdevice!: string;
+  SuccessVisible = false;
 
   constructor(private http: HttpClient) {
 
@@ -151,7 +152,7 @@ export class SettingsComponent implements OnInit {
     .subscribe((data) => {
       console.log(data);
      })
-
     console.log("Posted data in the web server");
+    this.SuccessVisible = true;
   }
 }
