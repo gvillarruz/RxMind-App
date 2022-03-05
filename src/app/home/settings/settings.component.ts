@@ -62,6 +62,7 @@ export class SettingsComponent implements OnInit {
 
       //Check the missedDose selection - enable or disable
       //Update the UI value and save locally
+      //Extract data for enabling/disabling the missed dose notifications
       if(data.missedDose == true){
         this.selectedmissed_dose_option = {name: "Enable"};
         Settings_info[0] = data.missedDose;
@@ -76,45 +77,35 @@ export class SettingsComponent implements OnInit {
       if (data.deviceNotif == true) {
         this.selectednotiflocation = {name: "Dispensing Device"};
         Settings_info[1] = data.deviceNotif;
-        //this.selectednotiflocation.push({ name: data.deviceNotif });
-        //this.notifdevice = data.deviceNotif;
       }
 
       //Select values in the notification location multiselect
       if (data.emailNotif != null) {
         this.selectednotiflocation = {name: "Email"};
         this.notifemail = data.emailNotif;
-        //Settings_info.push(data.emailNotif);
-        //console.log(data.emailNotif);
-        //this.selectednotiflocation.push({ name: data.emailNotif });
-        //console.log("Seting email");
       }
 
       if (data.textNotif != null) {
         this.selectednotiflocation = {name:"Text"};
         this.notifphone = data.textNotif;
-        //this.selectednotiflocation.push({ name: data.textNotif });
-
       }
 
       //Update the notification time dropdown and save the value 
       if (data.timeForNotif == "5min" || data.timeForNotif == "5 minutes"  ) {
         this.selectedtimefornotification = {name: "5 minutes"};
         Settings_info[2] = data.timeforNotif;
-        //this.selectedtimefornotification = data.timeForNotif;
       }
 
       if (data.timeForNotif == "10min" || data.timeForNotif == "10 minutes") {
         this.selectedtimefornotification = {name: "10 minutes"};
         Settings_info[2] = data.timeforNotif;
-        //this.selectedtimefornotification = data.timeForNotif;
       }
 
       if(data.timefornotif == "15min" || data.timeForNotif == "15 minutes"){
         this.selectedtimefornotification = {name: "15 minutes"};
         Settings_info[2] = data.timeforNotif;
-        //this.selectedtimefornotification = data.timeForNotif;
       }
+
       console.log("Finished parsing all data on initialization");
     });
   }
@@ -153,39 +144,14 @@ export class SettingsComponent implements OnInit {
       missedDose: Settings_info[0],
       deviceNotif: Settings_info[1],
       emailNotif: this.notifemail,
-      textNotif: this.notifemail,
+      textNotif: this.notifphone,
       timeForNotif: Settings_info[2],
     })
 
-    console.log("Posted data in the web server")
+    .subscribe((data) => {
+      console.log(data);
+     })
 
-    /*
-    console.log(this.selectednotiflocation);
-    console.log({
-      missedDose: this.selectedmissed_dose_option.name,
-      deviceNotif: Settings_info[1],
-      emailNotif: this.notifemail,
-      textNotif: this.notifphone,
-      timeForNotif: this.selectedtimefornotification,
-    });*/
-
-    // this.http
-    //   .post("https://www.rxmind.tech/settings", {
-    //     missedDose: this.selectedmissed_dose_option.name,
-    //     deviceNotif: this.selectednotiflocation[1],
-    //     emailNotif: this.notifemail,
-    //     textNotif: this.notifphone,
-    //     timeForNotif: this.selectedtimefornotification,
-    //   })
-
-    /*missedDose: "true",this.selectedmissed_dose_option.name,
-      deviceNotif: "true",
-      emailNotif: "gvillarruz@ryerson.ca", //null to disable
-      textNotif: 6476873576,
-      timeForNotif: "5min"*/
-
-    // .subscribe((data) => {
-    //   console.log(data);
-    // });
+    console.log("Posted data in the web server");
   }
 }
