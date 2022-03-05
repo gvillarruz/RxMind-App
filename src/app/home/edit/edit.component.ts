@@ -15,6 +15,8 @@ interface medication{
   name : string;
 }
 
+var Medication_info: any[];
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -41,8 +43,7 @@ export class EditComponent implements OnInit {
     this.dosefreq_list = [
       {frequency: "Once a Day"},
       {frequency: "Twice a Day"},
-      {frequency: "Three times a Day"},
-      {frequency: "On Demand"}];
+      {frequency: "Three times a Day"}];
 
     this.med_per_dose_list = [
       {amount: "Single Pill"},
@@ -51,10 +52,15 @@ export class EditComponent implements OnInit {
     this.medication_list = [
       {name: "Medicine 1"},
       {name: "Medicine 2"},];
+
+    Medication_info = [];
   }
 
   ngOnInit(): void {
     console.log("Initialized the add or edit page");
+    /*this.http.get("https://www.rxmind.tech/crud").subscribe((data: any) => {
+
+  });*/
   }
 
   onSelect(medication: medication) : void{
@@ -64,6 +70,35 @@ export class EditComponent implements OnInit {
   }
 
   saveMedication(){
+    //Check if there is an add or a save operation from the user 
+    if(this.addmedicine != null){
+      //There is an add function that must undergo
+      //Gather all of the data in the UI fields and send to the web server through a post call 
+
+      //Gather data for the dose frequency variable
+      if(this.selected_dosefreq == {frequency: "Once a Day"}){
+        Medication_info[0] = 1;
+      }
+      
+      if(this.selected_dosefreq == {frequency: "Twice a Day"}){
+        Medication_info[0] = 2;
+      }
+
+      if(this.selected_dosefreq == {frequency: "Three times a Day"}){
+        Medication_info[0] = 3;
+      }
+      
+      //Gather data for the 
+      
+      /*.post("https://www.rxmind.tech/crud",{
+        type: "add",
+        payload: {
+          name: this.addmedicine,
+          
+        }
+      })*/
+
+    }
     //take the data in all of the form fields, package it into an object
     //send the data to save in the web server 
     //wait for a success response from the web server & display success to user
