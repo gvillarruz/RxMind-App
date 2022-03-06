@@ -15,7 +15,9 @@ interface medication{
   name : string;
 }
 
-var Medication_info: any[];
+var Medication1_info: any[];
+var Medication2_info: any[];
+var Medication3_info: any[];
 
 @Component({
   selector: 'app-edit',
@@ -51,16 +53,78 @@ export class EditComponent implements OnInit {
 
     this.medication_list = [
       {name: "Medicine 1"},
-      {name: "Medicine 2"},];
+      {name: "Medicine 2"},
+      {name: "Medicine 3"}];
 
-    Medication_info = [];
+    Medication1_info = [];
+    Medication2_info = [];
+    Medication3_info = [];
   }
 
   ngOnInit(): void {
-    console.log("Initialized the add or edit page");
-    /*this.http.get("https://www.rxmind.tech/crud").subscribe((data: any) => {
+    this.http
+    .post("https://www.rxmind.tech/login", {
+      username: "admin",
+      password: "admin",
+    })
+    this.http.get("https://www.rxmind.tech/settings").subscribe((data: any) => {
 
-  });*/
+    console.log(data);
+     /*//Take in the medication names from the web server and populate them in the arrays
+      Medication1_info[0] = data.medications[0].name;
+      Medication2_info[0] = data.medications[1].name;
+      Medication3_info[0] = data.medications[2].name;
+    */
+    
+    /*
+    //Get the frequency of the dosage
+    Medication1_info[1] = data.medications[0].timesTaken.length;
+    Medication2_info[1] = data.medications[1].timesTaken.length;
+    Medication3_info[1] = data.medications[2].timesTaken.length;
+    */
+
+    /*
+    //Save the amount of medication per dose
+    Medication1_info[2] = data.medications[0]._______;
+    Medication2_info[2] = data.medications[1].________;
+    Medication3_info[2] = data.medications[2].________;
+    */
+
+    /*
+    //Save the cabinet ID of the medication
+    Medication1_info[3] = data.medications[0]._______;
+    Medication2_info[3] = data.medications[1].________;
+    Medication3_info[3] = data.medications[2].________;
+    */
+
+    /*
+    //Save the amount of pills per medication
+    Medication1_info[4] = data.medications[0]._______;
+    Medication2_info[4] = data.medications[1].________;
+    Medication3_info[4] = data.medications[2].________;
+    */
+
+    /*//Save the number of times taken
+    int j =0;
+    for(let i=2; i < data.medications[0].timesTaken.length; i++){
+      Medication1_info[i] = data.medications[0].timesTaken[j];
+      j = j+1;
+    }
+    
+    int j =0;
+    for(let i=2; i < data.medications[1].timesTaken.length; i++){      
+      Medication2_info[i] = data.medications[1].timesTaken[j];
+      j = j+1;
+    }
+
+    int j =0;
+    for(let i=2; i < data.medications[2].timesTaken.length; i++){      
+      Medication3_info[i] = data.medications[2].timesTaken[j];
+      j = j+1;
+    }*/
+
+      //Take in the dosage frequency for each medication (From the number of 'time-taken' fields)
+    });
   }
 
   onSelect(medication: medication) : void{
@@ -77,15 +141,15 @@ export class EditComponent implements OnInit {
 
       //Gather data for the dose frequency variable
       if(this.selected_dosefreq == {frequency: "Once a Day"}){
-        Medication_info[0] = 1;
+        Medication1_info[0] = 1;
       }
       
       if(this.selected_dosefreq == {frequency: "Twice a Day"}){
-        Medication_info[0] = 2;
+        Medication1_info[0] = 2;
       }
 
       if(this.selected_dosefreq == {frequency: "Three times a Day"}){
-        Medication_info[0] = 3;
+        Medication1_info[0] = 3;
       }
       
       //Gather data for the 
