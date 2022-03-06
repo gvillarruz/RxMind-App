@@ -1,11 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-//Notification and Reminder Location
-interface notification_locations {
-  name: string;
-}
-
 //To Enable/Disable missed dose notifications
 interface missed_dose_notif {
   name: string;
@@ -16,6 +11,7 @@ interface timefornotif {
   name: string;
 }
 
+//To save any local variables to recive and send from the web server
 var Settings_info: any[];  
 
 @Component({
@@ -24,11 +20,17 @@ var Settings_info: any[];
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
-  notifilocations_list: notification_locations[];
-  selectednotiflocation!: notification_locations;
+
+  //List that is used for checkboxes for device notification location
+  optionList: any = [
+    {id: 1, name:"Dispensing Device"},
+    {id: 2, name:"Email"},
+    {id: 3, name:"Text Message"}
+  ];
 
   missed_dose_option: missed_dose_notif[];
   selectedmissed_dose_option!: missed_dose_notif;
+  selectedmissted_dose_option: string[] = [];
 
   timefornotification: timefornotif[];
   selectedtimefornotification!: timefornotif;
@@ -37,14 +39,9 @@ export class SettingsComponent implements OnInit {
   notifphone!: string;
   notifdevice!: string;
   SuccessVisible = false;
+  notiferror = false;
 
   constructor(private http: HttpClient) {
-
-    this.notifilocations_list = [
-      { name: "Dispensing Device" },
-      { name: "Email" },
-      { name: "Text" },
-    ];
 
     this.missed_dose_option = [{ name: "Enable" }, { name: "Disable" }];
 
@@ -74,58 +71,103 @@ export class SettingsComponent implements OnInit {
         Settings_info[0]= data.missedDose;
       }
 
-      //Check and save the notifcation location
-      if (data.deviceNotif == true) {
-        this.selectednotiflocation = {name: "Dispensing Device"};
+      //Save the notifcation location
+       if (data.deviceNotif == true) {
         Settings_info[1] = data.deviceNotif;
       }
 
-      //Select values in the notification location multiselect
       if (data.emailNotif != null) {
-        this.selectednotiflocation = {name: "Email"};
         this.notifemail = data.emailNotif;
+        Settings_info[2] = true;
+        //There is email notif information
       }
 
       if (data.textNotif != null) {
-        this.selectednotiflocation = {name:"Text"};
         this.notifphone = data.textNotif;
+        Settings_info[3] =true;
+        //There is text msg notif information
       }
 
       //Update the notification time dropdown and save the value 
       if (data.timeForNotif == "5min" || data.timeForNotif == "5 minutes"  ) {
         this.selectedtimefornotification = {name: "5 minutes"};
-        Settings_info[2] = data.timeforNotif;
+        Settings_info[4] = data.timeforNotif;
       }
 
       if (data.timeForNotif == "10min" || data.timeForNotif == "10 minutes") {
         this.selectedtimefornotification = {name: "10 minutes"};
-        Settings_info[2] = data.timeforNotif;
+        Settings_info[4] = data.timeforNotif;
       }
 
       if(data.timefornotif == "15min" || data.timeForNotif == "15 minutes"){
         this.selectedtimefornotification = {name: "15 minutes"};
-        Settings_info[2] = data.timeforNotif;
+        Settings_info[4] = data.timeforNotif;
       }
 
       console.log("Finished parsing all data on initialization");
     });
   }
 
+  onCheckboxClick(e:any){
+    // console.log(e.target.checked);
+    // console.log(e.target.value);
+    if(e.target.checked){
+      if(e.target.value == '1'){
+        //Save the fact that the dispensing device has been selected
+        Settings_info[1] = true;
+        console.log("Dispensing device selected");
+      }
+      else if(e.target.value == '2'){
+        //Email notification has been selected
+        Settings_info[2] = true;
+        console.log("Email notification selected");
+      }
+      else if(e.target.value == '3'){
+        //Text message notification has been selected
+        Settings_info[3] = true;
+        console.log("Text message notification selected");
+      }
+    }
+    //If the checkbox is unchecked
+    else if(!e.target.checked){
+      if(e.target.value == '1'){
+        //Dispensing device unselected
+        Settings_info[1] = false;
+        console.log("Dispensing device unselected");
+      }
+      else if(e.target.value == '2'){
+        //Email notifications unselected
+        Settings_info[2] = false;
+        console.log("Email notification unselected");
+      }
+      else if(e.target.value == '3'){
+        //Text message notifications unselected
+        Settings_info[3] = false;
+        console.log("Text notification unselected");
+      }
+    }
+  }
+
   onSave() {
     //Gather all of the data placed in the view
-    
+    //Ensure the notification location error (no values selected) is disabled
+    this.notiferror = false;
+
     //Missed Dose selection
     if(this.selectedmissed_dose_option == {name: "Enable"}){
       Settings_info[0] = true;
+      if(!Settings_info[1] || !Settings_info[2] || !Settings_info[3]){
+        //If there are no notification locations selected
+        this.notiferror = true;
+        return;
+      }
     }
+    //The missed dose notifications are disabled
     if(this.selectedmissed_dose_option == {name: "Disable"}){
       Settings_info[0] = false;
     }
 
-    //Notification Location Selection
-    if(this.selectednotiflocation == {name: "Dispensing Device"}){
-      Settings_info[1] = true;
-    }
+    //Notification location gathering has been handled in the onCheckboxClick() event
 
     if(this.selectedtimefornotification == {name: "5 minutes"}){
       Settings_info[2] = "5min";
@@ -146,7 +188,7 @@ export class SettingsComponent implements OnInit {
       deviceNotif: Settings_info[1],
       emailNotif: this.notifemail,
       textNotif: this.notifphone,
-      timeForNotif: Settings_info[2],
+      timeForNotif: Settings_info[4],
     })
 
     .subscribe((data) => {
