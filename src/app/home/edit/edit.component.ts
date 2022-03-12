@@ -29,6 +29,7 @@ export class EditComponent implements OnInit {
   dispense1: any
   dispense2: any
   dispense3: any
+  pillsadded: any
 
   dosefreq_list : dose_frequency[];
   selected_dosefreq !: dose_frequency;
@@ -173,7 +174,7 @@ export class EditComponent implements OnInit {
         name: "Levothyroxine",
         timesDaily: 2,
         dispenseTimes: ["12:00PM", "4:00PM"],
-        pillsAdded: 50,
+        pillsAdded: 40,
         pillsPerDose: 1
     }})
     .subscribe((data) => {
