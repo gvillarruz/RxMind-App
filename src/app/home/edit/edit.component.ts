@@ -18,6 +18,7 @@ interface medication{
 var Medication1_info: any[];
 var Medication2_info: any[];
 var Medication3_info: any[];
+var AddMedication: any[];
 
 @Component({
   selector: 'app-edit',
@@ -60,6 +61,7 @@ export class EditComponent implements OnInit {
     Medication1_info = [];
     Medication2_info = [];
     Medication3_info = [];
+    AddMedication = [];
   }
 
   ngOnInit(): void {
@@ -399,53 +401,82 @@ export class EditComponent implements OnInit {
 
   saveMedication(){
     //Check if there is an add or a save operation from the user 
-    if(this.addmedicine != null){
-      //There is an add function that must undergo
-      //Gather all of the data in the UI fields and send to the web server through a post call 
+    if(this.addmedicine == null){
+      //Gather all of the UI data, and send it to the server
+      //Get the medication name
+      AddMedication[0] = this.selectedmedication;
 
-      //Gather data for the dose frequency variable
+      //Get the frequency of dosage 
       if(this.selected_dosefreq == {frequency: "Once a Day"}){
-        Medication1_info[0] = 1;
-      }
-      
+        AddMedication[1] = 1; }
       if(this.selected_dosefreq == {frequency: "Twice a Day"}){
-        Medication1_info[0] = 2;
-      }
-
+        AddMedication[1] = 2; }
       if(this.selected_dosefreq == {frequency: "Three times a Day"}){
-        Medication1_info[0] = 3;
-      }
+        AddMedication[1] = 3; }
+        
+      //Get the selected amount of medication per dose 
+      if(this.selected_medperdose == {amount:"Single Pill"}){
+        AddMedication[2] = 1; }
+      else if (this.selected_medperdose == {amount:"Two Pills"}){
+        AddMedication[2] = 2; }
       
-      //Gather data for the 
-      
-      /*.post("https://www.rxmind.tech/crud",{
-        type: "add",
+      //Get the cabinet id
+      AddMedication[3] = this.cabinetid;
+
+      //Get the Number of pills added 
+      AddMedication[4] = this.pillsadded;
+
+      //Get the dispensing frequency -based off the dose freq variable
+      if(AddMedication[1] == 1){
+        AddMedication[5] = this.dispense1; }
+
+      else if(AddMedication[1] == 2){
+        AddMedication[5] = this.dispense1;
+        AddMedication[6] = this.dispense2; }
+
+      else if(AddMedication[1] == 3){
+        AddMedication[5] = this.dispense1;
+        AddMedication[6] = this.dispense2;
+        AddMedication[7] = this.dispense3; }
+
+      //Send the new data to the server with the 'add' tag
+      this.http.post("https://www.rxmind.tech/crud",{
+        type:"add",
         payload: {
-          name: this.addmedicine,
-          
-        }
-      })*/
+          name: AddMedication[0],
+          timesDaily: AddMedication[1],
+          dispenseTimes: [AddMedication[5], AddMedication[6], AddMedication[7]],
+          pillsadded : AddMedication[4],
+          pillsPerDose: AddMedication[2],
+          cabinetNo: AddMedication[3] }
+      })
+      .subscribe((data: any) => {
+        if(data == '201 Created' || data == "Success"){
+          console.log(data);
+        //Look for an empty Medicationx_info array and save the AddMedication[] information into it 
+      }
+      });
+    }
+    
+    else if(this.addmedicine != null){
+      //If this is a save request 
+      //Figure out which medication is the one selected 
+      if(this.selectedmedication == Medication1_info[0]){
+        //Update the array with the new info
+        //Send the updated object to the web server
+
+      }
+      else if(this.selectedmedication == Medication2_info[0]){
+
+      }
+      else if(this.selectedmedication == Medication3_info[0]){
+
+      }
 
     }
-    //else if()
-    //take the data in all of the form fields, package it into an object
-    //send the data to save in the web server 
+ 
     //wait for a success response from the web server & display success to user
-    this.http
-    .post("https://www.rxmind.tech/crud", {
-      type: "add",
-      payload: {
-        name: "Levothyroxine",
-        timesDaily: 2,
-        dispenseTimes: ["12:00PM", "4:00PM"],
-        pillsAdded: 40,
-        pillsPerDose: 1
-    }})
-    .subscribe((data) => {
-      console.log(data);
-    });
 
-    //Differentiate between adding a new medication and saving a current one 
     console.log("End of the saveMedication btn function");
   }
 
@@ -460,6 +491,7 @@ export class EditComponent implements OnInit {
     }})
     .subscribe((data) => {
       console.log(data);
+      console.log("Deleted the medication {0}", this.selectedmedication);
     });
   }
 
