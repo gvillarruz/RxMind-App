@@ -53,9 +53,9 @@ export class EditComponent implements OnInit {
       {amount: "Two Pills"}];
 
     this.medication_list = [
-      {name: "Medicine 1"},
-      {name: "Medicine 2"},];
-      //{name: "Medicine 3"}];
+      {name: " "},
+      {name: " "},
+      {name: " "}];
 
     Medication1_info = [];
     Medication2_info = [];
@@ -63,46 +63,80 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
-    /*this.http.post("https://www.rxmind.tech/login", {
-      username: "admin",
+    //Call the login command to get the names of the medications
+    this.http.post("https://www.rxmind.tech/login", {
+      usename: "admin",
       password: "admin",
-    })*/
-    //this.http.post("https://www.rxmind.tech/crud",{})
-    this.http.get("https://www.rxmind.tech/crud").subscribe((data: any) => {
-      //.subscribe((data: any) => {
+    })
+    .subscribe((data: any) => {
 
-   // .subscribe((data: any) => {
+    console.log("Getting the medication names");
+      var nmeds = data.medications.length;
+        if(nmeds >= 1){
+        Medication1_info[0] = data.medications[0].name;
+        this.medication_list[0].name = data.medications[0].name;
+
+          if(nmeds >=2){
+            Medication2_info[0] = data.medications[1].name;
+            this.medication_list[1].name = data.medications[1].name;
+            
+            if(nmeds == 3){
+              Medication3_info[0] = data.medication[2].name;
+              this.medication_list[2].name = data.medications[2].name;
+            }
+          }
+        }
+      });
+
+    /*
+    //Then use the read command on /crud to get the medication's information  
+    this.http.post("https://www.rxmind.tech/crud",{
+      type: "read",
+      payload: {
+        name: Medication1_info[0]}
+    })
+    .subscribe((data: any) => {
       console.log(data);
-  
-    //this.http.get("https://www.rxmind.tech/login").subscribe((data: any) => {
+      var med1freq = data.medications[0].timesTaken.length;
+      //Get the frequency of the dosage
+      Medication1_info[1] = data.medications[0].timesTaken.length;
+      //Get the amount of medication per dose 
+      Medication1_info[2] = data.medications[0].pillsPerDose;
+      //Save the cabinetid of the medication
+      //Medication1_info[3] = data.medications[0]._______;
+      //Save the amount of pills per medication - amount of pills left 
+      Medication1_info[4] = data.medications[0].pillsAdded;
 
-     //Take in the medication names from the web server and populate them in the arrays
-      Medication1_info[0] = data.medications[0].name;
-      this.medication_list[0].name = data.medications[0].name; //Loading the UI elements
-      Medication2_info[0] = data.medications[1].name;
-      this.medication_list[1].name = data.medications[1].name;
-      //Medication3_info[0] = data.medications[2].name;
-    
+      //Save the number of times the medication is taken - Dispense times 
+      if(med1freq >= 1){
+        //Get the first frequency entry
+        Medication1_info[5] = data.medications[0].timesTaken[0];
+        if(med1freq >=2){
+          //Get the second frequency entry
+          Medication1_info[6] = data.medications[0].timesTaken[1];
+          if(med1freq == 3){
+            //Get the third frequency entry
+            Medication1_info[7] = data.medications[0].timesTaken[2];
+          }
+        }
+      }
+    });*/
+   
+    /*
     //Get the frequency of the dosage
-    Medication1_info[1] = data.medications[0].timesTaken.length;
     Medication2_info[1] = data.medications[1].timesTaken.length;
     //Medication3_info[1] = data.medications[2].timesTaken.length;
     
     //Save the amount of medication per dose
-    Medication1_info[2] = data.medications[0].pillsPerDose;
     Medication2_info[2] = data.medications[1].pillsPerDose;
     //Medication3_info[2] = data.medications[2].________;
-
+      */
     /*//Save the cabinet ID of the medication
     Medication1_info[3] = data.medications[0]._______;
     Medication2_info[3] = data.medications[1].________;
    // Medication3_info[3] = data.medications[2].________;*/
 
-    //Save the amount of pills per medication - the amount of pills left 
-    Medication1_info[4] = data.medications[0].pillsAdded;
+    /*/Save the amount of pills per medication - the amount of pills left 
     Medication2_info[4] = data.medications[1].pillsAdded;
     //Medication3_info[4] = data.medications[2].________;
 
@@ -125,7 +159,7 @@ export class EditComponent implements OnInit {
       Medication3_info[i] = data.medications[2].timesTaken[j];
       j = j+1;
     }*/
-  });
+  //});
 
   }
 
@@ -205,6 +239,7 @@ export class EditComponent implements OnInit {
       })*/
 
     }
+    //else if()
     //take the data in all of the form fields, package it into an object
     //send the data to save in the web server 
     //wait for a success response from the web server & display success to user
@@ -233,7 +268,7 @@ export class EditComponent implements OnInit {
     .post("https://www.rxmind.tech/crud", {
       type: "delete",
       payload: {
-        name: "Advil"
+        name: this.selectedmedication
     }})
     .subscribe((data) => {
       console.log(data);
