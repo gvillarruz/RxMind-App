@@ -28,8 +28,8 @@ export class OverviewComponent implements OnInit {
   dismisswarningvisible = false;
   Iscalendarmedtakenvisible = false;
   Iscalendartimetakenvisible = false;
-  calendarmedtaken :any;
-  calendartimetaken :any;
+  calendarmedtaken :any = "sample";
+  calendartimetaken :any = "sample";
 
   constructor(private http: HttpClient) {
     this.medication_list = [
@@ -104,12 +104,18 @@ export class OverviewComponent implements OnInit {
   }
 
   onSelectDate(calendarvalue: Date){
-    //Make a post request with the date 
-    console.log("Inside the onSelectDate function with date {0}",calendarvalue);
+    //Make a post request with the date, first format the date
+    var dd = String(calendarvalue.getDate()).padStart(2,'0');
+    var mm = String(calendarvalue.getMonth() + 1).padStart(2,'0');
+    var yyyy = calendarvalue.getFullYear();
+    var date_send = yyyy + '-'+ mm + '-' + dd;
+
+    console.log("Inside the onSelectDate function with date:",date_send);
     this.http.post("https://www.rxmind.tech/login", {
-    date: calendarvalue
+    date: date_send
     })
     .subscribe((data: any) => {
+      console.log(data);
     //Capture the return
     //Based on the selected medication, output the medication information for that day
     if(this.selectedmedication == Medication1_info[0]){

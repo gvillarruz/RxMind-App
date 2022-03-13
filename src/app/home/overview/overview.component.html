@@ -16,10 +16,13 @@
     </div>
     <div class="med-calendar">
         <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
-        <label *ngIf="Iscalendarmedtakenvisible" [(ngModel)]="calendarmedtaken"></label>
-        <label *ngIf="Iscalendartimetakenvisible" [(ngModel)]="calendartimetaken"></label>
     </div>
-</div>    
+</div>  
+
+<div class="calendar-info-div">
+    <label name="medtaken" *ngIf="Iscalendarmedtakenvisible">Medication Taken: {{calendarmedtaken}} | </label>
+    <label name="timemedtaken" *ngIf="Iscalendartimetakenvisible">Time Medication Taken: {{calendartimetaken}}</label>
+</div>
 
 <!---Adding the slider element to show the amount of medication left when selected from the list -->
 <div class="refill-div">
