@@ -54,8 +54,8 @@ export class EditComponent implements OnInit {
 
     this.medication_list = [
       {name: "Medicine 1"},
-      {name: "Medicine 2"},
-      {name: "Medicine 3"}];
+      {name: "Medicine 2"},];
+      //{name: "Medicine 3"}];
 
     Medication1_info = [];
     Medication2_info = [];
@@ -63,69 +63,63 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http
-    .post("https://www.rxmind.tech/login", {
+    this.http.post("https://www.rxmind.tech/login", {
       username: "admin",
       password: "admin",
     })
-    this.http.get("https://www.rxmind.tech/settings").subscribe((data: any) => {
+    .subscribe((data: any) => {
+      console.log(data);
+  
+    //this.http.get("https://www.rxmind.tech/login").subscribe((data: any) => {
 
-    console.log(data);
-     /*//Take in the medication names from the web server and populate them in the arrays
+     //Take in the medication names from the web server and populate them in the arrays
       Medication1_info[0] = data.medications[0].name;
+      this.medication_list[0].name = data.medications[0].name; //Loading the UI elements
       Medication2_info[0] = data.medications[1].name;
-      Medication3_info[0] = data.medications[2].name;
-    */
+      this.medication_list[1].name = data.medications[1].name;
+      //Medication3_info[0] = data.medications[2].name;
     
-    /*
     //Get the frequency of the dosage
     Medication1_info[1] = data.medications[0].timesTaken.length;
     Medication2_info[1] = data.medications[1].timesTaken.length;
-    Medication3_info[1] = data.medications[2].timesTaken.length;
-    */
-
-    /*
+    //Medication3_info[1] = data.medications[2].timesTaken.length;
+    
     //Save the amount of medication per dose
-    Medication1_info[2] = data.medications[0]._______;
-    Medication2_info[2] = data.medications[1].________;
-    Medication3_info[2] = data.medications[2].________;
-    */
+    Medication1_info[2] = data.medications[0].pillsPerDose;
+    Medication2_info[2] = data.medications[1].pillsPerDose;
+    //Medication3_info[2] = data.medications[2].________;
 
-    /*
-    //Save the cabinet ID of the medication
+    /*//Save the cabinet ID of the medication
     Medication1_info[3] = data.medications[0]._______;
     Medication2_info[3] = data.medications[1].________;
-    Medication3_info[3] = data.medications[2].________;
-    */
+   // Medication3_info[3] = data.medications[2].________;*/
 
-    /*
-    //Save the amount of pills per medication
-    Medication1_info[4] = data.medications[0]._______;
-    Medication2_info[4] = data.medications[1].________;
-    Medication3_info[4] = data.medications[2].________;
-    */
+    //Save the amount of pills per medication - the amount of pills left 
+    Medication1_info[4] = data.medications[0].pillsAdded;
+    Medication2_info[4] = data.medications[1].pillsAdded;
+    //Medication3_info[4] = data.medications[2].________;
 
-    /*//Save the number of times taken
-    int j =0;
+    //Save the number of times taken - Dispense times
+    let j=0;
     for(let i=2; i < data.medications[0].timesTaken.length; i++){
       Medication1_info[i] = data.medications[0].timesTaken[j];
       j = j+1;
     }
     
-    int j =0;
+    j=0;
     for(let i=2; i < data.medications[1].timesTaken.length; i++){      
       Medication2_info[i] = data.medications[1].timesTaken[j];
       j = j+1;
     }
 
+    /* Getting for medication 3 - med 3 will not be used during the demo 
     int j =0;
     for(let i=2; i < data.medications[2].timesTaken.length; i++){      
       Medication3_info[i] = data.medications[2].timesTaken[j];
       j = j+1;
     }*/
+  });
 
-      //Take in the dosage frequency for each medication (From the number of 'time-taken' fields)
-    });
   }
 
   onSelect(medication: medication) : void{
@@ -192,7 +186,7 @@ export class EditComponent implements OnInit {
     .post("https://www.rxmind.tech/crud", {
       type: "delete",
       payload: {
-        name: "Levothyroxine"
+        name: "Advil"
     }})
     .subscribe((data) => {
       console.log(data);
