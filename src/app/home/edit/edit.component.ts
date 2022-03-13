@@ -451,8 +451,8 @@ export class EditComponent implements OnInit {
           cabinetNo: AddMedication[3] }
       })
       .subscribe((data: any) => {
+        console.log(data);
         if(data == '201 Created' || data == "Success"){
-          console.log(data);
         //Look for an empty Medicationx_info array and save the AddMedication[] information into it 
       }
       });
@@ -463,26 +463,160 @@ export class EditComponent implements OnInit {
       //Figure out which medication is the one selected 
       if(this.selectedmedication == Medication1_info[0]){
         //Update the array with the new info
-        //Send the updated object to the web server
+        if(this.selected_dosefreq == {frequency: "Once a Day"}){
+          Medication1_info[1] = 1; }
+        if(this.selected_dosefreq == {frequency: "Twice a Day"}){
+          Medication1_info[1] = 2; }
+        if(this.selected_dosefreq == {frequency: "Three times a Day"}){
+          Medication1_info[1] = 3; }
 
+        if(this.selected_medperdose == {amount:"Single Pill"}){
+          Medication1_info[2] = 1; }
+        else if (this.selected_medperdose == {amount:"Two Pills"}){
+          Medication1_info[2] = 2; }
+
+        Medication1_info[3] = this.cabinetid;
+
+        Medication1_info[4] = this.pillsadded;
+
+        //Get dispensing times, based off the pill frequency
+        if(Medication1_info[1] == 1){
+          Medication1_info[5] = this.dispense1; }
+  
+        else if(Medication1_info[1] == 2){
+          Medication1_info[5] = this.dispense1;
+          Medication1_info[6] = this.dispense2; }
+  
+        else if(Medication1_info[1] == 3){
+          Medication1_info[5] = this.dispense1;
+          Medication1_info[6] = this.dispense2;
+          Medication1_info[7] = this.dispense3; }
+
+        //Send the updated object to the web server
+        this.http.post("https://www.rxmind.tech/crud",{
+          type:"update",
+          payload: {
+            name: Medication1_info[0],
+            timesDaily: Medication1_info[1],
+            dispenseTimes: [Medication1_info[5], Medication1_info[6], Medication1_info[7]],
+            pillsadded : Medication1_info[4],
+            pillsPerDose: Medication1_info[2],
+            cabinetNo: Medication1_info[3] }
+        })
+        .subscribe((data: any) => {
+          console.log(data);
+          if(data == '201 Created' || data == "Success"){
+          //Look for an empty Medicationx_info array and save the AddMedication[] information into it 
+        }
+        });
       }
       else if(this.selectedmedication == Medication2_info[0]){
+        //Update the array with the new info
+        if(this.selected_dosefreq == {frequency: "Once a Day"}){
+          Medication2_info[1] = 1; }
+        if(this.selected_dosefreq == {frequency: "Twice a Day"}){
+          Medication2_info[1] = 2; }
+        if(this.selected_dosefreq == {frequency: "Three times a Day"}){
+          Medication2_info[1] = 3; }
+
+        if(this.selected_medperdose == {amount:"Single Pill"}){
+          Medication2_info[2] = 1; }
+        else if (this.selected_medperdose == {amount:"Two Pills"}){
+          Medication2_info[2] = 2; }
+
+        Medication2_info[3] = this.cabinetid;
+
+        Medication2_info[4] = this.pillsadded;
+
+        //Get dispensing times, based off the pill frequency
+        if(Medication2_info[1] == 1){
+          Medication2_info[5] = this.dispense1; }
+  
+        else if(Medication2_info[1] == 2){
+          Medication2_info[5] = this.dispense1;
+          Medication2_info[6] = this.dispense2; }
+  
+        else if(Medication2_info[1] == 3){
+          Medication2_info[5] = this.dispense1;
+          Medication2_info[6] = this.dispense2;
+          Medication2_info[7] = this.dispense3; }
+
+        //Send the updated object to the web server
+        this.http.post("https://www.rxmind.tech/crud",{
+          type:"update",
+          payload: {
+            name: Medication2_info[0],
+            timesDaily: Medication2_info[1],
+            dispenseTimes: [Medication2_info[5], Medication2_info[6], Medication2_info[7]],
+            pillsadded : Medication2_info[4],
+            pillsPerDose: Medication2_info[2],
+            cabinetNo: Medication2_info[3] }
+        })
+        .subscribe((data: any) => {
+          console.log(data);
+          if(data == '201 Created' || data == "Success"){
+          //Look for an empty Medicationx_info array and save the AddMedication[] information into it 
+        }
+        });
 
       }
       else if(this.selectedmedication == Medication3_info[0]){
+        if(this.selected_dosefreq == {frequency: "Once a Day"}){
+          Medication3_info[1] = 1; }
+        if(this.selected_dosefreq == {frequency: "Twice a Day"}){
+          Medication3_info[1] = 2; }
+        if(this.selected_dosefreq == {frequency: "Three times a Day"}){
+          Medication3_info[1] = 3; }
 
+        if(this.selected_medperdose == {amount:"Single Pill"}){
+          Medication3_info[2] = 1; }
+        else if (this.selected_medperdose == {amount:"Two Pills"}){
+          Medication3_info[2] = 2; }
+
+        Medication3_info[3] = this.cabinetid;
+
+        Medication3_info[4] = this.pillsadded;
+
+        //Get dispensing times, based off the pill frequency
+        if(Medication3_info[1] == 1){
+          Medication3_info[5] = this.dispense1; }
+  
+        else if(Medication3_info[1] == 2){
+          Medication3_info[5] = this.dispense1;
+          Medication3_info[6] = this.dispense2; }
+  
+        else if(Medication3_info[1] == 3){
+          Medication3_info[5] = this.dispense1;
+          Medication3_info[6] = this.dispense2;
+          Medication3_info[7] = this.dispense3; }
+
+        //Send the updated object to the web server
+        this.http.post("https://www.rxmind.tech/crud",{
+          type:"update",
+          payload: {
+            name: Medication3_info[0],
+            timesDaily: Medication3_info[1],
+            dispenseTimes: [Medication3_info[5], Medication3_info[6], Medication3_info[7]],
+            pillsadded : Medication3_info[4],
+            pillsPerDose: Medication3_info[2],
+            cabinetNo: Medication3_info[3] }
+        })
+        .subscribe((data: any) => {
+          console.log(data);
+          if(data == '201 Created' || data == "Success"){
+          //Look for an empty Medicationx_info array and save the AddMedication[] information into it 
+        }
+        });
       }
 
     }
- 
     //wait for a success response from the web server & display success to user
-
     console.log("End of the saveMedication btn function");
   }
 
   removeMedication(){
-    //Take the medication data in all of the form fields, package it into an object
-    //Send the data to the web server to remove
+    //Send the name of the selected medication to delete 
+    //On the return on the delete call to the web-server, remove any local data 
     this.http
     .post("https://www.rxmind.tech/crud", {
       type: "delete",
@@ -492,7 +626,22 @@ export class EditComponent implements OnInit {
     .subscribe((data) => {
       console.log(data);
       console.log("Deleted the medication {0}", this.selectedmedication);
-    });
+
+    //Empty the associate medication array
+    if(this.selectedmedication == Medication1_info[0]){
+      //Remove all elements of the array 
+      for(let i = 0; i< Medication1_info.length; i++){
+        Medication1_info[i] = null; }
+    } 
+    else if(this.selectedmedication == Medication2_info[0]){
+      for(let i = 0; i< Medication2_info.length; i++){
+        Medication2_info[i] = null; }
+    }
+    else if(this.selectedmedication == Medication3_info[0]){
+      for(let i = 0; i< Medication3_info.length; i++){
+        Medication3_info[i] = null; }
+    }
+  });
   }
 
 }
