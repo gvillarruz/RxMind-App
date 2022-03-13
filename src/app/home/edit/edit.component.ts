@@ -63,11 +63,18 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.post("https://www.rxmind.tech/login", {
+
+
+
+    /*this.http.post("https://www.rxmind.tech/login", {
       username: "admin",
       password: "admin",
-    })
-    .subscribe((data: any) => {
+    })*/
+    //this.http.post("https://www.rxmind.tech/crud",{})
+    this.http.get("https://www.rxmind.tech/crud").subscribe((data: any) => {
+      //.subscribe((data: any) => {
+
+   // .subscribe((data: any) => {
       console.log(data);
   
     //this.http.get("https://www.rxmind.tech/login").subscribe((data: any) => {
@@ -100,16 +107,16 @@ export class EditComponent implements OnInit {
     //Medication3_info[4] = data.medications[2].________;
 
     //Save the number of times taken - Dispense times
-    let j=0;
+    let count=0;
     for(let i=2; i < data.medications[0].timesTaken.length; i++){
-      Medication1_info[i] = data.medications[0].timesTaken[j];
-      j = j+1;
+      Medication1_info[i] = data.medications[0].timesTaken[count];
+      count = count+1;
     }
     
-    j=0;
+    count=0;
     for(let i=2; i < data.medications[1].timesTaken.length; i++){      
-      Medication2_info[i] = data.medications[1].timesTaken[j];
-      j = j+1;
+      Medication2_info[i] = data.medications[1].timesTaken[count];
+      count = count+1;
     }
 
     /* Getting for medication 3 - med 3 will not be used during the demo 
@@ -123,9 +130,49 @@ export class EditComponent implements OnInit {
   }
 
   onSelect(medication: medication) : void{
+    //The medication input argument is the medication that was selected by the user
     this.selectedmedication = medication;
-    //the user selects a medication
-    //load the associated medication metadata into the form fields
+
+    //Find the medication array that matches the selected medication name 
+    if(medication == Medication1_info[0]){
+      //Load the UI with the data in the medication1 array
+      //Load frequency of dosage 
+      if(Medication1_info[1] == 1){
+        this.selected_dosefreq = {frequency: "Once a Day"};}
+
+      else if(Medication1_info[1] == 2){
+        this.selected_dosefreq = {frequency:"Twice a Day"};}
+
+      else if(Medication1_info[1] == 3){
+        this.selected_dosefreq = {frequency:"Three times a Day"};}
+
+      //Load the number of pills per dose 
+      if(Medication1_info[2] == 1){
+        this.selected_medperdose = {amount: "Single Pill"}; }
+      
+      else if(Medication1_info[2]==2){
+        this.selected_medperdose = {amount:"Two Pills"};}
+
+      //Load the cabinet id
+      //this.cabinetid = Medication1_info[3]
+
+      //Load the amount of pills left 
+      this.pillsadded= Medication1_info[4];
+
+      //Load the text fields with the dose frequency
+      //Check each index of the Medication1_info indexes
+      //if(Medication1_info)
+
+
+      /*var j=0;
+      for(let i=2; i < Medication1_info[1]; i++){
+        //Medication1_info[i] = data.medications[0].timesTaken[j];
+        j = j+1;
+      }*/
+    }
+    else if(medication == Medication2_info[0]){
+      //Load the UI with the data in the medication2 array 
+    }
   }
 
   saveMedication(){
