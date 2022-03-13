@@ -173,7 +173,7 @@ export class EditComponent implements OnInit {
     this.selectedmedication = medication;
 
     //Find the medication array that matches the selected medication name 
-    if(medication == Medication1_info[0]){
+    if(this.selectedmedication.name == Medication1_info[0]){
       //Load the UI with medication, using the read call to the web server
       this.http.post("https://www.rxmind.tech/crud",{
       type: "read",
@@ -247,7 +247,7 @@ export class EditComponent implements OnInit {
         }
       }
     }
-    else if(medication == Medication2_info[0]){
+    else if(this.selectedmedication.name == Medication2_info[0]){
       //Load the UI with the data in the medication2 array (same approach as above)
         this.http.post("https://www.rxmind.tech/crud",{
         type: "read",
@@ -322,7 +322,7 @@ export class EditComponent implements OnInit {
         }
       }
 
-     else if(medication == Medication3_info[0]){
+     else if(this.selectedmedication.name == Medication3_info[0]){
       //Load the UI with the data in the medication2 array (same approach as above)
         this.http.post("https://www.rxmind.tech/crud",{
           type: "read",
