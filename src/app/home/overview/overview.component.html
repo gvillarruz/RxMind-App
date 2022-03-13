@@ -16,6 +16,8 @@
     </div>
     <div class="med-calendar">
         <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
+        <label *ngIf="Iscalendarmedtakenvisible" [(ngModel)]="calendarmedtaken"></label>
+        <label *ngIf="Iscalendartimetakenvisible" [(ngModel)]="calendartimetaken"></label>
     </div>
 </div>    
 

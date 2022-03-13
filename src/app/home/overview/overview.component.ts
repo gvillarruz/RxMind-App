@@ -26,6 +26,10 @@ export class OverviewComponent implements OnInit {
 
   warnings_list !:any[];
   dismisswarningvisible = false;
+  Iscalendarmedtakenvisible = false;
+  Iscalendartimetakenvisible = false;
+  calendarmedtaken :any;
+  calendartimetaken :any;
 
   constructor(private http: HttpClient) {
     this.medication_list = [
@@ -101,15 +105,43 @@ export class OverviewComponent implements OnInit {
 
   onSelectDate(calendarvalue: Date){
     //Make a post request with the date 
-
+    console.log("Inside the onSelectDate function with date {0}",calendarvalue);
+    this.http.post("https://www.rxmind.tech/login", {
+    date: calendarvalue
+    })
+    .subscribe((data: any) => {
     //Capture the return
-    //Based on the selected medication, output the medication information
+    //Based on the selected medication, output the medication information for that day
+    if(this.selectedmedication == Medication1_info[0]){
+      this.calendarmedtaken = data.medications[0].medicationTaken;
+      this.calendartimetaken = data.medications[0].timeTaken;
+      this.Iscalendarmedtakenvisible = true;
+      this.Iscalendartimetakenvisible = true;
+    }
+    else if(this.selectedmedication == Medication2_info[0]){
+      this.calendarmedtaken = data.medications[1].medicationTaken;
+      this.calendartimetaken = data.medications[1].timeTaken;
+      this.Iscalendarmedtakenvisible = true;
+      this.Iscalendartimetakenvisible = true;
+    }
+    else if(this.selectedmedication == Medication3_info[0]){
+      this.calendarmedtaken = data.medications[2].medicationTaken;
+      this.calendartimetaken = data.medications[2].timeTaken;
+      this.Iscalendarmedtakenvisible = true;
+      this.Iscalendartimetakenvisible = true;
+    }
+  });
   }
 
   Dismiss_notif(){
     //Dismiss the missed notification when the user clicks this button 
-    //Clear the notification label
-    //Clear the notification in the web-server
+    //Clear the warnings recieved from the web-server
+    for(let i=0; i< MedWarnings.length; i++){
+      MedWarnings[i] = null; }
+    //Clear the warnings visible in the UI
+    for(let i=0; i< this.warnings_list.length; i++){
+      this.warnings_list[i] = null; }
+    //Hide the dismiss warning button 
     this.dismisswarningvisible = false;
   }
 
