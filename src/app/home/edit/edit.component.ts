@@ -171,7 +171,7 @@ export class EditComponent implements OnInit {
       }*/
     }
     else if(medication == Medication2_info[0]){
-      //Load the UI with the data in the medication2 array 
+      //Load the UI with the data in the medication2 array (same approach as above)
     }
   }
 

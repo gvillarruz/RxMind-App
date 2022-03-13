@@ -19,13 +19,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http
-      .post("https://www.rxmind.tech/login", {
-        username: "admin",
-        password: "admin",
-      })
-      .subscribe((data) => {
-        console.log(data);
-      });
+    console.log("Home page loaded");
   }
 }
