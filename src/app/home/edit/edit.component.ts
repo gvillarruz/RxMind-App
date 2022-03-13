@@ -86,9 +86,11 @@ export class EditComponent implements OnInit {
             }
           }
         }
+        console.log(data);
+        console.log("End of login subscribe in edit page init");
       });
 
-    /*
+      /*
     //Then use the read command on /crud to get the medication's information  
     this.http.post("https://www.rxmind.tech/crud",{
       type: "read",
@@ -120,6 +122,7 @@ export class EditComponent implements OnInit {
           }
         }
       }
+      console.log("End of edit page read in edit page init");
     });*/
    
     /*
@@ -169,7 +172,41 @@ export class EditComponent implements OnInit {
 
     //Find the medication array that matches the selected medication name 
     if(medication == Medication1_info[0]){
-      //Load the UI with the data in the medication1 array
+      //Load the UI with medication, using the read call to the web server
+      this.http.post("https://www.rxmind.tech/crud",{
+      type: "read",
+      payload: {
+        name: Medication1_info[0]}
+      })
+      .subscribe((data: any) => {
+        console.log(data);
+        //Get the frequency of the dosage
+        var med1freq = data.medication[0].timesDaily;
+        Medication1_info[1] = data.medications[0].timesDaily;
+        //Get the amount of medication per dose 
+        Medication1_info[2] = data.medications[0].pillsPerDose;
+        //Save the cabinetid of the medication
+        //Medication1_info[3] = data.medications[0]._______;
+        //Save the amount of pills per medication - amount of pills left 
+        Medication1_info[4] = data.medications[0].pillsAdded;
+
+        //Save the number of times the medication is taken - Dispense times 
+        if(med1freq >= 1){
+          //Get the first frequency entry
+          Medication1_info[5] = data.medications[0].dispenseTimes[0];
+          if(med1freq >=2){
+            //Get the second frequency entry
+            Medication1_info[6] = data.medications[0].dispenseTimes[1];
+            if(med1freq == 3){
+              //Get the third frequency entry
+              Medication1_info[7] = data.medications[0].dispenseTimes[2];
+            }
+          }
+        }
+        console.log("Gathered all associated medication information, loading into the UI");
+      });
+
+      //Load the UI with the data in the medication1_info array
       //Load frequency of dosage 
       if(Medication1_info[1] == 1){
         this.selected_dosefreq = {frequency: "Once a Day"};}
@@ -184,7 +221,7 @@ export class EditComponent implements OnInit {
       if(Medication1_info[2] == 1){
         this.selected_medperdose = {amount: "Single Pill"}; }
       
-      else if(Medication1_info[2]==2){
+      else if(Medication1_info[2] ==2){
         this.selected_medperdose = {amount:"Two Pills"};}
 
       //Load the cabinet id
@@ -193,21 +230,172 @@ export class EditComponent implements OnInit {
       //Load the amount of pills left 
       this.pillsadded= Medication1_info[4];
 
-      //Load the text fields with the dose frequency
-      //Check each index of the Medication1_info indexes
-      //if(Medication1_info)
-
-
-      /*var j=0;
-      for(let i=2; i < Medication1_info[1]; i++){
-        //Medication1_info[i] = data.medications[0].timesTaken[j];
-        j = j+1;
-      }*/
+      //Load the text fields with the dispense times 
+      var med1freq = Medication1_info[1];
+      if(med1freq >= 1){
+        //Load the first frequency entry
+        this.dispense1 = Medication1_info[5];
+        if(med1freq >=2){
+          //Load the second frequency entry
+          this.dispense2 = Medication1_info[6];
+          if(med1freq == 3){
+            //Load the third frequency entry
+            this.dispense3 = Medication1_info[7];
+          }
+        }
+      }
     }
     else if(medication == Medication2_info[0]){
       //Load the UI with the data in the medication2 array (same approach as above)
+        this.http.post("https://www.rxmind.tech/crud",{
+        type: "read",
+        payload: {
+          name: Medication2_info[0]}
+        })
+        .subscribe((data: any) => {
+          console.log(data);
+          //Get the frequency of the dosage
+          var med2freq = data.medication[0].timesDaily;
+          Medication2_info[1] = data.medications[0].timesDaily;
+          //Get the amount of medication per dose 
+          Medication2_info[2] = data.medications[0].pillsPerDose;
+          //Save the cabinetid of the medication
+          //Medication2_info[3] = data.medications[0]._______;
+          //Save the amount of pills per medication - amount of pills left 
+          Medication2_info[4] = data.medications[0].pillsAdded;
+  
+          //Save the number of times the medication is taken - Dispense times 
+          if(med2freq >= 1){
+            //Get the first frequency entry
+            Medication2_info[5] = data.medications[0].dispenseTimes[0];
+            if(med2freq >=2){
+              //Get the second frequency entry
+              Medication2_info[6] = data.medications[0].dispenseTimes[1];
+              if(med2freq == 3){
+                //Get the third frequency entry
+                Medication2_info[7] = data.medications[0].dispenseTimes[2];
+              }
+            }
+          }
+          console.log("Gathered all associated medication information, loading into the UI");
+        });
+  
+        //Load the UI with the data in the medication1_info array
+        //Load frequency of dosage 
+        if(Medication2_info[1] == 1){
+          this.selected_dosefreq = {frequency: "Once a Day"};}
+  
+        else if(Medication2_info[1] == 2){
+          this.selected_dosefreq = {frequency:"Twice a Day"};}
+  
+        else if(Medication2_info[1] == 3){
+          this.selected_dosefreq = {frequency:"Three times a Day"};}
+  
+        //Load the number of pills per dose 
+        if(Medication2_info[2] == 1){
+          this.selected_medperdose = {amount: "Single Pill"}; }
+        
+        else if(Medication2_info[2] ==2){
+          this.selected_medperdose = {amount:"Two Pills"};}
+  
+        //Load the cabinet id
+        //this.cabinetid = Medication2_info[3]
+  
+        //Load the amount of pills left 
+        this.pillsadded= Medication2_info[4];
+  
+        //Load the text fields with the dispense times 
+        var med2freq = Medication2_info[1];
+        if(med2freq >= 1){
+          //Load the first frequency entry
+          this.dispense1 = Medication2_info[5];
+          if(med2freq >=2){
+            //Load the second frequency entry
+            this.dispense2 = Medication2_info[6];
+            if(med2freq == 3){
+              //Load the third frequency entry
+              this.dispense3 = Medication2_info[7];
+            }
+          }
+        }
+      }
+
+     else if(medication == Medication3_info[0]){
+      //Load the UI with the data in the medication2 array (same approach as above)
+        this.http.post("https://www.rxmind.tech/crud",{
+          type: "read",
+          payload: {
+            name: Medication3_info[0]}
+          })
+          .subscribe((data: any) => {
+            console.log(data);
+            //Get the frequency of the dosage
+            var med3freq = data.medication[0].timesDaily;
+            Medication3_info[1] = data.medications[0].timesDaily;
+            //Get the amount of medication per dose 
+            Medication3_info[2] = data.medications[0].pillsPerDose;
+            //Save the cabinetid of the medication
+            //Medication3_info[3] = data.medications[0]._______;
+            //Save the amount of pills per medication - amount of pills left 
+            Medication3_info[4] = data.medications[0].pillsAdded;
+    
+            //Save the number of times the medication is taken - Dispense times 
+            if(med3freq >= 1){
+              //Get the first frequency entry
+              Medication3_info[5] = data.medications[0].dispenseTimes[0];
+              if(med3freq >=2){
+                //Get the second frequency entry
+                Medication3_info[6] = data.medications[0].dispenseTimes[1];
+                if(med3freq == 3){
+                  //Get the third frequency entry
+                  Medication3_info[7] = data.medications[0].dispenseTimes[2];
+                }
+              }
+            }
+            console.log("Gathered all associated medication information, loading into the UI");
+          });
+  
+          //Load the UI with the data in the medication1_info array
+          //Load frequency of dosage 
+          if(Medication3_info[1] == 1){
+            this.selected_dosefreq = {frequency: "Once a Day"};}
+    
+          else if(Medication3_info[1] == 2){
+            this.selected_dosefreq = {frequency:"Twice a Day"};}
+    
+          else if(Medication3_info[1] == 3){
+            this.selected_dosefreq = {frequency:"Three times a Day"};}
+  
+          //Load the number of pills per dose 
+          if(Medication3_info[2] == 1){
+            this.selected_medperdose = {amount: "Single Pill"}; }
+          
+          else if(Medication3_info[2] ==2){
+            this.selected_medperdose = {amount:"Two Pills"};}
+    
+          //Load the cabinet id
+          //this.cabinetid = Medication3_info[3]
+    
+          //Load the amount of pills left 
+          this.pillsadded= Medication3_info[4];
+    
+          //Load the text fields with the dispense times 
+          var med3freq = Medication3_info[1];
+          if(med3freq >= 1){
+            //Load the first frequency entry
+            this.dispense1 = Medication3_info[5];
+            if(med3freq >=2){
+              //Load the second frequency entry
+              this.dispense2 = Medication3_info[6];
+              if(med3freq == 3){
+                //Load the third frequency entry
+                this.dispense3 = Medication3_info[7];
+              }
+            }
+          }
+        }
+
     }
-  }
 
   saveMedication(){
     //Check if there is an add or a save operation from the user 

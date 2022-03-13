@@ -19,6 +19,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Home page loaded");
+    console.log("Main page loaded");
   }
 }
