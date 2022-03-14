@@ -111,7 +111,7 @@ export class OverviewComponent implements OnInit {
     var date_send = yyyy + '-'+ mm + '-' + dd;
 
     console.log("Inside the onSelectDate function with date:",date_send);
-    this.http.post("https://www.rxmind.tech/login", {
+    this.http.post("https://www.rxmind.tech/calendar", {
     date: date_send
     })
     .subscribe((data: any) => {
