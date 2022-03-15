@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-declare var require: any
+declare let require: any;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  username: any
-  password: any = ''
-    //imgname= require("src/assets/images/RxMindLogo.jpg");
-    isSigninVisible = true;
-  constructor() { }
+  username: any;
+  password: any = "";
+  //imgname= require("src/assets/images/RxMindLogo.jpg");
+  isSigninVisible = true;
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-  }
+  ngOnInit(): void {}
+}
