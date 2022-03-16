@@ -102,7 +102,7 @@ export class SettingsComponent implements OnInit {
         Settings_info[4] = data.timeforNotif;
       }
 
-      console.log("Finished parsing all data on initialization");
+      console.log("Settings Page: Finished parsing all data on initialization");
     });
   }
 
