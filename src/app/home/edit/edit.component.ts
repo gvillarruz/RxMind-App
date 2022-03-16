@@ -66,11 +66,9 @@ export class EditComponent implements OnInit {
     if (nmeds >= 1) {
       this.Medication1_info[0] = this.homeService.homeData.medications[0].name;
       if (nmeds >= 2) {
-        this.Medication2_info[0] =
-          this.homeService.homeData.medications[1].name;
+        this.Medication2_info[0] = this.homeService.homeData.medications[1].name;
         if (nmeds == 3) {
-          this.Medication3_info[0] =
-            this.homeService.homeData.medication[2].name;
+          this.Medication3_info[0] = this.homeService.homeData.medication[2].name;
         }
       }
     }
@@ -157,8 +155,7 @@ export class EditComponent implements OnInit {
     //Find the medication array that matches the selected medication name
     if (this.selectedmedication.name == this.Medication1_info[0]) {
       //Load the UI with medication, using the read call to the web server
-      this.http
-        .post("https://www.rxmind.tech/crud", {
+      this.http.post("https://www.rxmind.tech/crud", {
           type: "read",
           payload: {
             name: this.Medication1_info[0],
@@ -167,32 +164,31 @@ export class EditComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
           //Get the frequency of the dosage
-          let med1freq = data.medication[0].timesDaily;
-          this.Medication1_info[1] = data.medications[0].timesDaily;
+          let med1freq = data.timesDaily;
+          this.Medication1_info[1] = data.timesDaily;
           //Get the amount of medication per dose
-          this.Medication1_info[2] = data.medications[0].pillsPerDose;
+          this.Medication1_info[2] = data.pillsPerDose;
           //Save the cabinetid of the medication
-          //this.Medication1_info[3] = data.medications[0]._______;
+          this.Medication1_info[3] = data.cabinetNo;
           //Save the amount of pills per medication - amount of pills left
-          this.Medication1_info[4] = data.medications[0].pillsAdded;
+          this.Medication1_info[4] = data.pillsAdded;
 
           //Save the number of times the medication is taken - Dispense times
           if (med1freq >= 1) {
             //Get the first frequency entry
-            this.Medication1_info[5] = data.medications[0].dispenseTimes[0];
+            this.Medication1_info[5] = data.dispenseTimes[0];
             if (med1freq >= 2) {
               //Get the second frequency entry
-              this.Medication1_info[6] = data.medications[0].dispenseTimes[1];
+              this.Medication1_info[6] = data.dispenseTimes[1];
               if (med1freq == 3) {
                 //Get the third frequency entry
-                this.Medication1_info[7] = data.medications[0].dispenseTimes[2];
+                this.Medication1_info[7] = data.dispenseTimes[2];
               }
             }
           }
           console.log(
             "Gathered all associated medication information, loading into the UI"
           );
-        });
 
       //Load the UI with the data in the this.Medication1_info array
       //Load frequency of dosage
@@ -203,6 +199,9 @@ export class EditComponent implements OnInit {
       } else if (this.Medication1_info[1] == 3) {
         this.selected_dosefreq = { frequency: "Three times a Day" };
       }
+      console.log(
+        "Loaded selected_dose frequency in the UI"
+      );
 
       //Load the number of pills per dose
       if (this.Medication1_info[2] == 1) {
@@ -211,14 +210,24 @@ export class EditComponent implements OnInit {
         this.selected_medperdose = { amount: "Two Pills" };
       }
 
+      console.log(
+        "Loaded selected_meds per dose in the UI"
+      );
+
       //Load the cabinet id
-      //this.cabinetid = this.Medication1_info[3]
+      this.cabinetid = this.Medication1_info[3]
+      console.log(
+        "Loaded cabinet id in the UI"
+      );
 
       //Load the amount of pills left
       this.pillsadded = this.Medication1_info[4];
+      console.log(
+        "Loaded the pills added field in the UI"
+      );
 
       //Load the text fields with the dispense times
-      let med1freq = this.Medication1_info[1];
+      med1freq = this.Medication1_info[1];
       if (med1freq >= 1) {
         //Load the first frequency entry
         this.dispense1 = this.Medication1_info[5];
@@ -231,6 +240,11 @@ export class EditComponent implements OnInit {
           }
         }
       }
+      console.log(
+        "Loaded the dispense times for Medication1_info in the UI"
+      );
+    });
+
     } else if (this.selectedmedication.name == this.Medication2_info[0]) {
       //Load the UI with the data in the medication2 array (same approach as above)
       this.http
@@ -244,31 +258,30 @@ export class EditComponent implements OnInit {
           console.log(data);
           //Get the frequency of the dosage
           let med2freq = data.medication[0].timesDaily;
-          this.Medication2_info[1] = data.medications[0].timesDaily;
+          this.Medication2_info[1] = data.timesDaily;
           //Get the amount of medication per dose
-          this.Medication2_info[2] = data.medications[0].pillsPerDose;
+          this.Medication2_info[2] = data.pillsPerDose;
           //Save the cabinetid of the medication
-          //this.Medication2_info[3] = data.medications[0]._______;
+          this.Medication2_info[3] = data.cabinetNo;
           //Save the amount of pills per medication - amount of pills left
-          this.Medication2_info[4] = data.medications[0].pillsAdded;
+          this.Medication2_info[4] = data.pillsAdded;
 
           //Save the number of times the medication is taken - Dispense times
           if (med2freq >= 1) {
             //Get the first frequency entry
-            this.Medication2_info[5] = data.medications[0].dispenseTimes[0];
+            this.Medication2_info[5] = data.dispenseTimes[0];
             if (med2freq >= 2) {
               //Get the second frequency entry
-              this.Medication2_info[6] = data.medications[0].dispenseTimes[1];
+              this.Medication2_info[6] = data.dispenseTimes[1];
               if (med2freq == 3) {
                 //Get the third frequency entry
-                this.Medication2_info[7] = data.medications[0].dispenseTimes[2];
+                this.Medication2_info[7] = data.dispenseTimes[2];
               }
             }
           }
           console.log(
             "Gathered all associated medication information, loading into the UI"
           );
-        });
 
       //Load the UI with the data in the this.Medication1_info array
       //Load frequency of dosage
@@ -288,13 +301,13 @@ export class EditComponent implements OnInit {
       }
 
       //Load the cabinet id
-      //this.cabinetid = this.Medication2_info[3]
+      this.cabinetid = this.Medication2_info[3]
 
       //Load the amount of pills left
       this.pillsadded = this.Medication2_info[4];
 
       //Load the text fields with the dispense times
-      let med2freq = this.Medication2_info[1];
+      med2freq = this.Medication2_info[1];
       if (med2freq >= 1) {
         //Load the first frequency entry
         this.dispense1 = this.Medication2_info[5];
@@ -307,6 +320,7 @@ export class EditComponent implements OnInit {
           }
         }
       }
+    });
     } else if (this.selectedmedication.name == this.Medication3_info[0]) {
       //Load the UI with the data in the medication2 array (same approach as above)
       this.http
@@ -319,32 +333,31 @@ export class EditComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
           //Get the frequency of the dosage
-          let med3freq = data.medication[0].timesDaily;
-          this.Medication3_info[1] = data.medications[0].timesDaily;
+          let med3freq = data.timesDaily;
+          this.Medication3_info[1] = data.timesDaily;
           //Get the amount of medication per dose
-          this.Medication3_info[2] = data.medications[0].pillsPerDose;
+          this.Medication3_info[2] = data.pillsPerDose;
           //Save the cabinetid of the medication
-          //this.Medication3_info[3] = data.medications[0]._______;
+          this.Medication3_info[3] = data.cabinetNo;
           //Save the amount of pills per medication - amount of pills left
-          this.Medication3_info[4] = data.medications[0].pillsAdded;
+          this.Medication3_info[4] = data.pillsAdded;
 
           //Save the number of times the medication is taken - Dispense times
           if (med3freq >= 1) {
             //Get the first frequency entry
-            this.Medication3_info[5] = data.medications[0].dispenseTimes[0];
+            this.Medication3_info[5] = data.dispenseTimes[0];
             if (med3freq >= 2) {
               //Get the second frequency entry
-              this.Medication3_info[6] = data.medications[0].dispenseTimes[1];
+              this.Medication3_info[6] = data.dispenseTimes[1];
               if (med3freq == 3) {
                 //Get the third frequency entry
-                this.Medication3_info[7] = data.medications[0].dispenseTimes[2];
+                this.Medication3_info[7] = data.dispenseTimes[2];
               }
             }
           }
           console.log(
             "Gathered all associated medication information, loading into the UI"
           );
-        });
 
       //Load the UI with the data in the this.Medication1_info array
       //Load frequency of dosage
@@ -364,13 +377,13 @@ export class EditComponent implements OnInit {
       }
 
       //Load the cabinet id
-      //this.cabinetid = this.Medication3_info[3]
+      this.cabinetid = this.Medication3_info[3]
 
       //Load the amount of pills left
       this.pillsadded = this.Medication3_info[4];
 
       //Load the text fields with the dispense times
-      let med3freq = this.Medication3_info[1];
+      med3freq = this.Medication3_info[1];
       if (med3freq >= 1) {
         //Load the first frequency entry
         this.dispense1 = this.Medication3_info[5];
@@ -383,6 +396,7 @@ export class EditComponent implements OnInit {
           }
         }
       }
+    });
     }
   }
 
