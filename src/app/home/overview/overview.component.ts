@@ -2,15 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HomeService } from "../../home.service";
 
-interface medication {
-  name: string;
-}
-
-let Medication1_info: any[];
-let Medication2_info: any[];
-let Medication3_info: any[];
-let MedWarnings: any[];
-
 @Component({
   selector: "app-overview",
   templateUrl: "./overview.component.html",
@@ -22,8 +13,13 @@ export class OverviewComponent implements OnInit {
   medleft: string = "";
   medprogressnum: number = 0;
 
-  medication_list: medication[];
-  selectedmedication?: medication;
+  medication_list: { name: string }[] = [];
+  Medication1_info = [];
+  Medication2_info = [];
+  Medication3_info = [];
+  MedWarnings = [];
+
+  selectedmedication?: { name: string };
 
   warnings_list!: any[];
   dismisswarningvisible = false;
@@ -32,14 +28,7 @@ export class OverviewComponent implements OnInit {
   calendarmedtaken: any = "sample";
   calendartimetaken: any = "sample";
 
-  constructor(private http: HttpClient, private homeService: HomeService) {
-    this.medication_list = [];
-
-    Medication1_info = [];
-    Medication2_info = [];
-    Medication3_info = [];
-    MedWarnings = [];
-  }
+  constructor(private http: HttpClient, private homeService: HomeService) {}
 
   ngOnInit(): void {
     this.http
@@ -58,47 +47,44 @@ export class OverviewComponent implements OnInit {
 
         let nmeds = data.medications.length;
         if (nmeds >= 1) {
-          Medication1_info[0] = data.medications[0].name;
+          this.Medication1_info.push(data.medications[0].name);
           //Gathering the remaining pills info
-          Medication1_info[1] = data.medications[0].remainingPills;
+          this.Medication1_info.push(data.medications[0].remainingPills);
           if (nmeds >= 2) {
-            Medication2_info[0] = data.medications[1].name;
+            this.Medication2_info.push(data.medications[1].name);
             //Gathering remaining pills info
-            Medication2_info[1] = data.medications[1].remainingPills;
+            this.Medication2_info.push(data.medications[1].remainingPills);
             if (nmeds == 3) {
-              Medication3_info[0] = data.medication[2].name;
+              this.Medication3_info.push(data.medication[2].name);
               //Gathering remaining pills info
-              Medication3_info[1] = data.medications[2].remainingPills;
+              this.Medication3_info.push(data.medications[2].remainingPills);
             }
           }
         }
 
+        this.MedWarnings = data.warnings;
+
         //Gathering any warning info from the server
         if (data.warnings.length != 0) {
-          for (let i = 0; i < data.warnings.length; i++) {
-            MedWarnings[i] = data.warning[i];
-          }
           this.dismisswarningvisible = true;
         }
-
-        console.log(data);
       });
   }
 
-  onSelect(medication: medication): void {
+  onSelect(medication): void {
     this.selectedmedication = medication;
 
     //Figure out which medicationx_info array the selected medication is from
     //Update the number of medications left and the progress bar in the UI
-    if (this.selectedmedication.name == Medication1_info[0]) {
-      this.medleft = Medication1_info[1];
-      this.medprogressnum = Medication1_info[1];
-    } else if (this.selectedmedication.name == Medication2_info[0]) {
-      this.medleft = Medication2_info[1];
-      this.medprogressnum = Medication2_info[1];
-    } else if (this.selectedmedication.name == Medication3_info[0]) {
-      this.medleft = Medication3_info[1];
-      this.medprogressnum = Medication3_info[1];
+    if (this.selectedmedication.name == this.Medication1_info[0]) {
+      this.medleft = this.Medication1_info[1];
+      this.medprogressnum = this.Medication1_info[1];
+    } else if (this.selectedmedication.name == this.Medication2_info[0]) {
+      this.medleft = this.Medication2_info[1];
+      this.medprogressnum = this.Medication2_info[1];
+    } else if (this.selectedmedication.name == this.Medication3_info[0]) {
+      this.medleft = this.Medication3_info[1];
+      this.medprogressnum = this.Medication3_info[1];
     }
   }
 
@@ -118,17 +104,17 @@ export class OverviewComponent implements OnInit {
         console.log(data);
         //Capture the return
         //Based on the selected medication, output the medication information for that day
-        if (this.selectedmedication == Medication1_info[0]) {
+        if (this.selectedmedication == this.Medication1_info[0]) {
           this.calendarmedtaken = data.medications[0].medicationTaken;
           this.calendartimetaken = data.medications[0].timeTaken;
           this.Iscalendarmedtakenvisible = true;
           this.Iscalendartimetakenvisible = true;
-        } else if (this.selectedmedication == Medication2_info[0]) {
+        } else if (this.selectedmedication == this.Medication2_info[0]) {
           this.calendarmedtaken = data.medications[1].medicationTaken;
           this.calendartimetaken = data.medications[1].timeTaken;
           this.Iscalendarmedtakenvisible = true;
           this.Iscalendartimetakenvisible = true;
-        } else if (this.selectedmedication == Medication3_info[0]) {
+        } else if (this.selectedmedication == this.Medication3_info[0]) {
           this.calendarmedtaken = data.medications[2].medicationTaken;
           this.calendartimetaken = data.medications[2].timeTaken;
           this.Iscalendarmedtakenvisible = true;
@@ -140,9 +126,8 @@ export class OverviewComponent implements OnInit {
   Dismiss_notif() {
     //Dismiss the missed notification when the user clicks this button
     //Clear the warnings recieved from the web-server
-    for (let i = 0; i < MedWarnings.length; i++) {
-      MedWarnings[i] = null;
-    }
+
+    this.MedWarnings = [];
     //Clear the warnings visible in the UI
     for (let i = 0; i < this.warnings_list.length; i++) {
       this.warnings_list[i] = null;
