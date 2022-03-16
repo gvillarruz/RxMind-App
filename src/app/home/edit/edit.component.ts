@@ -56,29 +56,24 @@ export class EditComponent implements OnInit {
       { amount: "Two Pills" },
     ];
 
-    this.medication_list = [{ name: " " }, { name: " " }, { name: " " }];
+    this.medication_list = [];
 
     Medication1_info = [];
     Medication2_info = [];
     Medication3_info = [];
     AddMedication = [];
-    console.log("TEST");
+
+    this.medication_list = this.homeService.homeData.medications.map((med) => {
+      return { name: med.name };
+    });
 
     let nmeds = this.homeService.homeData.medications.length;
     if (nmeds >= 1) {
       Medication1_info[0] = this.homeService.homeData.medications[0].name;
-      this.medication_list[0].name =
-        this.homeService.homeData.medications[0].name;
-
       if (nmeds >= 2) {
         Medication2_info[0] = this.homeService.homeData.medications[1].name;
-        this.medication_list[1].name =
-          this.homeService.homeData.medications[1].name;
-
         if (nmeds == 3) {
           Medication3_info[0] = this.homeService.homeData.medication[2].name;
-          this.medication_list[2].name =
-            this.homeService.homeData.medications[2].name;
         }
       }
     }

@@ -33,7 +33,7 @@ export class OverviewComponent implements OnInit {
   calendartimetaken: any = "sample";
 
   constructor(private http: HttpClient, private homeService: HomeService) {
-    this.medication_list = [{ name: " " }, { name: " " }, { name: " " }];
+    this.medication_list = [];
 
     Medication1_info = [];
     Medication2_info = [];
@@ -48,27 +48,25 @@ export class OverviewComponent implements OnInit {
         password: "admin",
       })
       .subscribe((data: any) => {
-        console.log("HERE");
-        console.log(data);
         this.homeService.homeData = data;
         //Load the med arrays and the UI with the medication names
         //Gather the remaining pills from the data as well
+
+        this.medication_list = data.medications.map((med: any) => {
+          return { name: med.name };
+        });
+
         let nmeds = data.medications.length;
         if (nmeds >= 1) {
           Medication1_info[0] = data.medications[0].name;
-          this.medication_list[0].name = data.medications[0].name;
           //Gathering the remaining pills info
           Medication1_info[1] = data.medications[0].remainingPills;
-
           if (nmeds >= 2) {
             Medication2_info[0] = data.medications[1].name;
-            this.medication_list[1].name = data.medications[1].name;
             //Gathering remaining pills info
             Medication2_info[1] = data.medications[1].remainingPills;
-
             if (nmeds == 3) {
               Medication3_info[0] = data.medication[2].name;
-              this.medication_list[2].name = data.medications[2].name;
               //Gathering remaining pills info
               Medication3_info[1] = data.medications[2].remainingPills;
             }
