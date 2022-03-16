@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { HomeService } from "../../home.service";
 
 //Frequency of Dosage
 interface dose_frequency {
@@ -43,7 +44,7 @@ export class EditComponent implements OnInit {
 
   addmedicine!: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private homeService: HomeService) {
     this.dosefreq_list = [
       { frequency: "Once a Day" },
       { frequency: "Twice a Day" },
@@ -61,36 +62,29 @@ export class EditComponent implements OnInit {
     Medication2_info = [];
     Medication3_info = [];
     AddMedication = [];
+    console.log("TEST");
+
+    let nmeds = this.homeService.homeData.medications.length;
+    if (nmeds >= 1) {
+      Medication1_info[0] = this.homeService.homeData.medications[0].name;
+      this.medication_list[0].name =
+        this.homeService.homeData.medications[0].name;
+
+      if (nmeds >= 2) {
+        Medication2_info[0] = this.homeService.homeData.medications[1].name;
+        this.medication_list[1].name =
+          this.homeService.homeData.medications[1].name;
+
+        if (nmeds == 3) {
+          Medication3_info[0] = this.homeService.homeData.medication[2].name;
+          this.medication_list[2].name =
+            this.homeService.homeData.medications[2].name;
+        }
+      }
+    }
   }
 
   ngOnInit(): void {
-    //Call the login command to get the names of the medications
-    this.http
-      .post("https://www.rxmind.tech/login", {
-        usename: "admin",
-        password: "admin",
-      })
-      .subscribe((data: any) => {
-        console.log("Getting the medication names");
-        let nmeds = data.medications.length;
-        if (nmeds >= 1) {
-          Medication1_info[0] = data.medications[0].name;
-          this.medication_list[0].name = data.medications[0].name;
-
-          if (nmeds >= 2) {
-            Medication2_info[0] = data.medications[1].name;
-            this.medication_list[1].name = data.medications[1].name;
-
-            if (nmeds == 3) {
-              Medication3_info[0] = data.medication[2].name;
-              this.medication_list[2].name = data.medications[2].name;
-            }
-          }
-        }
-        console.log(data);
-        console.log("End of login subscribe in edit page init");
-      });
-
     /*
     //Then use the read command on /crud to get the medication's information  
     this.http.post("https://www.rxmind.tech/crud",{
@@ -125,7 +119,6 @@ export class EditComponent implements OnInit {
       }
       console.log("End of edit page read in edit page init");
     });*/
-
     /*
     //Get the frequency of the dosage
     Medication2_info[1] = data.medications[1].timesTaken.length;
@@ -139,7 +132,6 @@ export class EditComponent implements OnInit {
     Medication1_info[3] = data.medications[0]._______;
     Medication2_info[3] = data.medications[1].________;
    // Medication3_info[3] = data.medications[2].________;*/
-
     /*/Save the amount of pills per medication - the amount of pills left 
     Medication2_info[4] = data.medications[1].pillsAdded;
     //Medication3_info[4] = data.medications[2].________;

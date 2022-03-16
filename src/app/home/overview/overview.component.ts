@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { HomeService } from "../../home.service";
 
 interface medication {
   name: string;
@@ -31,7 +32,7 @@ export class OverviewComponent implements OnInit {
   calendarmedtaken: any = "sample";
   calendartimetaken: any = "sample";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private homeService: HomeService) {
     this.medication_list = [{ name: " " }, { name: " " }, { name: " " }];
 
     Medication1_info = [];
@@ -47,6 +48,9 @@ export class OverviewComponent implements OnInit {
         password: "admin",
       })
       .subscribe((data: any) => {
+        console.log("HERE");
+        console.log(data);
+        this.homeService.homeData = data;
         //Load the med arrays and the UI with the medication names
         //Gather the remaining pills from the data as well
         let nmeds = data.medications.length;
