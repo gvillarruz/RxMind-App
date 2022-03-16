@@ -29,8 +29,8 @@ export class OverviewComponent implements OnInit {
   dismisswarningvisible = false;
   Iscalendarmedtakenvisible = false;
   Iscalendartimetakenvisible = false;
-  calendarmedtaken: any = "sample";
-  calendartimetaken: any = "sample";
+  calendarmedtaken: any;
+  calendartimetaken: any;
 
   constructor(private http: HttpClient, private homeService: HomeService) {}
 
@@ -65,7 +65,6 @@ export class OverviewComponent implements OnInit {
             }
           }
         }
-
         this.MedWarnings = data.warnings;
 
         //Gathering any warning info from the server
@@ -109,20 +108,67 @@ export class OverviewComponent implements OnInit {
         console.log(data);
         //Capture the return
         //Based on the number of medications that are returned, output the medication information for that day 
-        //let num_meds = data.medications.length;
+        let timetaken = "";
         if (this.selectedmedication.name == this.Medication1_info[0]) {
-          this.calendarmedtaken = data.medications[0].medicationTaken;
-          this.calendartimetaken = data.medications[0].timeTaken;
+          if(data.medications[0].medicationFullyTaken == true){
+            this.calendarmedtaken = "Yes";
+            if(data.medications[0].timesTaken.length >= 1){
+              timetaken = data.medications[0].timesTaken[0];
+              if(data.medications[0].timesTaken.length >= 2){
+                timetaken = timetaken + ", " + data.medications[0].timesTaken[1];
+                if(data.medications[0].timesTaken.length == 3){
+                  timetaken = timetaken + ", " + data.medications[0].timesTaken[2];
+                }
+              }    
+            } 
+            this.calendartimetaken = timetaken; 
+          }
+          else if(data.medications[0].medicationFullyTaken == false){
+            this.calendarmedtaken = "No";
+            this.calendartimetaken = ""; 
+          }
           this.Iscalendarmedtakenvisible = true;
           this.Iscalendartimetakenvisible = true;
+
           if (this.selectedmedication.name == this.Medication2_info[0]) {
-            this.calendarmedtaken = data.medications[1].medicationTaken;
-            this.calendartimetaken = data.medications[1].timeTaken;
+            if(data.medications[1].medicationFullyTaken == true){
+              this.calendarmedtaken = "Yes";
+              if(data.medications[1].timesTaken.length >= 1){
+                timetaken = data.medications[1].timesTaken[0];
+                if(data.medications[1].timesTaken.length >= 2){
+                  timetaken = timetaken + ", " + data.medications[1].timesTaken[1];
+                  if(data.medications[1].timesTaken.length == 3){
+                    timetaken = timetaken + ", " + data.medications[1].timesTaken[2];
+                  }
+                }    
+              } 
+              this.calendartimetaken = timetaken; 
+            }
+            else if(data.medications[1].medicationFullyTaken == false){
+              this.calendarmedtaken = "No";
+              this.calendartimetaken = ""; 
+            }
             this.Iscalendarmedtakenvisible = true;
             this.Iscalendartimetakenvisible = true;
+
             if (this.selectedmedication.name == this.Medication3_info[0]) {
-              this.calendarmedtaken = data.medications[2].medicationTaken;
-              this.calendartimetaken = data.medications[2].timeTaken;
+              if(data.medications[2].medicationFullyTaken == true){
+                this.calendarmedtaken = "Yes";
+                if(data.medications[2].timesTaken.length >= 1){
+                  timetaken = data.medications[2].timesTaken[0];
+                  if(data.medications[2].timesTaken.length >= 2){
+                    timetaken = timetaken + ", " + data.medications[2].timesTaken[1];
+                    if(data.medications[2].timesTaken.length == 3){
+                      timetaken = timetaken + ", " + data.medications[2].timesTaken[2];
+                    }
+                  }    
+                } 
+                this.calendartimetaken = timetaken; 
+              }
+              else if(data.medications[2].medicationFullyTaken == false){
+                this.calendarmedtaken = "No";
+                this.calendartimetaken = ""; 
+              }
               this.Iscalendarmedtakenvisible = true;
               this.Iscalendartimetakenvisible = true;
             }    
