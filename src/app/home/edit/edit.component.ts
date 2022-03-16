@@ -75,77 +75,6 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*
-    //Then use the read command on /crud to get the medication's information  
-    this.http.post("https://www.rxmind.tech/crud",{
-      type: "read",
-      payload: {
-        name: this.Medication1_info[0]}
-    })
-    .subscribe((data: any) => {
-      console.log(data);
-      let med1freq = data.medications[0].timesTaken.length;
-      //Get the frequency of the dosage
-      this.Medication1_info[1] = data.medications[0].timesTaken.length;
-      //Get the amount of medication per dose 
-      this.Medication1_info[2] = data.medications[0].pillsPerDose;
-      //Save the cabinetid of the medication
-      //this.Medication1_info[3] = data.medications[0]._______;
-      //Save the amount of pills per medication - amount of pills left 
-      this.Medication1_info[4] = data.medications[0].pillsAdded;
-
-      //Save the number of times the medication is taken - Dispense times 
-      if(med1freq >= 1){
-        //Get the first frequency entry
-        this.Medication1_info[5] = data.medications[0].timesTaken[0];
-        if(med1freq >=2){
-          //Get the second frequency entry
-          this.Medication1_info[6] = data.medications[0].timesTaken[1];
-          if(med1freq == 3){
-            //Get the third frequency entry
-            this.Medication1_info[7] = data.medications[0].timesTaken[2];
-          }
-        }
-      }
-      console.log("End of edit page read in edit page init");
-    });*/
-    /*
-    //Get the frequency of the dosage
-    this.Medication2_info[1] = data.medications[1].timesTaken.length;
-    //this.Medication3_info[1] = data.medications[2].timesTaken.length;
-    
-    //Save the amount of medication per dose
-    this.Medication2_info[2] = data.medications[1].pillsPerDose;
-    //this.Medication3_info[2] = data.medications[2].________;
-      */
-    /*//Save the cabinet ID of the medication
-    this.Medication1_info[3] = data.medications[0]._______;
-    this.Medication2_info[3] = data.medications[1].________;
-   // this.Medication3_info[3] = data.medications[2].________;*/
-    /*/Save the amount of pills per medication - the amount of pills left 
-    this.Medication2_info[4] = data.medications[1].pillsAdded;
-    //this.Medication3_info[4] = data.medications[2].________;
-
-    //Save the number of times taken - Dispense times
-    let count=0;
-    for(let i=2; i < data.medications[0].timesTaken.length; i++){
-      this.Medication1_info[i] = data.medications[0].timesTaken[count];
-      count = count+1;
-    }
-    
-    count=0;
-    for(let i=2; i < data.medications[1].timesTaken.length; i++){      
-      this.Medication2_info[i] = data.medications[1].timesTaken[count];
-      count = count+1;
-    }
-
-    /* Getting for medication 3 - med 3 will not be used during the demo 
-    int j =0;
-    for(let i=2; i < data.medications[2].timesTaken.length; i++){      
-      this.Medication3_info[i] = data.medications[2].timesTaken[j];
-      j = j+1;
-    }*/
-    //});
   }
 
   onSelect(medication: medication): void {
@@ -162,7 +91,7 @@ export class EditComponent implements OnInit {
           },
         })
         .subscribe((data: any) => {
-          console.log(data);
+          //console.log(data);
           //Get the frequency of the dosage
           let med1freq = data.timesDaily;
           this.Medication1_info[1] = data.timesDaily;
