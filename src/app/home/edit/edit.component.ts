@@ -79,12 +79,12 @@ export class EditComponent implements OnInit {
         .post("https://www.rxmind.tech/crud", {
           type: "add",
           payload: {
-            name: "Lisinopril",
-            timesDaily: 1,
-            dispenseTimes: ["8:00AM"],
-            pillsadded: 30,
+            name: "Atorvastatin",
+            timesDaily: 2,
+            dispenseTimes: ["8:00AM", "6:00PM"],
+            pillsAdded: 60,
             pillsPerDose: 1,
-            cabinetNo: 2,
+            cabinetNo: 1,
           },
         })
         .subscribe((data) => {
@@ -95,7 +95,7 @@ export class EditComponent implements OnInit {
       .post("https://www.rxmind.tech/crud", {
         type: "delete",
         payload: {
-          name: "acetaminphen",
+          name: "Levothyroxine",
         },
       })
       .subscribe((data) => {
@@ -398,7 +398,7 @@ export class EditComponent implements OnInit {
               this.AddMedication[6],
               this.AddMedication[7],
             ],
-            pillsadded: this.AddMedication[4],
+            pillsAdded: this.AddMedication[4],
             pillsPerDose: this.AddMedication[2],
             cabinetNo: this.AddMedication[3],
           },
@@ -458,7 +458,7 @@ export class EditComponent implements OnInit {
                 this.Medication1_info[6],
                 this.Medication1_info[7],
               ],
-              pillsadded: this.Medication1_info[4],
+              pillsAdded: this.Medication1_info[4],
               pillsPerDose: this.Medication1_info[2],
               cabinetNo: this.Medication1_info[3],
             },
@@ -515,7 +515,7 @@ export class EditComponent implements OnInit {
                 this.Medication2_info[6],
                 this.Medication2_info[7],
               ],
-              pillsadded: this.Medication2_info[4],
+              pillsAdded: this.Medication2_info[4],
               pillsPerDose: this.Medication2_info[2],
               cabinetNo: this.Medication2_info[3],
             },
@@ -571,16 +571,16 @@ export class EditComponent implements OnInit {
                 this.Medication3_info[6],
                 this.Medication3_info[7],
               ],
-              pillsadded: this.Medication3_info[4],
+              pillsAdded: this.Medication3_info[4],
               pillsPerDose: this.Medication3_info[2],
               cabinetNo: this.Medication3_info[3],
             },
           })
           .subscribe((data: any) => {
             console.log(data);
-            if (data == "201 Created" || data == "Success") {
+            //if (data == "201 Created" || data == "Success") {
               //Look for an empty Medicationx_info array and save the this.AddMedication[] information into it
-            }
+           // }
           });
       }
     }

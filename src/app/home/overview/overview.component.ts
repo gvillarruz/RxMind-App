@@ -59,7 +59,7 @@ export class OverviewComponent implements OnInit {
             //Gathering remaining pills info
             this.Medication2_info.push(data.medications[1].remainingPills);
             if (nmeds == 3) {
-              this.Medication3_info.push(data.medication[2].name);
+              this.Medication3_info.push(data.medications[2].name);
               //Gathering remaining pills info
               this.Medication3_info.push(data.medications[2].remainingPills);
             }
