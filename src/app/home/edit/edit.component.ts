@@ -119,59 +119,44 @@ export class EditComponent implements OnInit {
             "Gathered all associated medication information, loading into the UI"
           );
 
-      //Load the UI with the data in the this.Medication1_info array
-      //Load frequency of dosage
-      if (this.Medication1_info[1] == 1) {
-        this.selected_dosefreq = { frequency: "Once a Day" };
-      } else if (this.Medication1_info[1] == 2) {
-        this.selected_dosefreq = { frequency: "Twice a Day" };
-      } else if (this.Medication1_info[1] == 3) {
-        this.selected_dosefreq = { frequency: "Three times a Day" };
-      }
-      console.log(
-        "Loaded selected_dose frequency in the UI"
-      );
-
-      //Load the number of pills per dose
-      if (this.Medication1_info[2] == 1) {
-        this.selected_medperdose = { amount: "Single Pill" };
-      } else if (this.Medication1_info[2] == 2) {
-        this.selected_medperdose = { amount: "Two Pills" };
-      }
-
-      console.log(
-        "Loaded selected_meds per dose in the UI"
-      );
-
-      //Load the cabinet id
-      this.cabinetid = this.Medication1_info[3]
-      console.log(
-        "Loaded cabinet id in the UI"
-      );
-
-      //Load the amount of pills left
-      this.pillsadded = this.Medication1_info[4];
-      console.log(
-        "Loaded the pills added field in the UI"
-      );
-
-      //Load the text fields with the dispense times
-      med1freq = this.Medication1_info[1];
-      if (med1freq >= 1) {
-        //Load the first frequency entry
-        this.dispense1 = this.Medication1_info[5];
-        if (med1freq >= 2) {
-          //Load the second frequency entry
-          this.dispense2 = this.Medication1_info[6];
-          if (med1freq == 3) {
-            //Load the third frequency entry
-            this.dispense3 = this.Medication1_info[7];
+          //Load the UI with the data in the this.Medication1_info array
+          //Load frequency of dosage
+          if (this.Medication1_info[1] == 1) {
+            this.selected_dosefreq = { frequency: "Once a Day" };
+          } else if (this.Medication1_info[1] == 2) {
+            this.selected_dosefreq = { frequency: "Twice a Day" };
+          } else if (this.Medication1_info[1] == 3) {
+            this.selected_dosefreq = { frequency: "Three times a Day" };
           }
-        }
-      }
-      console.log(
-        "Loaded the dispense times for Medication1_info in the UI"
-      );
+
+          //Load the number of pills per dose
+          if (this.Medication1_info[2] == 1) {
+            this.selected_medperdose = { amount: "Single Pill" };
+          } else if (this.Medication1_info[2] == 2) {
+            this.selected_medperdose = { amount: "Two Pills" };
+          }
+
+          //Load the cabinet id
+          this.cabinetid = this.Medication1_info[3];
+
+          //Load the amount of pills left
+          this.pillsadded = this.Medication1_info[4];
+
+          //Load the text fields with the dispense times
+          med1freq = this.Medication1_info[1];
+          if (med1freq >= 1) {
+            //Load the first frequency entry
+            this.dispense1 = this.Medication1_info[5];
+            if (med1freq >= 2) {
+              //Load the second frequency entry
+              this.dispense2 = this.Medication1_info[6];
+              if (med1freq == 3) {
+                //Load the third frequency entry
+                this.dispense3 = this.Medication1_info[7];
+              }
+            }
+          }
+          console.log("Loaded all the data into the UI for medication: ", this.Medication1_info[0]);
     });
 
     } else if (this.selectedmedication.name == this.Medication2_info[0]) {
@@ -212,44 +197,45 @@ export class EditComponent implements OnInit {
             "Gathered all associated medication information, loading into the UI"
           );
 
-      //Load the UI with the data in the this.Medication1_info array
-      //Load frequency of dosage
-      if (this.Medication2_info[1] == 1) {
-        this.selected_dosefreq = { frequency: "Once a Day" };
-      } else if (this.Medication2_info[1] == 2) {
-        this.selected_dosefreq = { frequency: "Twice a Day" };
-      } else if (this.Medication2_info[1] == 3) {
-        this.selected_dosefreq = { frequency: "Three times a Day" };
-      }
-
-      //Load the number of pills per dose
-      if (this.Medication2_info[2] == 1) {
-        this.selected_medperdose = { amount: "Single Pill" };
-      } else if (this.Medication2_info[2] == 2) {
-        this.selected_medperdose = { amount: "Two Pills" };
-      }
-
-      //Load the cabinet id
-      this.cabinetid = this.Medication2_info[3]
-
-      //Load the amount of pills left
-      this.pillsadded = this.Medication2_info[4];
-
-      //Load the text fields with the dispense times
-      med2freq = this.Medication2_info[1];
-      if (med2freq >= 1) {
-        //Load the first frequency entry
-        this.dispense1 = this.Medication2_info[5];
-        if (med2freq >= 2) {
-          //Load the second frequency entry
-          this.dispense2 = this.Medication2_info[6];
-          if (med2freq == 3) {
-            //Load the third frequency entry
-            this.dispense3 = this.Medication2_info[7];
+          //Load the UI with the data in the this.Medication1_info array
+          //Load frequency of dosage
+          if (this.Medication2_info[1] == 1) {
+            this.selected_dosefreq = { frequency: "Once a Day" };
+          } else if (this.Medication2_info[1] == 2) {
+            this.selected_dosefreq = { frequency: "Twice a Day" };
+          } else if (this.Medication2_info[1] == 3) {
+            this.selected_dosefreq = { frequency: "Three times a Day" };
           }
-        }
-      }
-    });
+
+          //Load the number of pills per dose
+          if (this.Medication2_info[2] == 1) {
+            this.selected_medperdose = { amount: "Single Pill" };
+          } else if (this.Medication2_info[2] == 2) {
+            this.selected_medperdose = { amount: "Two Pills" };
+          }
+
+          //Load the cabinet id
+          this.cabinetid = this.Medication2_info[3];
+
+          //Load the amount of pills left
+          this.pillsadded = this.Medication2_info[4];
+
+          //Load the text fields with the dispense times
+          med2freq = this.Medication2_info[1];
+          if (med2freq >= 1) {
+            //Load the first frequency entry
+            this.dispense1 = this.Medication2_info[5];
+            if (med2freq >= 2) {
+              //Load the second frequency entry
+              this.dispense2 = this.Medication2_info[6];
+              if (med2freq == 3) {
+                //Load the third frequency entry
+                this.dispense3 = this.Medication2_info[7];
+              }
+            }
+          }
+          console.log("Loaded all the data into the UI for medication: ", this.Medication2_info[0]);
+        });
     } else if (this.selectedmedication.name == this.Medication3_info[0]) {
       //Load the UI with the data in the medication2 array (same approach as above)
       this.http
@@ -288,44 +274,45 @@ export class EditComponent implements OnInit {
             "Gathered all associated medication information, loading into the UI"
           );
 
-      //Load the UI with the data in the this.Medication1_info array
-      //Load frequency of dosage
-      if (this.Medication3_info[1] == 1) {
-        this.selected_dosefreq = { frequency: "Once a Day" };
-      } else if (this.Medication3_info[1] == 2) {
-        this.selected_dosefreq = { frequency: "Twice a Day" };
-      } else if (this.Medication3_info[1] == 3) {
-        this.selected_dosefreq = { frequency: "Three times a Day" };
-      }
-
-      //Load the number of pills per dose
-      if (this.Medication3_info[2] == 1) {
-        this.selected_medperdose = { amount: "Single Pill" };
-      } else if (this.Medication3_info[2] == 2) {
-        this.selected_medperdose = { amount: "Two Pills" };
-      }
-
-      //Load the cabinet id
-      this.cabinetid = this.Medication3_info[3]
-
-      //Load the amount of pills left
-      this.pillsadded = this.Medication3_info[4];
-
-      //Load the text fields with the dispense times
-      med3freq = this.Medication3_info[1];
-      if (med3freq >= 1) {
-        //Load the first frequency entry
-        this.dispense1 = this.Medication3_info[5];
-        if (med3freq >= 2) {
-          //Load the second frequency entry
-          this.dispense2 = this.Medication3_info[6];
-          if (med3freq == 3) {
-            //Load the third frequency entry
-            this.dispense3 = this.Medication3_info[7];
+          //Load the UI with the data in the this.Medication1_info array
+          //Load frequency of dosage
+          if (this.Medication3_info[1] == 1) {
+            this.selected_dosefreq = { frequency: "Once a Day" };
+          } else if (this.Medication3_info[1] == 2) {
+            this.selected_dosefreq = { frequency: "Twice a Day" };
+          } else if (this.Medication3_info[1] == 3) {
+            this.selected_dosefreq = { frequency: "Three times a Day" };
           }
-        }
-      }
-    });
+
+          //Load the number of pills per dose
+          if (this.Medication3_info[2] == 1) {
+            this.selected_medperdose = { amount: "Single Pill" };
+          } else if (this.Medication3_info[2] == 2) {
+            this.selected_medperdose = { amount: "Two Pills" };
+          }
+
+          //Load the cabinet id
+          this.cabinetid = this.Medication3_info[3];
+
+          //Load the amount of pills left
+          this.pillsadded = this.Medication3_info[4];
+
+          //Load the text fields with the dispense times
+          med3freq = this.Medication3_info[1];
+          if (med3freq >= 1) {
+            //Load the first frequency entry
+            this.dispense1 = this.Medication3_info[5];
+            if (med3freq >= 2) {
+              //Load the second frequency entry
+              this.dispense2 = this.Medication3_info[6];
+              if (med3freq == 3) {
+                //Load the third frequency entry
+                this.dispense3 = this.Medication3_info[7];
+              }
+            }
+          }
+          console.log("Loaded all the data into the UI for medication: ", this.Medication3_info[0]);
+        });
     }
   }
 
