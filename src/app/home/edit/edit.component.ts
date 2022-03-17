@@ -75,6 +75,33 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*this.http
+        .post("https://www.rxmind.tech/crud", {
+          type: "add",
+          payload: {
+            name: "Lisinopril",
+            timesDaily: 1,
+            dispenseTimes: ["8:00AM"],
+            pillsadded: 30,
+            pillsPerDose: 1,
+            cabinetNo: 2,
+          },
+        })
+        .subscribe((data) => {
+          console.log(data);
+        });*/
+
+      /*this.http
+      .post("https://www.rxmind.tech/crud", {
+        type: "delete",
+        payload: {
+          name: "acetaminphen",
+        },
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });*/
+
   }
 
   onSelect(medication: medication): void {
