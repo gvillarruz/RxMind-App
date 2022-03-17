@@ -31,6 +31,7 @@ export class OverviewComponent implements OnInit {
   Iscalendartimetakenvisible = false;
   calendarmedtaken: any;
   calendartimetaken: any;
+  mednotselected = false;
 
   constructor(private http: HttpClient, private homeService: HomeService) {}
 
@@ -92,6 +93,11 @@ export class OverviewComponent implements OnInit {
   }
 
   onSelectDate(calendarvalue: Date) {
+    if(this.selectedmedication == undefined || this.selectedmedication == null){
+      this.mednotselected = true;
+      return;
+    }
+    else{this.mednotselected = false;}
     //Make a post request with the date, first format the date
     let date_send = "date"
     let dd = String(calendarvalue.getDate()).padStart(2, "0");
