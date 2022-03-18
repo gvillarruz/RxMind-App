@@ -20,6 +20,7 @@
 </div>  
 
 <div class="calendar-info-div">
+    <label style="font-family:Arial, Helvetica, sans-serif; color:red; justify-content:center;" *ngIf="this.mednotselected">Please select a medication before a calendar date</label>  
     <label name="medtaken" *ngIf="Iscalendarmedtakenvisible">Medication Taken: {{calendarmedtaken}} | </label>
     <label name="timemedtaken" *ngIf="Iscalendartimetakenvisible">Time Medication Taken: {{calendartimetaken}}</label>
 </div>

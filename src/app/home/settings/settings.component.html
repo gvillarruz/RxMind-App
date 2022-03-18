@@ -12,7 +12,8 @@
                     {{option.name}}
                 </label>
             </div>
-        <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.notiferror">Please select a notification location</label>    
+        <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.notiferror">Please select a notification location</label>  
+        <label style="font-family:Arial, Helvetica, sans-serif; color:red" *ngIf="this.nomisseddosetimeselected">Missed Dose notifications have been enabled, please select a time for notifications</label>  
         </div>
         <div class="Emailtxt" style="padding:1%;">
             <label style="font-family: Arial, Helvetica, sans-serif; padding-right:1%;">Email:</label>
