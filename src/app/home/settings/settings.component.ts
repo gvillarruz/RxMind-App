@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   notifdevice!: string;
   SuccessVisible = false;
   notiferror = false;
-  fieldsnotfilled = false;
+  nomisseddosetimeselected = false;
 
   constructor(private http: HttpClient) {
     this.missed_dose_option = [{ name: "Enable" }, { name: "Disable" }];
@@ -147,13 +147,13 @@ export class SettingsComponent implements OnInit {
     //Gather all of the data placed in the view
     //Ensure the notification location error (no values selected) is disabled
     this.notiferror = false;
-    this.fieldsnotfilled = false;
+    this.nomisseddosetimeselected = false;
 
     //Missed Dose selection
     if (this.selectedmissed_dose_option == { name: "Enable" }) {
       Settings_info[0] = true;
       if (!Settings_info[1] || !Settings_info[2] || !Settings_info[3]) {
-        //If there are no notification locations selected
+        //If there are no notification locations selected, tell the user to select a notification location
         this.notiferror = true;
         return;
       }
@@ -180,7 +180,7 @@ export class SettingsComponent implements OnInit {
     //If missedDose is true, there should be a value defined for timeForNotif
     if(Settings_info[0] == true && (Settings_info[4] == undefined || Settings_info[4] == null)){
       //Show an error to the user 
-      this.fieldsnotfilled = true;
+      this.nomisseddosetimeselected = true;
       return;
     }
 
