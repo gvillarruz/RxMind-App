@@ -43,6 +43,9 @@ export class EditComponent implements OnInit {
   Medication2_info = [];
   Medication3_info = [];
   AddMedication = [];
+  SaveSuccess = false;
+  AddSuccess = false;
+  RemoveSuccess = false;
 
   constructor(private http: HttpClient, private homeService: HomeService) {
     this.dosefreq_list = [
@@ -79,12 +82,12 @@ export class EditComponent implements OnInit {
         .post("https://www.rxmind.tech/crud", {
           type: "add",
           payload: {
-            name: "Atorvastatin",
-            timesDaily: 2,
-            dispenseTimes: ["8:00AM", "6:00PM"],
-            pillsAdded: 60,
+            name: "Ibuprofen",
+            timesDaily: 1,
+            dispenseTimes: ["7:58PM"],
+            pillsAdded: 10,
             pillsPerDose: 1,
-            cabinetNo: 1,
+            cabinetNo: 3,
           },
         })
         .subscribe((data) => {
@@ -344,6 +347,9 @@ export class EditComponent implements OnInit {
   }
 
   saveMedication() {
+    this.SaveSuccess = false;
+    this.AddSuccess = false;
+    this.RemoveSuccess = false;
     //Check if there is an add or a save operation from the user
     if (this.addmedicine == null) {
       //Gather all of the UI data, and send it to the server
@@ -405,8 +411,29 @@ export class EditComponent implements OnInit {
         })
         .subscribe((data: any) => {
           console.log(data);
-          if (data == "201 Created" || data == "Success") {
-            //Look for an empty Medicationx_info array and save the this.AddMedication[] information into it
+          if(data == true){
+            //Show success message to the user
+            this.AddSuccess = true;
+            let i =0;
+            //Add the medication to an empty Medicationx_info array
+            if(this.Medication1_info[0] == null || this.Medication1_info[0] == undefined){
+              //Populate all AddMedication fields into the Medication1_info array
+              for(i=0; i< this.AddMedication.length; i++){
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
+            }
+            else if(this.Medication2_info[0] == null || this.Medication2_info[0] == undefined){
+              //Populate all AddMedication fields into the Medication1_info array
+              for(i=0; i< this.AddMedication.length; i++){
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
+            }
+            else if(this.Medication3_info[0] == null || this.Medication3_info[0] == undefined){
+              //Populate all AddMedication fields into the Medication1_info array
+              for(i=0; i< this.AddMedication.length; i++){
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
+            }
           }
         });
     } else if (this.addmedicine != null) {
@@ -465,8 +492,8 @@ export class EditComponent implements OnInit {
           })
           .subscribe((data: any) => {
             console.log(data);
-            if (data == "201 Created" || data == "Success") {
-              //Look for an empty Medicationx_info array and save the this.AddMedication[] information into it
+            if(data == true){
+              this.SaveSuccess = true;
             }
           });
       } else if (this.selectedmedication == this.Medication2_info[0]) {
@@ -522,8 +549,8 @@ export class EditComponent implements OnInit {
           })
           .subscribe((data: any) => {
             console.log(data);
-            if (data == "201 Created" || data == "Success") {
-              //Look for an empty Medicationx_info array and save the this.AddMedication[] information into it
+            if(data == true){
+              this.SaveSuccess = true;
             }
           });
       } else if (this.selectedmedication == this.Medication3_info[0]) {
@@ -578,9 +605,9 @@ export class EditComponent implements OnInit {
           })
           .subscribe((data: any) => {
             console.log(data);
-            //if (data == "201 Created" || data == "Success") {
-              //Look for an empty Medicationx_info array and save the this.AddMedication[] information into it
-           // }
+            if(data == true){
+              this.SaveSuccess = true;
+            }
           });
       }
     }
@@ -589,6 +616,8 @@ export class EditComponent implements OnInit {
   }
 
   removeMedication() {
+    this.SaveSuccess = false;
+    this.AddSuccess = false;
     //Send the name of the selected medication to delete
     //On the return on the delete call to the web-server, remove any local data
     this.http
@@ -600,6 +629,9 @@ export class EditComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log(data);
+        if(data == true){
+          this.RemoveSuccess = true;
+        }
         console.log("Deleted the medication {0}", this.selectedmedication);
 
         //Empty the associate medication array

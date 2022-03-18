@@ -54,6 +54,9 @@
 </div>
 
 <div class="btn-div">
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.SaveSuccess">Successful Save</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.AddSuccess">Successful Add</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.RemoveSuccess">Successful Remove</label>
 <button pButton pRipple type="button" label="Save" (click)="saveMedication()"></button>
 <button class="p-button-secondary" pButton pRipple type="button" label="Remove" (click)="removeMedication()"></button>
 </div>
