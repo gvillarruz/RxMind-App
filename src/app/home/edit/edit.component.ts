@@ -70,7 +70,7 @@ export class EditComponent implements OnInit {
           this.homeService.homeData.medications[1].name;
         if (nmeds == 3) {
           this.Medication3_info[0] =
-            this.homeService.homeData.medication[2].name;
+            this.homeService.homeData.medications[2].name;
         }
       }
     }

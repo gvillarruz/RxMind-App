@@ -38,13 +38,13 @@ export class OverviewComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.homeService.homeData = data;
+
         //Load the med arrays and the UI with the medication names
         //Gather the remaining pills from the data as well
 
         this.medication_list = data.medications.map((med: any) => {
           return { name: med.name };
         });
-
         let nmeds = data.medications.length;
         if (nmeds >= 1) {
           this.Medication1_info.push(data.medications[0].name);
@@ -55,7 +55,7 @@ export class OverviewComponent implements OnInit {
             //Gathering remaining pills info
             this.Medication2_info.push(data.medications[1].remainingPills);
             if (nmeds == 3) {
-              this.Medication3_info.push(data.medication[2].name);
+              this.Medication3_info.push(data.medications[2].name);
               //Gathering remaining pills info
               this.Medication3_info.push(data.medications[2].remainingPills);
             }
