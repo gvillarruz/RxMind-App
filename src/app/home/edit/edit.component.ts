@@ -46,6 +46,7 @@ export class EditComponent implements OnInit {
   SaveSuccess = false;
   AddSuccess = false;
   RemoveSuccess = false;
+  AddError = false;
 
   constructor(private http: HttpClient, private homeService: HomeService) {
     this.dosefreq_list = [
@@ -204,7 +205,7 @@ export class EditComponent implements OnInit {
         .subscribe((data: any) => {
           console.log(data);
           //Get the frequency of the dosage
-          let med2freq = data.medication[0].timesDaily;
+          let med2freq = data.timesDaily;
           this.Medication2_info[1] = data.timesDaily;
           //Get the amount of medication per dose
           this.Medication2_info[2] = data.pillsPerDose;
@@ -355,15 +356,11 @@ export class EditComponent implements OnInit {
     }
   }
 
-  saveMedication() {
-    this.SaveSuccess = false;
-    this.AddSuccess = false;
-    this.RemoveSuccess = false;
-    //Check if there is an add or a save operation from the user
-    if (this.addmedicine == null) {
+  addMedication(){
       //Gather all of the UI data, and send it to the server
+      this.AddError = false;
       //Get the medication name
-      this.AddMedication[0] = this.selectedmedication;
+      this.AddMedication[0] = this.addmedicine;
 
       //Get the frequency of dosage
       if (this.selected_dosefreq == { frequency: "Once a Day" }) {
@@ -401,8 +398,15 @@ export class EditComponent implements OnInit {
         this.AddMedication[7] = this.dispense3;
       }
 
-      //Send the new data to the server with the 'add' tag
-      this.http
+      if(this.Medication1_info[0] != null && this.Medication2_info[0] != null && this.Medication3_info[0] != null)
+      {
+        this.AddError = true;
+        return;
+      }
+
+        console.log("Adding a medication into the web-server");
+        //Send the new data to the server with the 'add' tag
+        this.http
         .post("https://www.rxmind.tech/crud", {
           type: "add",
           payload: {
@@ -420,7 +424,7 @@ export class EditComponent implements OnInit {
         })
         .subscribe((data: any) => {
           console.log(data);
-          if (data == true) {
+          if (data.ok == true) {
             //Show success message to the user
             this.AddSuccess = true;
             let i = 0;
@@ -452,12 +456,20 @@ export class EditComponent implements OnInit {
             }
           }
         });
-    } else if (this.addmedicine != null) {
-      //If this is a save request
-      //Figure out which medication is the one selected
-      if (this.selectedmedication == this.Medication1_info[0]) {
-        //Update the array with the new info
-        if (this.selected_dosefreq == { frequency: "Once a Day" }) {
+        console.log("End of the Add medication function");
+  }
+
+  saveMedication() {
+    this.SaveSuccess = false;
+    this.AddSuccess = false;
+    this.RemoveSuccess = false;  
+    this.AddError = false;     
+    //Figure out which medication is the one selected
+    //console.log("Medication1_info[0]" + this.Medication1_info[0]);
+    if (this.selectedmedication.name == this.Medication1_info[0]) {
+      console.log("Inside updating Medication1")
+      //Update the array with the new info
+      if (this.selected_dosefreq == { frequency: "Once a Day" }) {
           this.Medication1_info[1] = 1;
         }
         if (this.selected_dosefreq == { frequency: "Twice a Day" }) {
@@ -466,16 +478,18 @@ export class EditComponent implements OnInit {
         if (this.selected_dosefreq == { frequency: "Three times a Day" }) {
           this.Medication1_info[1] = 3;
         }
+        console.log("Taking in the dose frequency");
 
         if (this.selected_medperdose == { amount: "Single Pill" }) {
           this.Medication1_info[2] = 1;
         } else if (this.selected_medperdose == { amount: "Two Pills" }) {
           this.Medication1_info[2] = 2;
         }
-
+        console.log("Taking in the selected medication per dose");
         this.Medication1_info[3] = this.cabinetid;
 
         this.Medication1_info[4] = this.pillsadded;
+        console.log("Checking dispensing times");
 
         //Get dispensing times, based off the pill frequency
         if (this.Medication1_info[1] == 1) {
@@ -489,6 +503,7 @@ export class EditComponent implements OnInit {
           this.Medication1_info[7] = this.dispense3;
         }
 
+        console.log("Updating a medication in the web-server");
         //Send the updated object to the web server
         this.http
           .post("https://www.rxmind.tech/crud", {
@@ -512,7 +527,8 @@ export class EditComponent implements OnInit {
               this.SaveSuccess = true;
             }
           });
-      } else if (this.selectedmedication == this.Medication2_info[0]) {
+      } else if (this.selectedmedication.name == this.Medication2_info[0]) {
+        console.log("Inside update of Medication2")
         //Update the array with the new info
         if (this.selected_dosefreq == { frequency: "Once a Day" }) {
           this.Medication2_info[1] = 1;
@@ -546,6 +562,7 @@ export class EditComponent implements OnInit {
           this.Medication2_info[7] = this.dispense3;
         }
 
+        console.log("Updating a medication in the web-server");
         //Send the updated object to the web server
         this.http
           .post("https://www.rxmind.tech/crud", {
@@ -569,7 +586,8 @@ export class EditComponent implements OnInit {
               this.SaveSuccess = true;
             }
           });
-      } else if (this.selectedmedication == this.Medication3_info[0]) {
+      } else if (this.selectedmedication.name == this.Medication3_info[0]) {
+        console.log("Inside update of Medication3")
         if (this.selected_dosefreq == { frequency: "Once a Day" }) {
           this.Medication3_info[1] = 1;
         }
@@ -602,6 +620,7 @@ export class EditComponent implements OnInit {
           this.Medication3_info[7] = this.dispense3;
         }
 
+        console.log("Updating a medication in the web-server");
         //Send the updated object to the web server
         this.http
           .post("https://www.rxmind.tech/crud", {
@@ -627,9 +646,6 @@ export class EditComponent implements OnInit {
           });
       }
     }
-    //wait for a success response from the web server & display success to user
-    console.log("End of the saveMedication btn function");
-  }
 
   removeMedication() {
     this.SaveSuccess = false;
@@ -640,7 +656,7 @@ export class EditComponent implements OnInit {
       .post("https://www.rxmind.tech/crud", {
         type: "delete",
         payload: {
-          name: this.selectedmedication,
+          name: this.selectedmedication.name,
         },
       })
       .subscribe((data) => {
@@ -651,16 +667,16 @@ export class EditComponent implements OnInit {
         console.log("Deleted the medication {0}", this.selectedmedication);
 
         //Empty the associate medication array
-        if (this.selectedmedication == this.Medication1_info[0]) {
+        if (this.selectedmedication.name == this.Medication1_info[0]) {
           //Remove all elements of the array
           for (let i = 0; i < this.Medication1_info.length; i++) {
             this.Medication1_info[i] = null;
           }
-        } else if (this.selectedmedication == this.Medication2_info[0]) {
+        } else if (this.selectedmedication.name == this.Medication2_info[0]) {
           for (let i = 0; i < this.Medication2_info.length; i++) {
             this.Medication2_info[i] = null;
           }
-        } else if (this.selectedmedication == this.Medication3_info[0]) {
+        } else if (this.selectedmedication.name == this.Medication3_info[0]) {
           for (let i = 0; i < this.Medication3_info.length; i++) {
             this.Medication3_info[i] = null;
           }
