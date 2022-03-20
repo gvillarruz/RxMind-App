@@ -22,6 +22,9 @@ import { ImageModule } from "primeng/image";
 import { HttpClientModule } from "@angular/common/http";
 import {DropdownModule} from 'primeng/dropdown';
 import { OverviewComponent } from "./home/overview/overview.component";
+import {MultiSelectModule} from 'primeng/multiselect';
+import {CheckboxModule} from 'primeng/checkbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +50,10 @@ import { OverviewComponent } from "./home/overview/overview.component";
     MenubarModule,
     BrowserAnimationsModule,
     ImageModule,
+    DropdownModule,
     HttpClientModule,
-    DropdownModule
+    MultiSelectModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

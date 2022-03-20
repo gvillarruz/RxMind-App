@@ -11,6 +11,7 @@
             <span>{{medication.name}}</span>
             </li>
         </ul>
+        <input id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="New Medicine"/>
     </div>
 
     <div class="med-freq">
@@ -26,7 +27,7 @@
 
 <div class="time-list-and-cabinetid-div">
     <div class="dispense-time">
-        <label class="dropdown-label"><strong>Dispense Time(s) (eg. 10:30 AM):</strong></label>
+        <label class="dropdown-label"><strong>Dispense Time(s) (eg. 10:30AM):</strong></label>
         <br>
         <div class="dispense-time-input">
             <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
@@ -45,10 +46,20 @@
         <label class="dropdown-label"><strong>Cabinet ID (in Machine):</strong></label>
         <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
     </div>
+
+    <div class="pills-added" padding="1.2%">
+        <label class="dropdown-label"><strong>Number of Pills Added:</strong></label>
+        <input id="pills-added" type="text" pInputText [disabled]="false" [(ngModel)]="pillsadded"/>
+    </div>
 </div>
 
 <div class="btn-div">
-<button class="save-btn" pButton pRipple type="button" label="Save" (click)="saveMedication"></button>
-<button class="p-button-secondary" pButton pRipple type="button" label="Remove" (click)="removeMedication"></button>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.SaveSuccess">Successful Save</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.AddSuccess">Successful Add</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.RemoveSuccess">Successful Remove</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.AddError">Medication Limit of 3</label>
+<button pButton pRipple type="button" label="Save" (click)="saveMedication()"></button>
+<button pButton pRipple type="button" label="Add" (click)="addMedication()"></button>
+<button class="p-button-secondary" pButton pRipple type="button" label="Remove" (click)="removeMedication()"></button>
 </div>
 </body>

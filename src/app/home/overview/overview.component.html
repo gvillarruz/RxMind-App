@@ -15,13 +15,19 @@
         </ul>
     </div>
     <div class="med-calendar">
-        <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" ></p-calendar>
+        <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
     </div>
-</div>    
+</div>  
+
+<div class="calendar-info-div">
+    <label style="font-family:Arial, Helvetica, sans-serif; color:red; justify-content:center;" *ngIf="this.mednotselected">Please select a medication before a calendar date</label>  
+    <label name="medtaken" *ngIf="Iscalendarmedtakenvisible">Medication Taken: {{calendarmedtaken}} | </label>
+    <label name="timemedtaken" *ngIf="Iscalendartimetakenvisible">Time Medication Taken: {{calendartimetaken}}</label>
+</div>
 
 <!---Adding the slider element to show the amount of medication left when selected from the list -->
 <div class="refill-div">
-    <h3 class="med-left-lbl">Time Until Refill: {{medleft}}</h3>
+    <h3 class="med-left-lbl">Number of Pills Left: {{medleft}}</h3>
     <div class="med-left-bar">
         <p-progressBar  [value]="medprogressnum" [showValue]='false'></p-progressBar>
     </div>
@@ -29,13 +35,14 @@
 
 <div class="missed-notif-div">
     <h4>Missed Notifications:</h4>
-    <!--Could put in a list here with the missed medications-->
-    <!--The default of the list could be "All up to date!"-->
-    <div class="missed-notif">
-        <p>You missed this morning's dose of Altoprev</p>
-        <!--You missed this {{timeOfDay}} dose of {{medicationName}}-->
-    </div>
+    <ul style="list-style-type:none">
+        <li *ngFor="let any of warnings_list">
+            <div class="missed-notif">
+                <label name="warning-list" placeholder="All up to date" [(ngModel)]="warnings_list"></label>
+            </div>
+        </li>
+    </ul>
     <div class="dismiss-notif-btn-div">
-        <button pButton pRipple type="button" label="Dismiss" (click)="Dismiss_notif" class="p-button-secondary"></button>
-    </div>
+        <button pButton pRipple type="button" label="Dismiss" *ngIf="this.dismisswarningvisible" (click)="Dismiss_notif" class="p-button-secondary"></button>
+    </div> 
 </div>
