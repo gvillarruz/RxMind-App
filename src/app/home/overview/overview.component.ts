@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HomeService } from "../../home.service";
+import { Message } from "primeng/api";
+import { MessageService } from "primeng/api";
 
-interface medication{
+interface medication {
   name: String;
 }
 
@@ -10,6 +12,7 @@ interface medication{
   selector: "app-overview",
   templateUrl: "./overview.component.html",
   styleUrls: ["./overview.component.scss"],
+  providers: [MessageService],
 })
 export class OverviewComponent implements OnInit {
   calendarvalue!: Date;
@@ -33,7 +36,13 @@ export class OverviewComponent implements OnInit {
   calendartimetaken: any;
   mednotselected = false;
 
-  constructor(private http: HttpClient, private homeService: HomeService) {}
+  msgs1: Message[];
+
+  constructor(
+    private http: HttpClient,
+    private homeService: HomeService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.http
@@ -43,6 +52,17 @@ export class OverviewComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.homeService.homeData = data;
+        console.log(data);
+
+        data.warnings.forEach((warning: any) => {
+          console.log(warning);
+          this.messageService.add({
+            severity: "warn",
+            summary: "Warning",
+            detail: warning,
+            life: 60000,
+          });
+        });
 
         //Load the med arrays and the UI with the medication names
         //Gather the remaining pills from the data as well
@@ -75,31 +95,34 @@ export class OverviewComponent implements OnInit {
       });
   }
 
-  onSelect(medication: medication): void {
-    this.selectedmedication = medication;
-
+  onSelect(event): void {
+    this.selectedmedication = event.value;
     //Figure out which medicationx_info array the selected medication is from
     //Update the number of medications left and the progress bar in the UI
-    if (this.selectedmedication.name == this.Medication1_info[0]) {
+    if (event.value.name == this.Medication1_info[0]) {
       this.medleft = this.Medication1_info[1];
       this.medprogressnum = this.Medication1_info[1];
-    } else if (this.selectedmedication.name == this.Medication2_info[0]) {
+    } else if (event.value.name == this.Medication2_info[0]) {
       this.medleft = this.Medication2_info[1];
       this.medprogressnum = this.Medication2_info[1];
-    } else if (this.selectedmedication.name == this.Medication3_info[0]) {
+    } else if (event.value.name == this.Medication3_info[0]) {
       this.medleft = this.Medication3_info[1];
       this.medprogressnum = this.Medication3_info[1];
     }
   }
 
   onSelectDate(calendarvalue: Date) {
-    if(this.selectedmedication == undefined || this.selectedmedication == null){
+    if (
+      this.selectedmedication == undefined ||
+      this.selectedmedication == null
+    ) {
       this.mednotselected = true;
       return;
+    } else {
+      this.mednotselected = false;
     }
-    else{this.mednotselected = false;}
     //Make a post request with the date, first format the date
-    let date_send = "date"
+    let date_send = "date";
     let dd = String(calendarvalue.getDate()).padStart(2, "0");
     let mm = String(calendarvalue.getMonth() + 1).padStart(2, "0");
     let yyyy = calendarvalue.getFullYear();
@@ -113,71 +136,74 @@ export class OverviewComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data);
         //Capture the return
-        //Based on the number of medications that are returned, output the medication information for that day 
+        //Based on the number of medications that are returned, output the medication information for that day
         let timetaken = "";
         if (this.selectedmedication.name == this.Medication1_info[0]) {
-          if(data.medications[0].medicationFullyTaken == true){
+          if (data.medications[0].medicationFullyTaken == true) {
             this.calendarmedtaken = "Yes";
-            if(data.medications[0].timesTaken.length >= 1){
+            if (data.medications[0].timesTaken.length >= 1) {
               timetaken = data.medications[0].timesTaken[0];
-              if(data.medications[0].timesTaken.length >= 2){
-                timetaken = timetaken + ", " + data.medications[0].timesTaken[1];
-                if(data.medications[0].timesTaken.length == 3){
-                  timetaken = timetaken + ", " + data.medications[0].timesTaken[2];
+              if (data.medications[0].timesTaken.length >= 2) {
+                timetaken =
+                  timetaken + ", " + data.medications[0].timesTaken[1];
+                if (data.medications[0].timesTaken.length == 3) {
+                  timetaken =
+                    timetaken + ", " + data.medications[0].timesTaken[2];
                 }
-              }    
-            } 
-            this.calendartimetaken = timetaken; 
-          }
-          else if(data.medications[0].medicationFullyTaken == false){
+              }
+            }
+            this.calendartimetaken = timetaken;
+          } else if (data.medications[0].medicationFullyTaken == false) {
             this.calendarmedtaken = "No";
-            this.calendartimetaken = ""; 
+            this.calendartimetaken = "";
           }
           this.Iscalendarmedtakenvisible = true;
           this.Iscalendartimetakenvisible = true;
 
           if (this.selectedmedication.name == this.Medication2_info[0]) {
-            if(data.medications[1].medicationFullyTaken == true){
+            if (data.medications[1].medicationFullyTaken == true) {
               this.calendarmedtaken = "Yes";
-              if(data.medications[1].timesTaken.length >= 1){
+              if (data.medications[1].timesTaken.length >= 1) {
                 timetaken = data.medications[1].timesTaken[0];
-                if(data.medications[1].timesTaken.length >= 2){
-                  timetaken = timetaken + ", " + data.medications[1].timesTaken[1];
-                  if(data.medications[1].timesTaken.length == 3){
-                    timetaken = timetaken + ", " + data.medications[1].timesTaken[2];
+                if (data.medications[1].timesTaken.length >= 2) {
+                  timetaken =
+                    timetaken + ", " + data.medications[1].timesTaken[1];
+                  if (data.medications[1].timesTaken.length == 3) {
+                    timetaken =
+                      timetaken + ", " + data.medications[1].timesTaken[2];
                   }
-                }    
-              } 
-              this.calendartimetaken = timetaken; 
-            }
-            else if(data.medications[1].medicationFullyTaken == false){
+                }
+              }
+              this.calendartimetaken = timetaken;
+            } else if (data.medications[1].medicationFullyTaken == false) {
               this.calendarmedtaken = "No";
-              this.calendartimetaken = ""; 
+              this.calendartimetaken = "";
             }
             this.Iscalendarmedtakenvisible = true;
             this.Iscalendartimetakenvisible = true;
 
             if (this.selectedmedication.name == this.Medication3_info[0]) {
-              if(data.medications[2].medicationFullyTaken == true){
+              if (data.medications[2].medicationFullyTaken == true) {
                 this.calendarmedtaken = "Yes";
-                if(data.medications[2].timesTaken.length >= 1){
+                if (data.medications[2].timesTaken.length >= 1) {
                   timetaken = data.medications[2].timesTaken[0];
-                  if(data.medications[2].timesTaken.length >= 2){
-                    timetaken = timetaken + ", " + data.medications[2].timesTaken[1];
-                    if(data.medications[2].timesTaken.length == 3){
-                      timetaken = timetaken + ", " + data.medications[2].timesTaken[2];
+                  if (data.medications[2].timesTaken.length >= 2) {
+                    timetaken =
+                      timetaken + ", " + data.medications[2].timesTaken[1];
+                    if (data.medications[2].timesTaken.length == 3) {
+                      timetaken =
+                        timetaken + ", " + data.medications[2].timesTaken[2];
                     }
-                  }    
-                } 
-                this.calendartimetaken = timetaken; 
-              }
-              else if(data.medications[2].medicationFullyTaken == false){
+                  }
+                }
+                this.calendartimetaken = timetaken;
+              } else if (data.medications[2].medicationFullyTaken == false) {
                 this.calendarmedtaken = "No";
-                this.calendartimetaken = ""; 
+                this.calendartimetaken = "";
               }
               this.Iscalendarmedtakenvisible = true;
               this.Iscalendartimetakenvisible = true;
-            }    
+            }
           }
         }
       });

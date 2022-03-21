@@ -1,25 +1,26 @@
 <body>
 <h2 style="font-family:Arial, Helvetica, sans-serif">Settings</h2>
 <h4 style="font-family:Arial, Helvetica, sans-serif">Use the following selections to choose desired app and device preferences</h4>
-
+<p-toast position="top-right"></p-toast>
 <div class="notif-location-missed-notif-div">
     <div class="notif-location">
         <div class="checkbox-list">
             <label class="dropdown-label"><strong>Notification and Reminder Location:</strong></label>
-            <div *ngFor="let option of optionList">
-                <label  style="padding-top:1.5%; font-family: Arial, Helvetica, sans-serif">
-                    <input type="checkbox" [value]="option.id" (click)="onCheckboxClick($event)"/>
-                    {{option.name}}
-                </label>
-            </div>
-        <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.notiferror">Please select a notification location</label>  
+            <br/>
+            <p-checkbox [(ngModel)]="deviceNotif" [binary]="true"></p-checkbox> Dispensing Device
+            <br/>
+            <p-checkbox [(ngModel)]="emailNotif"[binary]="true" ></p-checkbox> Email
+            <br/>
+            <p-checkbox [(ngModel)]="textNotif" [binary]="true"></p-checkbox>Text Message
+            <br />
+        <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red;" *ngIf="this.notiferror">Please select a notification location</label>  
         <label style="font-family:Arial, Helvetica, sans-serif; color:red" *ngIf="this.nomisseddosetimeselected">Missed Dose notifications have been enabled, please select a time for notifications</label>  
         </div>
-        <div class="Emailtxt" style="padding:1%;">
+        <div class="Emailtxt" style="padding:1%; margin-top: 1em">
             <label style="font-family: Arial, Helvetica, sans-serif; padding-right:1%;">Email:</label>
             <input id="NotifEmail" type="text" pInputText [disabled]="false" [(ngModel)]="notifemail"/>
         </div>
-        <div class="Textmsgtxt" style="padding:1%;">
+        <div class="Textmsgtxt" style="padding:1%; margin-top: 1em">
             <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;">Text Number:</label>
             <input id="Notifphone" type="text" pInputText [disabled]="false" [(ngModel)]="notifphone"/>
         </div>

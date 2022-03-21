@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { MessageService } from "primeng/api";
 
 //To Enable/Disable missed dose notifications
 interface missed_dose_notif {
@@ -18,15 +19,9 @@ let Settings_info: any[];
   selector: "app-settings",
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"],
+  providers: [MessageService],
 })
 export class SettingsComponent implements OnInit {
-  //List that is used for checkboxes for device notification location
-  optionList: any = [
-    { id: 1, name: "Dispensing Device" },
-    { id: 2, name: "Email" },
-    { id: 3, name: "Text Message" },
-  ];
-
   missed_dose_option: missed_dose_notif[];
   selectedmissed_dose_option!: missed_dose_notif;
   selectedmissted_dose_option: string[] = [];
@@ -41,7 +36,14 @@ export class SettingsComponent implements OnInit {
   notiferror = false;
   nomisseddosetimeselected = false;
 
-  constructor(private http: HttpClient) {
+  deviceNotif: boolean;
+  emailNotif: boolean;
+  textNotif: boolean;
+
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {
     this.missed_dose_option = [{ name: "Enable" }, { name: "Disable" }];
 
     this.timefornotification = [
@@ -56,6 +58,10 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get("https://www.rxmind.tech/settings").subscribe((data: any) => {
       console.log(data);
+
+      this.deviceNotif = data.deviceNotif;
+      this.emailNotif = data.emailNotif;
+      this.textNotif = data.textNotif;
 
       //Check the missedDose selection - enable or disable
       //Update the UI value and save locally
@@ -88,17 +94,29 @@ export class SettingsComponent implements OnInit {
       }
 
       //Update the notification time dropdown and save the value
-      if (data.timeForNotif == "5min" || data.timeForNotif == "5 minutes" || data.timeForNotif == "5") {
+      if (
+        data.timeForNotif == "5min" ||
+        data.timeForNotif == "5 minutes" ||
+        data.timeForNotif == "5"
+      ) {
         this.selectedtimefornotification = { name: "5 minutes" };
         Settings_info[4] = data.timeForNotif;
       }
 
-      if (data.timeForNotif == "10min" || data.timeForNotif == "10 minutes" || data.timeForNotif =="10") {
+      if (
+        data.timeForNotif == "10min" ||
+        data.timeForNotif == "10 minutes" ||
+        data.timeForNotif == "10"
+      ) {
         this.selectedtimefornotification = { name: "10 minutes" };
         Settings_info[4] = data.timeForNotif;
       }
 
-      if (data.timefornotif == "15min" || data.timeForNotif == "15 minutes" || data.timeForNotif == "15") {
+      if (
+        data.timefornotif == "15min" ||
+        data.timeForNotif == "15 minutes" ||
+        data.timeForNotif == "15"
+      ) {
         this.selectedtimefornotification = { name: "15 minutes" };
         Settings_info[4] = data.timeForNotif;
       }
@@ -108,45 +126,45 @@ export class SettingsComponent implements OnInit {
   }
 
   onCheckboxClick(e: any) {
-    // console.log(e.target.checked);
-    // console.log(e.target.value);
-    if (e.target.checked) {
-      if (e.target.value == "1") {
-        //Save the fact that the dispensing device has been selected
-        Settings_info[1] = true;
-        console.log("Dispensing device selected");
-        this.SuccessVisible = false;
-      } else if (e.target.value == "2") {
-        //Email notification has been selected
-        Settings_info[2] = true;
-        this.SuccessVisible = false;
-        console.log("Email notification selected");
-      } else if (e.target.value == "3") {
-        //Text message notification has been selected
-        Settings_info[3] = true;
-        console.log("Text message notification selected");
-        this.SuccessVisible = false;
-      }
-    }
-    //If the checkbox is unchecked
-    else if (!e.target.checked) {
-      if (e.target.value == "1") {
-        //Dispensing device unselected
-        Settings_info[1] = false;
-        console.log("Dispensing device unselected");
-        this.SuccessVisible = false;
-      } else if (e.target.value == "2") {
-        //Email notifications unselected
-        Settings_info[2] = false;
-        console.log("Email notification unselected");
-        this.SuccessVisible = false;
-      } else if (e.target.value == "3") {
-        //Text message notifications unselected
-        Settings_info[3] = false;
-        console.log("Text notification unselected");
-        this.SuccessVisible = false;
-      }
-    }
+    // // console.log(e.target.checked);
+    // // console.log(e.target.value);
+    // if (e.target.checked) {
+    //   if (e.target.value == "1") {
+    //     //Save the fact that the dispensing device has been selected
+    //     Settings_info[1] = true;
+    //     console.log("Dispensing device selected");
+    //     this.SuccessVisible = false;
+    //   } else if (e.target.value == "2") {
+    //     //Email notification has been selected
+    //     Settings_info[2] = true;
+    //     this.SuccessVisible = false;
+    //     console.log("Email notification selected");
+    //   } else if (e.target.value == "3") {
+    //     //Text message notification has been selected
+    //     Settings_info[3] = true;
+    //     console.log("Text message notification selected");
+    //     this.SuccessVisible = false;
+    //   }
+    // }
+    // //If the checkbox is unchecked
+    // else if (!e.target.checked) {
+    //   if (e.target.value == "1") {
+    //     //Dispensing device unselected
+    //     Settings_info[1] = false;
+    //     console.log("Dispensing device unselected");
+    //     this.SuccessVisible = false;
+    //   } else if (e.target.value == "2") {
+    //     //Email notifications unselected
+    //     Settings_info[2] = false;
+    //     console.log("Email notification unselected");
+    //     this.SuccessVisible = false;
+    //   } else if (e.target.value == "3") {
+    //     //Text message notifications unselected
+    //     Settings_info[3] = false;
+    //     console.log("Text notification unselected");
+    //     this.SuccessVisible = false;
+    //   }
+    // }
   }
 
   onSave() {
@@ -186,8 +204,11 @@ export class SettingsComponent implements OnInit {
     }
 
     //If missedDose is true, there should be a value defined for timeForNotif
-    if(Settings_info[0] == true && (Settings_info[4] == undefined || Settings_info[4] == null)){
-      //Show an error to the user 
+    if (
+      Settings_info[0] == true &&
+      (Settings_info[4] == undefined || Settings_info[4] == null)
+    ) {
+      //Show an error to the user
       this.nomisseddosetimeselected = true;
       console.log("Showing the missed dose notification warning");
       return;
@@ -198,16 +219,22 @@ export class SettingsComponent implements OnInit {
     this.http
       .post("https://www.rxmind.tech/settings", {
         missedDose: Settings_info[0],
-        deviceNotif: Settings_info[1],
-        emailNotif: this.notifemail,
-        textNotif: this.notifphone,
+        deviceNotif: this.deviceNotif,
+        emailNotif: this.emailNotif,
+        textNotif: this.textNotif,
         timeForNotif: Settings_info[4],
       })
 
-      .subscribe((data) => {
+      .subscribe((data: any) => {
         console.log(data);
+        if (data != null) {
+          this.SuccessVisible = true;
+          this.messageService.add({
+            severity: "success",
+            summary: "Success",
+            detail: `Settings saved successfully at ${data.time}`,
+          });
+        }
       });
-    console.log("Posted data in the web server");
-    this.SuccessVisible = true;
   }
 }
