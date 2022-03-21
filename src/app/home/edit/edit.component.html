@@ -5,12 +5,9 @@
 <div class="med-list-and-freq-div">
     <div class="med-list">
         <label class="dropdown-label"><strong>Medication List:</strong></label>
-        <ul>
-            <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
-            [class.selected]="medication === selectedmedication">
-            <span>{{medication.name}}</span>
-            </li>
-        </ul>
+
+        <p-listbox [options]="this.medication_list" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem','margin-bottom':'2em'}" (onClick)="onSelect($event)"></p-listbox>
+
         <input id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="New Medicine"/>
     </div>
 
@@ -49,7 +46,7 @@
 
     <div class="pills-added" padding="1.2%">
         <label class="dropdown-label"><strong>Number of Pills Added:</strong></label>
-        <input id="pills-added" type="text" pInputText [disabled]="false" [(ngModel)]="pillsadded"/>
+        <input id="pills-added" type="text" pInputText [disabled]="false" [(ngModel)]="pillsAdded"/>
     </div>
 </div>
 

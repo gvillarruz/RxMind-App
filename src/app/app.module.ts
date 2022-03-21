@@ -20,10 +20,13 @@ import { ProgressBarModule } from "primeng/progressbar";
 import { MenubarModule } from "primeng/menubar";
 import { ImageModule } from "primeng/image";
 import { HttpClientModule } from "@angular/common/http";
-import {DropdownModule} from 'primeng/dropdown';
+import { DropdownModule } from "primeng/dropdown";
 import { OverviewComponent } from "./home/overview/overview.component";
-import {MultiSelectModule} from 'primeng/multiselect';
-import {CheckboxModule} from 'primeng/checkbox';
+import { MultiSelectModule } from "primeng/multiselect";
+import { CheckboxModule } from "primeng/checkbox";
+import { MessagesModule } from "primeng/messages";
+import { MessageModule } from "primeng/message";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import {CheckboxModule} from 'primeng/checkbox';
     DropdownModule,
     HttpClientModule,
     MultiSelectModule,
-    CheckboxModule
+    CheckboxModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

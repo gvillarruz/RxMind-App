@@ -2,17 +2,13 @@
     <h2>Welcome to RxMind!</h2>
     <p>To begin, select a medication from the list</p>
 </div>
+<p-toast position="top-right"></p-toast>
 
 <!---Add the same list that is implemented in the Edit page for medications-->
 <div class="meds-list-calendar">
     <div class="med-list">
         <label><strong>Medication List:</strong></label>
-        <ul>
-            <li *ngFor="let medication of medication_list" (click)="onSelect(medication)" 
-            [class.selected]="medication === selectedmedication">
-            <span>{{medication.name}}</span>
-            </li>
-        </ul>
+        <p-listbox [options]="this.medication_list"  optionLabel="name"  [style]="{'width':'15rem'}" (onClick)="onSelect($event)"></p-listbox>
     </div>
     <div class="med-calendar">
         <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
@@ -33,16 +29,4 @@
     </div>
 </div>
 
-<div class="missed-notif-div">
-    <h4>Missed Notifications:</h4>
-    <ul style="list-style-type:none">
-        <li *ngFor="let any of warnings_list">
-            <div class="missed-notif">
-                <label name="warning-list" placeholder="All up to date" [(ngModel)]="warnings_list"></label>
-            </div>
-        </li>
-    </ul>
-    <div class="dismiss-notif-btn-div">
-        <button pButton pRipple type="button" label="Dismiss" *ngIf="this.dismisswarningvisible" (click)="Dismiss_notif" class="p-button-secondary"></button>
-    </div> 
-</div>
+<p-messages [(value)]="msgs1" [enableService]="false" [style]="{'width':'30em'}" ></p-messages>
