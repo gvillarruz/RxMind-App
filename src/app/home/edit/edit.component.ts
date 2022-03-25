@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HomeService } from "../../home.service";
+import { MessageService } from "primeng/api";
 
 //Frequency of Dosage
 interface dose_frequency {
@@ -20,6 +21,7 @@ interface medication {
   selector: "app-edit",
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.scss"],
+  providers: [MessageService],
 })
 export class EditComponent {
   cabinetid: any;
@@ -51,15 +53,22 @@ export class EditComponent {
   cities: any[];
   selectedCity: any;
 
-  constructor(private http: HttpClient, private homeService: HomeService) {
-    let serverData;
+  serverData;
+
+  constructor(
+    private http: HttpClient,
+    private homeService: HomeService,
+    private messageService: MessageService
+  ) {
     this.http
       .post("https://www.rxmind.tech/login", {
         username: "admin",
         password: "admin",
       })
       .subscribe((data: any) => {
-        serverData = data;
+        console.log("SERVER DATA");
+        console.log(data);
+        this.serverData = data;
 
         this.dosefreq_list = [
           { frequency: "Once a Day" },
@@ -74,17 +83,17 @@ export class EditComponent {
 
         this.medication_list = [];
 
-        this.medication_list = serverData.medications.map((med) => {
+        this.medication_list = this.serverData.medications.map((med) => {
           return { name: med.name };
         });
 
-        let nmeds = serverData.medications.length;
+        let nmeds = this.serverData.medications.length;
         if (nmeds >= 1) {
-          this.Medication1_info[0] = serverData.medications[0].name;
+          this.Medication1_info[0] = this.serverData.medications[0].name;
           if (nmeds >= 2) {
-            this.Medication2_info[0] = serverData.medications[1].name;
+            this.Medication2_info[0] = this.serverData.medications[1].name;
             if (nmeds == 3) {
-              this.Medication3_info[0] = serverData.medications[2].name;
+              this.Medication3_info[0] = this.serverData.medications[2].name;
             }
           }
         }
@@ -411,7 +420,15 @@ export class EditComponent {
       })
       .subscribe((data: any) => {
         console.log(data);
-        if (data.ok == true) {
+        if (data) {
+          this.medication_list.push({ name: this.AddMedication[0] });
+          this.messageService.add({
+            severity: "success",
+            summary: "Success",
+            detail: `${this.AddMedication[0]} Successfully Added`,
+            life: 60000,
+          });
+
           //Show success message to the user
           this.AddSuccess = true;
           let i = 0;
@@ -510,8 +527,14 @@ export class EditComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          if (data == true) {
+          if (data) {
             this.SaveSuccess = true;
+            this.messageService.add({
+              severity: "success",
+              summary: "Success",
+              detail: `${this.Medication1_info[0]} Successfully Update`,
+              life: 60000,
+            });
           }
         });
     } else if (this.selectedmedication.name == this.Medication2_info[0]) {
@@ -648,8 +671,19 @@ export class EditComponent {
       })
       .subscribe((data) => {
         console.log(data);
-        if (data == true) {
+        if (data) {
           this.RemoveSuccess = true;
+
+          this.medication_list = this.medication_list.filter(
+            (med) => med.name != this.selectedmedication.name
+          );
+          console.log("HERE");
+          this.messageService.add({
+            severity: "success",
+            summary: "Success",
+            detail: `${this.selectedmedication.name} Successfully Removed`,
+            life: 60000,
+          });
         }
         console.log("Deleted the medication {0}", this.selectedmedication);
 

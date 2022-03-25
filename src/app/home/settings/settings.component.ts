@@ -227,7 +227,13 @@ export class SettingsComponent implements OnInit {
 
       .subscribe((data: any) => {
         console.log(data);
-        if (data != null) {
+        if (!data) {
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: `Could not save settings to device`,
+          });
+        } else {
           this.SuccessVisible = true;
           this.messageService.add({
             severity: "success",
