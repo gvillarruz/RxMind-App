@@ -3,6 +3,8 @@ Find the app on https://rxmind.live
 
 Express.js Server https://github.com/gvillarruz/RxMind-Server
 
+The objective is to create a low cost internet-connected prescription dispenser that automatically dispenses the required dosage of pills at a specified time so that patients do not have to worry about maintaining their own medication schedule.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
 ## Development server
