@@ -8,16 +8,22 @@
 
         <p-listbox [options]="this.medication_list" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem','margin-bottom':'2em'}" (onClick)="onSelect($event)"></p-listbox>
 
-        <input id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="New Medicine"/>
+        <input id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
     </div>
+
+    <div></div>
 
     <div class="med-freq">
         <label class="dropdown-label"><strong>Frequency of Dosage:</strong></label>
+        <br>
         <p-dropdown [options]= "dosefreq_list" [(ngModel)]= "selected_dosefreq" optionLabel="frequency"></p-dropdown>
     </div>
 
+    <div></div>
+
     <div class="med-per-dose">
         <label class="dropdown-label"><strong>Amount of Medication Per Dose:</strong></label>
+        <br>
         <p-dropdown [options]= "med_per_dose_list" [(ngModel)]= "selected_medperdose" optionLabel="amount"></p-dropdown>
     </div>
 </div>
@@ -27,26 +33,40 @@
         <label class="dropdown-label"><strong>Dispense Time(s) (eg. 10:30AM):</strong></label>
         <br>
         <div class="dispense-time-input">
-            <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/>
+            <div class="field col-12 md:col-4">
+                <p-calendar [(ngModel)]="date1" [timeOnly]="true" hourFormat="12" inputId="timeonly"></p-calendar>
+            </div>
+            <!-- <input id="dispense1" type = "text" pInputText [disabled]="false" [(ngModel)]="dispense1"/> -->
         </div>
         <br>
-        <div class="dispense-time-input">
-            <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/>
+        <div class="dispense-time-input" *ngIf="this.selected_dosefreq?.value === 2 || this.selected_dosefreq?.value === 3">
+            <p-calendar [(ngModel)]="date2" [timeOnly]="true" hourFormat="12" inputId="timeonly"></p-calendar>
+            <!-- <input id="dispense2" type="text" pInputText [disabled]="false" [(ngModel)]="dispense2"/> -->
         </div>
-        <br>
-        <div class="dispense-time-input">
-            <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/>
+        
+        <div class="dispense-time-input" *ngIf="this.selected_dosefreq?.value === 3">
+            <p-calendar [(ngModel)]="date3" [timeOnly]="true" hourFormat="12" inputId="timeonly"></p-calendar>
+            <!-- <input id="dispense3" type="text" pInputText [disabled]="false" [(ngModel)]="dispense3"/> -->
         </div>
     </div>
+
+    <div></div>
 
     <div class="cabinet-id">
         <label class="dropdown-label"><strong>Cabinet ID (in Machine):</strong></label>
-        <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/>
+        <div></div>
+        <p-dropdown [options]= "cabinetOptions" [(ngModel)]="chosenCabinet" optionLabel="label"></p-dropdown>
+        <!-- <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/> -->
     </div>
+
+    <div></div>
 
     <div class="pills-added" padding="1.2%">
         <label class="dropdown-label"><strong>Number of Pills Added:</strong></label>
-        <input id="pills-added" type="text" pInputText [disabled]="false" [(ngModel)]="pillsAdded"/>
+        <div></div>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="pillsAdded">
+        </p-inputNumber>
+        <!-- <input id="pills-added" type="text" pInputText [disabled]="false" [(ngModel)]="pillsAdded"/> -->
     </div>
 </div>
 

@@ -6,11 +6,13 @@ import { MessageService } from "primeng/api";
 //Frequency of Dosage
 interface dose_frequency {
   frequency: string;
+  value: number;
 }
 
 //Amount of Medication Per Dose
 interface med_per_dose {
   amount: string;
+  value: number;
 }
 
 interface medication {
@@ -28,7 +30,8 @@ export class EditComponent {
   dispense1: any;
   dispense2: any;
   dispense3: any;
-  pillsAdded: any;
+  pillsAdded: any = null;
+  pillsPerDose: any = null;
 
   dosefreq_list: dose_frequency[];
   selected_dosefreq!: dose_frequency;
@@ -55,10 +58,22 @@ export class EditComponent {
 
   serverData;
 
+  date1: Date;
+  date2: Date;
+  date3: Date;
+
+  cabinetOptions = [
+    { label: "Cabinet 1", value: 1 },
+    { label: "Cabinet 2", value: 2 },
+    { label: "Cabinet 3", value: 3 },
+  ];
+
+  chosenCabinet: any;
+
   constructor(
     private http: HttpClient,
-    private homeService: HomeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private homeService: HomeService
   ) {
     this.http
       .post("https://www.rxmind.tech/login", {
@@ -71,14 +86,14 @@ export class EditComponent {
         this.serverData = data;
 
         this.dosefreq_list = [
-          { frequency: "Once a Day" },
-          { frequency: "Twice a Day" },
-          { frequency: "Three times a Day" },
+          { frequency: "Once a Day", value: 1 },
+          { frequency: "Twice a Day", value: 2 },
+          { frequency: "Three times a Day", value: 3 },
         ];
 
         this.med_per_dose_list = [
-          { amount: "Single Pill" },
-          { amount: "Two Pills" },
+          { amount: "Single Pill", value: 1 },
+          { amount: "Two Pills", value: 2 },
         ];
 
         this.medication_list = [];
@@ -98,6 +113,28 @@ export class EditComponent {
           }
         }
       });
+  }
+
+  setHours(data) {
+    let count = 1;
+    data.dispenseTimes.forEach((time) => {
+      const fullTime = this.homeService.convertTime12to24(time);
+      if (count == 1) {
+        this.date1 = new Date();
+        this.date1.setHours(fullTime.hours);
+        this.date1.setMinutes(fullTime.minutes);
+        console.log(this.date1);
+      } else if (count == 2) {
+        this.date2 = new Date();
+        this.date2.setHours(fullTime.hours);
+        this.date2.setMinutes(fullTime.minutes);
+      } else if (count == 3) {
+        this.date3 = new Date();
+        this.date3.setHours(fullTime.hours);
+        this.date3.setMinutes(fullTime.minutes);
+      }
+      count++;
+    });
   }
 
   onSelect(event): void {
@@ -145,18 +182,25 @@ export class EditComponent {
           //Load the UI with the data in the this.Medication1_info array
           //Load frequency of dosage
           if (this.Medication1_info[1] == 1) {
-            this.selected_dosefreq = { frequency: "Once a Day" };
+            this.selected_dosefreq = { frequency: "Once a Day", value: 1 };
           } else if (this.Medication1_info[1] == 2) {
-            this.selected_dosefreq = { frequency: "Twice a Day" };
+            this.selected_dosefreq = { frequency: "Twice a Day", value: 2 };
           } else if (this.Medication1_info[1] == 3) {
-            this.selected_dosefreq = { frequency: "Three times a Day" };
+            this.selected_dosefreq = {
+              frequency: "Three times a Day",
+              value: 3,
+            };
           }
+
+          console.log(data);
+
+          this.setHours(data);
 
           //Load the number of pills per dose
           if (this.Medication1_info[2] == 1) {
-            this.selected_medperdose = { amount: "Single Pill" };
+            this.selected_medperdose = { amount: "Single Pill", value: 1 };
           } else if (this.Medication1_info[2] == 2) {
-            this.selected_medperdose = { amount: "Two Pills" };
+            this.selected_medperdose = { amount: "Two Pills", value: 2 };
           }
 
           //Load the cabinet id
@@ -225,18 +269,23 @@ export class EditComponent {
           //Load the UI with the data in the this.Medication1_info array
           //Load frequency of dosage
           if (this.Medication2_info[1] == 1) {
-            this.selected_dosefreq = { frequency: "Once a Day" };
+            this.selected_dosefreq = { frequency: "Once a Day", value: 1 };
           } else if (this.Medication2_info[1] == 2) {
-            this.selected_dosefreq = { frequency: "Twice a Day" };
+            this.selected_dosefreq = { frequency: "Twice a Day", value: 2 };
           } else if (this.Medication2_info[1] == 3) {
-            this.selected_dosefreq = { frequency: "Three times a Day" };
+            this.selected_dosefreq = {
+              frequency: "Three times a Day",
+              value: 3,
+            };
           }
+
+          this.setHours(data);
 
           //Load the number of pills per dose
           if (this.Medication2_info[2] == 1) {
-            this.selected_medperdose = { amount: "Single Pill" };
+            this.selected_medperdose = { amount: "Single Pill", value: 1 };
           } else if (this.Medication2_info[2] == 2) {
-            this.selected_medperdose = { amount: "Two Pills" };
+            this.selected_medperdose = { amount: "Two Pills", value: 2 };
           }
 
           //Load the cabinet id
@@ -302,21 +351,26 @@ export class EditComponent {
             "Gathered all associated medication information, loading into the UI"
           );
 
+          this.setHours(data);
+
           //Load the UI with the data in the this.Medication1_info array
           //Load frequency of dosage
           if (this.Medication3_info[1] == 1) {
-            this.selected_dosefreq = { frequency: "Once a Day" };
+            this.selected_dosefreq = { frequency: "Once a Day", value: 1 };
           } else if (this.Medication3_info[1] == 2) {
-            this.selected_dosefreq = { frequency: "Twice a Day" };
+            this.selected_dosefreq = { frequency: "Twice a Day", value: 2 };
           } else if (this.Medication3_info[1] == 3) {
-            this.selected_dosefreq = { frequency: "Three times a Day" };
+            this.selected_dosefreq = {
+              frequency: "Three times a Day",
+              value: 3,
+            };
           }
 
           //Load the number of pills per dose
           if (this.Medication3_info[2] == 1) {
-            this.selected_medperdose = { amount: "Single Pill" };
+            this.selected_medperdose = { amount: "Single Pill", value: 1 };
           } else if (this.Medication3_info[2] == 2) {
-            this.selected_medperdose = { amount: "Two Pills" };
+            this.selected_medperdose = { amount: "Two Pills", value: 2 };
           }
 
           //Load the cabinet id
@@ -354,21 +408,26 @@ export class EditComponent {
     this.AddMedication[0] = this.addmedicine;
 
     //Get the frequency of dosage
-    if (this.selected_dosefreq == { frequency: "Once a Day" }) {
+    if (this.selected_dosefreq.frequency == "Once a Day") {
       this.AddMedication[1] = 1;
     }
-    if (this.selected_dosefreq == { frequency: "Twice a Day" }) {
+    if (this.selected_dosefreq.frequency == "Twice a Day") {
       this.AddMedication[1] = 2;
     }
-    if (this.selected_dosefreq == { frequency: "Three times a Day" }) {
+    if (this.selected_dosefreq.frequency == "Three times a Day") {
       this.AddMedication[1] = 3;
     }
 
+    console.log(this.selected_medperdose);
+
     //Get the selected amount of medication per dose
-    if (this.selected_medperdose == { amount: "Single Pill" }) {
+    if (this.selected_medperdose.amount == "Single Pill") {
       this.AddMedication[2] = 1;
-    } else if (this.selected_medperdose == { amount: "Two Pills" }) {
+      this.pillsPerDose = 1;
+      console.log("Single Pill");
+    } else if (this.selected_medperdose.amount == "Two Pills") {
       this.AddMedication[2] = 2;
+      this.pillsPerDose = 2;
     }
 
     //Get the cabinet id
@@ -399,68 +458,108 @@ export class EditComponent {
     }
 
     console.log("Adding a medication into the web-server");
-
     let timeList = [
-      this.AddMedication[5],
-      this.AddMedication[6],
-      this.AddMedication[7],
+      this.date1?.toLocaleTimeString("default", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      this.date2?.toLocaleTimeString("default", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      this.date3?.toLocaleTimeString("default", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     ];
-    //Send the new data to the server with the 'add' tag
-    this.http
-      .post("https://www.rxmind.tech/crud", {
-        type: "add",
-        payload: {
-          name: this.AddMedication[0],
-          timesDaily: this.AddMedication[1],
-          dispenseTimes: timeList.filter((x) => x != null),
-          pillsAdded: this.AddMedication[4],
-          pillsPerDose: this.AddMedication[2],
-          cabinetNo: this.AddMedication[3],
-        },
-      })
-      .subscribe((data: any) => {
-        console.log(data);
-        if (data) {
-          this.medication_list.push({ name: this.AddMedication[0] });
-          this.messageService.add({
-            severity: "success",
-            summary: "Success",
-            detail: `${this.AddMedication[0]} Successfully Added`,
-            life: 60000,
-          });
 
-          //Show success message to the user
-          this.AddSuccess = true;
-          let i = 0;
-          //Add the medication to an empty Medicationx_info array
-          if (
-            this.Medication1_info[0] == null ||
-            this.Medication1_info[0] == undefined
-          ) {
-            //Populate all AddMedication fields into the Medication1_info array
-            for (i = 0; i < this.AddMedication.length; i++) {
-              this.Medication1_info[i] = this.AddMedication[i];
-            }
-          } else if (
-            this.Medication2_info[0] == null ||
-            this.Medication2_info[0] == undefined
-          ) {
-            //Populate all AddMedication fields into the Medication1_info array
-            for (i = 0; i < this.AddMedication.length; i++) {
-              this.Medication1_info[i] = this.AddMedication[i];
-            }
-          } else if (
-            this.Medication3_info[0] == null ||
-            this.Medication3_info[0] == undefined
-          ) {
-            //Populate all AddMedication fields into the Medication1_info array
-            for (i = 0; i < this.AddMedication.length; i++) {
-              this.Medication1_info[i] = this.AddMedication[i];
+    console.log(timeList);
+
+    console.log(this.pillsPerDose);
+
+    // TO DO: Make sure that these values are filled, block submission otherwise
+    console.log({
+      type: "add",
+      payload: {
+        name: this.AddMedication[0],
+        timesDaily: timeList.filter((x) => x != null).length,
+        dispenseTimes: timeList.filter((x) => x != null),
+        pillsAdded: this.pillsAdded,
+        pillsPerDose: this.pillsPerDose,
+        cabinetNo: this.chosenCabinet.value,
+      },
+    });
+
+    if (
+      this.AddMedication[0] == null ||
+      timeList.filter((x) => x != null).length == 0 ||
+      this.pillsAdded == null ||
+      this.chosenCabinet == null ||
+      this.pillsPerDose == null
+    ) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Please fill out all fields",
+      });
+    } else {
+      //Send the new data to the server with the 'add' tag
+      this.http
+        .post("https://www.rxmind.tech/crud", {
+          type: "add",
+          payload: {
+            name: this.AddMedication[0],
+            timesDaily: timeList.filter((x) => x != null).length,
+            dispenseTimes: timeList.filter((x) => x != null),
+            pillsAdded: this.pillsAdded,
+            pillsPerDose: this.pillsPerDose,
+            cabinetNo: this.chosenCabinet.value,
+          },
+        })
+        .subscribe((data: any) => {
+          console.log(data);
+          if (data) {
+            this.medication_list.push({ name: this.AddMedication[0] });
+            this.messageService.add({
+              severity: "success",
+              summary: "Success",
+              detail: `${this.AddMedication[0]} Successfully Added`,
+              life: 60000,
+            });
+
+            //Show success message to the user
+            this.AddSuccess = true;
+            let i = 0;
+            //Add the medication to an empty Medicationx_info array
+            if (
+              this.Medication1_info[0] == null ||
+              this.Medication1_info[0] == undefined
+            ) {
+              //Populate all AddMedication fields into the Medication1_info array
+              for (i = 0; i < this.AddMedication.length; i++) {
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
+            } else if (
+              this.Medication2_info[0] == null ||
+              this.Medication2_info[0] == undefined
+            ) {
+              //Populate all AddMedication fields into the Medication1_info array
+              for (i = 0; i < this.AddMedication.length; i++) {
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
+            } else if (
+              this.Medication3_info[0] == null ||
+              this.Medication3_info[0] == undefined
+            ) {
+              //Populate all AddMedication fields into the Medication1_info array
+              for (i = 0; i < this.AddMedication.length; i++) {
+                this.Medication1_info[i] = this.AddMedication[i];
+              }
             }
           }
-        }
-      });
-    console.log("End of the Add medication function");
+        });
+      console.log("End of the Add medication function");
+    }
   }
 
   saveMedication() {
@@ -473,20 +572,24 @@ export class EditComponent {
     if (this.selectedmedication.name == this.Medication1_info[0]) {
       console.log("Inside updating Medication1");
       //Update the array with the new info
-      if (this.selected_dosefreq == { frequency: "Once a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Once a Day", value: 1 }) {
         this.Medication1_info[1] = 1;
       }
-      if (this.selected_dosefreq == { frequency: "Twice a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Twice a Day", value: 2 }) {
         this.Medication1_info[1] = 2;
       }
-      if (this.selected_dosefreq == { frequency: "Three times a Day" }) {
+      if (
+        this.selected_dosefreq == { frequency: "Three times a Day", value: 3 }
+      ) {
         this.Medication1_info[1] = 3;
       }
       console.log("Taking in the dose frequency");
 
-      if (this.selected_medperdose == { amount: "Single Pill" }) {
+      if (this.selected_medperdose == { amount: "Single Pill", value: 1 }) {
         this.Medication1_info[2] = 1;
-      } else if (this.selected_medperdose == { amount: "Two Pills" }) {
+      } else if (
+        this.selected_medperdose == { amount: "Two Pills", value: 2 }
+      ) {
         this.Medication1_info[2] = 2;
       }
       console.log("Taking in the selected medication per dose");
@@ -540,19 +643,23 @@ export class EditComponent {
     } else if (this.selectedmedication.name == this.Medication2_info[0]) {
       console.log("Inside update of Medication2");
       //Update the array with the new info
-      if (this.selected_dosefreq == { frequency: "Once a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Once a Day", value: 1 }) {
         this.Medication2_info[1] = 1;
       }
-      if (this.selected_dosefreq == { frequency: "Twice a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Twice a Day", value: 2 }) {
         this.Medication2_info[1] = 2;
       }
-      if (this.selected_dosefreq == { frequency: "Three times a Day" }) {
+      if (
+        this.selected_dosefreq == { frequency: "Three times a Day", value: 3 }
+      ) {
         this.Medication2_info[1] = 3;
       }
 
-      if (this.selected_medperdose == { amount: "Single Pill" }) {
+      if (this.selected_medperdose == { amount: "Single Pill", value: 1 }) {
         this.Medication2_info[2] = 1;
-      } else if (this.selected_medperdose == { amount: "Two Pills" }) {
+      } else if (
+        this.selected_medperdose == { amount: "Two Pills", value: 2 }
+      ) {
         this.Medication2_info[2] = 2;
       }
 
@@ -598,19 +705,23 @@ export class EditComponent {
         });
     } else if (this.selectedmedication.name == this.Medication3_info[0]) {
       console.log("Inside update of Medication3");
-      if (this.selected_dosefreq == { frequency: "Once a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Once a Day", value: 1 }) {
         this.Medication3_info[1] = 1;
       }
-      if (this.selected_dosefreq == { frequency: "Twice a Day" }) {
+      if (this.selected_dosefreq == { frequency: "Twice a Day", value: 2 }) {
         this.Medication3_info[1] = 2;
       }
-      if (this.selected_dosefreq == { frequency: "Three times a Day" }) {
+      if (
+        this.selected_dosefreq == { frequency: "Three times a Day", value: 3 }
+      ) {
         this.Medication3_info[1] = 3;
       }
 
-      if (this.selected_medperdose == { amount: "Single Pill" }) {
+      if (this.selected_medperdose == { amount: "Single Pill", value: 1 }) {
         this.Medication3_info[2] = 1;
-      } else if (this.selected_medperdose == { amount: "Two Pills" }) {
+      } else if (
+        this.selected_medperdose == { amount: "Two Pills", value: 2 }
+      ) {
         this.Medication3_info[2] = 2;
       }
 

@@ -2,13 +2,15 @@
     <h2>Welcome to RxMind!</h2>
     <p>To begin, select a medication from the list</p>
 </div>
-<p-toast position="top-right"></p-toast>
+
 
 <!---Add the same list that is implemented in the Edit page for medications-->
 <div class="meds-list-calendar">
     <div class="med-list">
+        
         <label><strong>Medication List:</strong></label>
         <p-listbox [options]="this.medication_list"  optionLabel="name"  [style]="{'width':'15rem'}" (onClick)="onSelect($event)"></p-listbox>
+        <button type="button" pButton pRipple (click)="clear()" icon="pi pi-times" label="Clear Notifications" [style]="{'margin-top':'2em'}"></button>
     </div>
     <div class="med-calendar">
         <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
@@ -29,4 +31,4 @@
     </div>
 </div>
 
-<p-messages [(value)]="msgs1" [enableService]="false" [style]="{'width':'30em'}" ></p-messages>
+<p-toast position="top-right" [autoZIndex]=false ></p-toast>

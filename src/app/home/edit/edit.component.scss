@@ -2,54 +2,55 @@
     background-color:#F5F5F5
 }*/
 
-.med-list-and-freq-div{
-    width:70%;
-    margin-bottom:2%;
+.med-list-and-freq-div {
+  width: 70%;
+  margin-bottom: 2%;
 }
 
-.med-list{
-    display:inline-block;
-    margin-right:10%;
+.med-list {
+  display: inline-block;
+  margin-right: 10%;
 }
 
-.med-freq{
-    display:inline-block;
+.med-freq {
+  display: inline-block;
+  margin-top: 1em;
 }
 
-.med-per-dose{
-    display:inline-block;
+.med-per-dose {
+  display: inline-block;
+  margin-top: 1em;
 }
 
-.dropdown-label{
-    font-family:Arial, Helvetica, sans-serif;
-    margin-right:1%;
+.dropdown-label {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 1%;
 }
 
-.time-list-and-cabinetid-div{
-    width:70%;
-    //text-align:center;
+.time-list-and-cabinetid-div {
+  width: 70%;
+  //text-align:center;
 }
 
-.dispense-time{
-    display:inline-block;
+.dispense-time {
+  display: inline-block;
 }
 
-.cabinet-id{
-    display:inline-block;
+.cabinet-id {
+  display: inline-block;
 }
 
-.pills-added{
-    display:inline-block;
-    margin-top:1%;
+.pills-added {
+  display: inline-block;
+  margin-top: 1%;
 }
 
-.dispense-time-input{
-    margin-top:0.5%;
+.dispense-time-input {
+  margin-top: 0.5%;
 }
 
-.btn-div{
-    padding:1%;
-    text-align:right;
-    width:60%;
+.btn-div {
+  padding: 1%;
+  text-align: right;
+  width: 60%;
 }
-

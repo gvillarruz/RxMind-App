@@ -27,6 +27,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
 import { ToastModule } from "primeng/toast";
+import { InputNumberModule } from "primeng/inputnumber";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ToastModule } from "primeng/toast";
     MessagesModule,
     MessageModule,
     ToastModule,
+    InputNumberModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
