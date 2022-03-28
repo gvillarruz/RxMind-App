@@ -8,7 +8,7 @@
 
         <p-listbox [options]="this.medication_list" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem','margin-bottom':'2em'}" (onClick)="onSelect($event)"></p-listbox>
 
-        <input id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
+        <input *ngIf="serverData?.medications.length != 3" id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
     </div>
 
     <div></div>
