@@ -490,6 +490,13 @@ export class EditComponent {
       },
     });
 
+    if (timeList.filter((x) => x != null).length == 1) {
+      this.date2 = null;
+      this.date3 = null;
+    } else if (timeList.filter((x) => x != null).length == 2) {
+      this.date3 = null;
+    }
+
     if (
       this.AddMedication[0] == null ||
       timeList.filter((x) => x != null).length == 0 ||
