@@ -55,7 +55,6 @@ export class OverviewComponent implements OnInit {
         console.log(data);
 
         data.warnings.forEach((warning: any) => {
-          console.log(warning);
           this.messageService.add({
             severity: "warn",
             summary: "Warning",
@@ -74,15 +73,15 @@ export class OverviewComponent implements OnInit {
         if (nmeds >= 1) {
           this.Medication1_info.push(data.medications[0].name);
           //Gathering the remaining pills info
-          this.Medication1_info.push(data.medications[0].remainingPills);
+          this.Medication1_info.push(data.medications[0].pillsAdded);
           if (nmeds >= 2) {
             this.Medication2_info.push(data.medications[1].name);
             //Gathering remaining pills info
-            this.Medication2_info.push(data.medications[1].remainingPills);
+            this.Medication2_info.push(data.medications[1].pillsAdded);
             if (nmeds == 3) {
               this.Medication3_info.push(data.medications[2].name);
               //Gathering remaining pills info
-              this.Medication3_info.push(data.medications[2].remainingPills);
+              this.Medication3_info.push(data.medications[2].pillsAdded);
             }
           }
         }
@@ -96,16 +95,20 @@ export class OverviewComponent implements OnInit {
   }
 
   onSelect(event): void {
+    console.log(event.value);
+    console.log(this.Medication1_info);
+    console.log(this.Medication2_info);
+    console.log(this.Medication3_info);
     this.selectedmedication = event.value;
     //Figure out which medicationx_info array the selected medication is from
     //Update the number of medications left and the progress bar in the UI
-    if (event.value.name == this.Medication1_info[0]) {
+    if (this.selectedmedication.name == this.Medication1_info[0]) {
       this.medleft = this.Medication1_info[1];
       this.medprogressnum = this.Medication1_info[1];
-    } else if (event.value.name == this.Medication2_info[0]) {
+    } else if (this.selectedmedication.name == this.Medication2_info[0]) {
       this.medleft = this.Medication2_info[1];
       this.medprogressnum = this.Medication2_info[1];
-    } else if (event.value.name == this.Medication3_info[0]) {
+    } else if (this.selectedmedication.name == this.Medication3_info[0]) {
       this.medleft = this.Medication3_info[1];
       this.medprogressnum = this.Medication3_info[1];
     }
@@ -209,16 +212,7 @@ export class OverviewComponent implements OnInit {
       });
   }
 
-  Dismiss_notif() {
-    //Dismiss the missed notification when the user clicks this button
-    //Clear the warnings recieved from the web-server
-
-    this.MedWarnings = [];
-    //Clear the warnings visible in the UI
-    for (let i = 0; i < this.warnings_list.length; i++) {
-      this.warnings_list[i] = null;
-    }
-    //Hide the dismiss warning button
-    this.dismisswarningvisible = false;
+  clear() {
+    this.messageService.clear();
   }
 }
