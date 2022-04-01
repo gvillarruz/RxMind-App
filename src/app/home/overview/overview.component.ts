@@ -114,6 +114,15 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+  Dispense(){
+    //Dispense the medication when the 'Dispense' button is clicked in the UI
+    this.http
+    .post("https://www.rxmind.tech/demo", { })
+    .subscribe((data: any) => {
+      console.log(data); });
+  }
+
+
   onSelectDate(calendarvalue: Date) {
     if (
       this.selectedmedication == undefined ||
