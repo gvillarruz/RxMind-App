@@ -5,9 +5,7 @@
 <div class="med-list-and-freq-div">
     <div class="med-list">
         <label class="dropdown-label"><strong>Medication List:</strong></label>
-
         <p-listbox [options]="this.medication_list" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem','margin-bottom':'2em'}" (onClick)="onSelect($event)"></p-listbox>
-
         <input *ngIf="serverData?.medications.length != 3" id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
     </div>
 
