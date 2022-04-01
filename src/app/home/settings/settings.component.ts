@@ -61,7 +61,7 @@ export class SettingsComponent implements OnInit {
 
       this.deviceNotif = data.deviceNotif;
       this.emailNotif = data.emailNotif;
-      this.textNotif = data.textNotif;
+      this.textNotif = !!data.textNotif;
 
       //Check the missedDose selection - enable or disable
       //Update the UI value and save locally
@@ -88,8 +88,9 @@ export class SettingsComponent implements OnInit {
       }
 
       if (data.textNotif != null) {
+        console.log;
         this.notifphone = data.textNotif;
-        Settings_info[3] = true;
+        Settings_info[3] = this.notifphone;
         //There is text msg notif information
       }
 
@@ -221,7 +222,7 @@ export class SettingsComponent implements OnInit {
         missedDose: Settings_info[0],
         deviceNotif: this.deviceNotif,
         emailNotif: this.emailNotif,
-        textNotif: this.textNotif,
+        textNotif: this.notifphone,
         timeForNotif: Settings_info[4],
       })
 
