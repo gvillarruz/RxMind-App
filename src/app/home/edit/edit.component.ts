@@ -459,18 +459,24 @@ export class EditComponent {
 
     console.log("Adding a medication into the web-server");
     let timeList = [
-      this.date1?.toLocaleTimeString("default", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      this.date2?.toLocaleTimeString("default", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      this.date3?.toLocaleTimeString("default", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      this.date1
+        ?.toLocaleTimeString("default", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        .replace(/\s/g, ""),
+      this.date2
+        ?.toLocaleTimeString("default", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        .replace(/\s/g, ""),
+      this.date3
+        ?.toLocaleTimeString("default", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        .replace(/\s/g, ""),
     ];
 
     console.log(timeList);
