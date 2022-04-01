@@ -706,8 +706,14 @@ export class EditComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          if (data == true) {
+          if (data) {
             this.SaveSuccess = true;
+            this.messageService.add({
+              severity: "success",
+              summary: "Success",
+              detail: `${this.Medication2_info[0]} Successfully Updated`,
+              life: 60000,
+            })
           }
         });
     } else if (this.selectedmedication.name == this.Medication3_info[0]) {
@@ -768,8 +774,14 @@ export class EditComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          if (data == true) {
+          if (data) {
             this.SaveSuccess = true;
+            this.messageService.add({
+              severity: "success",
+              summary: "Success",
+              detail: `${this.Medication3_info[0]} Successfully Updated`,
+              life: 60000,
+            })
           }
         });
     }
