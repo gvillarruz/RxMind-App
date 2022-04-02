@@ -43,6 +43,8 @@ export class EditComponent {
   med_per_dose_list: med_per_dose[];
   selected_medperdose!: med_per_dose;
 
+  //Create local med list to push onto and update public one to update UI
+  localmedication_list : medication[];
   medication_list: medication[];
   selectedmedication?: medication;
 
@@ -101,10 +103,12 @@ export class EditComponent {
         ];
 
         this.medication_list = [];
+        this.localmedication_list = [];
 
         this.medication_list = this.serverData.medications.map((med) => {
           return { name: med.name };
         });
+        this.localmedication_list = this.medication_list;
 
         let nmeds = this.serverData.medications.length;
         if (nmeds >= 1) {
@@ -214,9 +218,17 @@ export class EditComponent {
           }
 
           //Load the cabinet id
-          this.cabinetid = this.Medication1_info[3];
+          if(this.Medication1_info[3] == 1){
+            this.cabinetid = {label: "Cabinet 1", value:1 };
+          } else if(this.Medication1_info[3] == 2){
+            this.cabinetid = {label: "Cabinet 2", value:2};
+          } else if(this.Medication1_info[3] == 3){
+            this.cabinetid = {label:"Cabinet 3", value:3};
+          }
+          //this.cabinetid.value = this.Medication1_info[3];
           //Add the cabinetid of this medication to the list of used ones
           this.UsedCabinets.push(this.Medication1_info[3]);
+          console.log("Showing medication 1 with cabinetid", this.Medication1_info[3]);
 
           //Load the amount of pills left
           this.pillsAdded = this.Medication1_info[4];
@@ -301,9 +313,17 @@ export class EditComponent {
           }
 
           //Load the cabinet id
-          this.cabinetid = this.Medication2_info[3];
+          if(this.Medication2_info[3] == 1){
+            this.cabinetid = {label: "Cabinet 1", value:1 };
+          } else if(this.Medication2_info[3] == 2){
+            this.cabinetid = {label: "Cabinet 2", value:2};
+          } else if(this.Medication2_info[3] == 3){
+            this.cabinetid = {label:"Cabinet 3", value:3};
+          }
+          //this.cabinetid = this.Medication2_info[3];
           //Adding the cabinetid of the medication to the list of used ones
           this.UsedCabinets.push(this.Medication2_info[3]);
+          console.log("Showing medication 2 with cabinetid", this.Medication2_info[3]);
 
           //Load the amount of pills left
           this.pillsAdded = this.Medication2_info[4];
@@ -388,9 +408,17 @@ export class EditComponent {
           }
 
           //Load the cabinet id
-          this.cabinetid= this.Medication3_info[3];
+          if(this.Medication3_info[3] == 1){
+            this.cabinetid = {label: "Cabinet 1", value:1 };
+          } else if(this.Medication3_info[3] == 2){
+            this.cabinetid = {label: "Cabinet 2", value:2};
+          } else if(this.Medication3_info[3] == 3){
+            this.cabinetid = {label:"Cabinet 3", value:3};
+          }
+          //this.cabinetid= this.Medication3_info[3];
           //Adding the cabinetid to the list of cabinets being used
           this.UsedCabinets.push(this.Medication3_info[3]);
+          console.log("Showing medication 3 with cabinetid", this.Medication3_info[3]);
 
           //Load the amount of pills left
           this.pillsAdded = this.Medication3_info[4];
@@ -448,7 +476,9 @@ export class EditComponent {
 
     //Get the cabinet id
     this.AddMedication[3] = this.cabinetid.value;
+    console.log("Selected cabinetid ",this.cabinetid.value);
     //If the cabient id is already being used
+    console.log("Used cabinets: ",this.UsedCabinets)
     if(this.UsedCabinets.includes(this.cabinetid.value)){
     //Show an error message to the user
     this.messageService.add({
@@ -569,13 +599,14 @@ export class EditComponent {
         .subscribe((data: any) => {
           console.log(data);
           if (data) {
-            this.medication_list.push({ name: this.AddMedication[0] });
+           this.localmedication_list.push({ name: this.AddMedication[0] });
             this.messageService.add({
               severity: "success",
               summary: "Success",
               detail: `${this.AddMedication[0]} Successfully Added`,
               life: 60000,
             });
+            this.medication_list = this.localmedication_list;
 
             //Show success message to the user
             //this.AddSuccess = true;
@@ -848,9 +879,10 @@ export class EditComponent {
         if (data) {
           //this.RemoveSuccess = true;
 
-          this.medication_list = this.medication_list.filter(
+          this.localmedication_list = this.localmedication_list.filter(
             (med) => med.name != this.selectedmedication.name
           );
+          this.medication_list = this.localmedication_list;
           console.log("HERE");
           this.messageService.add({
             severity: "success",
@@ -864,23 +896,28 @@ export class EditComponent {
         //Empty the associate medication array
         if (this.selectedmedication.name == this.Medication1_info[0]) {
          //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.splice(this.Medication1_info[3],1);
-          console.log("Removed the cabinet id");
+          var indexofcabinet = this.UsedCabinets.indexOf(this.Medication1_info[3]);
+          this.UsedCabinets.splice(indexofcabinet,1);
+          console.log("Removed the cabinet id", this.Medication1_info[3]);
           //Remove all elements of the array
           for (let i = 0; i < this.Medication1_info.length; i++) {
             this.Medication1_info[i] = null;
           }
         } else if (this.selectedmedication.name == this.Medication2_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.splice(this.Medication2_info[3],1);
-          console.log("Removed the cabinet id");
+          var indexofcabinet = this.UsedCabinets.indexOf(this.Medication2_info[3]);
+          this.UsedCabinets.splice(indexofcabinet,1);
+          //this.UsedCabinets = this.UsedCabinets.splice(this.Medication2_info[3],1);
+          console.log("Removed the cabinet id", this.Medication2_info[3]);
           for (let i = 0; i < this.Medication2_info.length; i++) {
             this.Medication2_info[i] = null;
           }
         } else if (this.selectedmedication.name == this.Medication3_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.splice(this.Medication3_info[3],1);
-          console.log("Removed the cabinet id");
+          var indexofcabinet = this.UsedCabinets.indexOf(this.Medication3_info[3]);
+          this.UsedCabinets.splice(indexofcabinet,1);
+          //this.UsedCabinets = this.UsedCabinets.splice(this.Medication3_info[3],1);
+          console.log("Removed the cabinet id", this.Medication3_info[3]);
           for (let i = 0; i < this.Medication3_info.length; i++) {
             this.Medication3_info[i] = null;
           }
