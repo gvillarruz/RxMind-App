@@ -6,7 +6,7 @@
     <div class="med-list">
         <label class="dropdown-label"><strong>Medication List:</strong></label>
         <p-listbox [options]="this.medication_list" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem','margin-bottom':'2em'}" (onClick)="onSelect($event)"></p-listbox>
-        <input *ngIf="serverData?.medications.length != 3" id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
+        <input *ngIf="this.medication_list.length != 3" id="AddMedicine" type="text" pInputText [disabled]="false" [(ngModel)]="addmedicine" placeholder="Enter New Medicine"/>
     </div>
 
     <div></div>
@@ -53,7 +53,7 @@
     <div class="cabinet-id">
         <label class="dropdown-label"><strong>Cabinet ID (in Machine):</strong></label>
         <div></div>
-        <p-dropdown [options]= "cabinetOptions" [(ngModel)]="chosenCabinet" optionLabel="label"></p-dropdown>
+        <p-dropdown [options]= "cabinets" [(ngModel)]="cabinetid" optionLabel="label"></p-dropdown>
         <!-- <input id="cabinet-id" type="text" pInputText [disabled]="false"  [(ngModel)]="cabinetid"/> -->
     </div>
 
@@ -69,12 +69,12 @@
 </div>
 
 <div class="btn-div">
-<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.SaveSuccess">Successful Save</label>
+<!--<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.SaveSuccess">Successful Save</label>
 <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.AddSuccess">Successful Add</label>
 <label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%;" *ngIf="this.RemoveSuccess">Successful Remove</label>
-<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.AddError">Medication Limit of 3</label>
+<label style="font-family: Arial, Helvetica, sans-serif; padding-right: 1%; color:red" *ngIf="this.AddError">Medication Limit of 3</label>-->
 <button pButton pRipple type="button" label="Update" (click)="saveMedication()" ></button>
-<button pButton pRipple type="button" label="Add" (click)="addMedication()" *ngIf="serverData?.medications.length != 3"></button>
+<button pButton pRipple type="button" label="Add" (click)="addMedication()" *ngIf="this.medication_list.length != 3"></button>
 <button class="p-button-secondary" pButton pRipple type="button" label="Remove" (click)="removeMedication()"></button>
 </div>
 </body>

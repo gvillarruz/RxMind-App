@@ -19,6 +19,11 @@ interface medication {
   name: string;
 }
 
+interface cabinetOptions{
+  label :string;
+  value: any; 
+}
+
 @Component({
   selector: "app-edit",
   templateUrl: "./edit.component.html",
@@ -26,7 +31,6 @@ interface medication {
   providers: [MessageService],
 })
 export class EditComponent {
-  cabinetid: any;
   dispense1: any;
   dispense2: any;
   dispense3: any;
@@ -64,11 +68,8 @@ export class EditComponent {
   date2: Date;
   date3: Date;
 
-  cabinetOptions = [
-    { label: "Cabinet 1", value: 1 },
-    { label: "Cabinet 2", value: 2 },
-    { label: "Cabinet 3", value: 3 },
-  ];
+  cabinets : cabinetOptions[];
+  cabinetid ?: cabinetOptions;
 
  // chosenCabinet: any;
 
@@ -116,6 +117,12 @@ export class EditComponent {
           }
         }
       });
+      //Fill the cabinetOptions with value to bind to the dropdown
+      this.cabinets = [
+        { label: "Cabinet 1", value: 1 },
+        { label: "Cabinet 2", value: 2 },
+        { label: "Cabinet 3", value: 3 },
+      ];
   }
 
   setHours(data) {
@@ -381,7 +388,7 @@ export class EditComponent {
           }
 
           //Load the cabinet id
-          this.cabinetid = this.Medication3_info[3];
+          this.cabinetid= this.Medication3_info[3];
           //Adding the cabinetid to the list of cabinets being used
           this.UsedCabinets.push(this.Medication3_info[3]);
 
@@ -440,9 +447,9 @@ export class EditComponent {
     }
 
     //Get the cabinet id
-    this.AddMedication[3] = this.cabinetid;
+    this.AddMedication[3] = this.cabinetid.value;
     //If the cabient id is already being used
-    if(this.UsedCabinets.includes(this.cabinetid)){
+    if(this.UsedCabinets.includes(this.cabinetid.value)){
     //Show an error message to the user
     this.messageService.add({
     severity: "error",
@@ -569,7 +576,6 @@ export class EditComponent {
               detail: `${this.AddMedication[0]} Successfully Added`,
               life: 60000,
             });
-            this.medCount ++;
 
             //Show success message to the user
             //this.AddSuccess = true;
@@ -589,7 +595,7 @@ export class EditComponent {
             ) {
               //Populate all AddMedication fields into the Medication1_info array
               for (i = 0; i < this.AddMedication.length; i++) {
-                this.Medication1_info[i] = this.AddMedication[i];
+                this.Medication2_info[i] = this.AddMedication[i];
               }
             } else if (
               this.Medication3_info[0] == null ||
@@ -597,7 +603,7 @@ export class EditComponent {
             ) {
               //Populate all AddMedication fields into the Medication1_info array
               for (i = 0; i < this.AddMedication.length; i++) {
-                this.Medication1_info[i] = this.AddMedication[i];
+                this.Medication3_info[i] = this.AddMedication[i];
               }
             }
           }
@@ -637,7 +643,7 @@ export class EditComponent {
         this.Medication1_info[2] = 2;
       }
       console.log("Taking in the selected medication per dose");
-      this.Medication1_info[3] = this.cabinetid;
+      this.Medication1_info[3] = this.cabinetid.value;
 
       this.Medication1_info[4] = this.pillsAdded;
       console.log("Checking dispensing times");
@@ -707,7 +713,7 @@ export class EditComponent {
         this.Medication2_info[2] = 2;
       }
 
-      this.Medication2_info[3] = this.cabinetid;
+      this.Medication2_info[3] = this.cabinetid.value;
 
       this.Medication2_info[4] = this.pillsAdded;
 
@@ -775,7 +781,7 @@ export class EditComponent {
         this.Medication3_info[2] = 2;
       }
 
-      this.Medication3_info[3] = this.cabinetid;
+      this.Medication3_info[3] = this.cabinetid.value;
 
       this.Medication3_info[4] = this.pillsAdded;
 
@@ -858,29 +864,26 @@ export class EditComponent {
         //Empty the associate medication array
         if (this.selectedmedication.name == this.Medication1_info[0]) {
          //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.filter(this.Medication1_info[3]);
+          this.UsedCabinets = this.UsedCabinets.splice(this.Medication1_info[3],1);
           console.log("Removed the cabinet id");
           //Remove all elements of the array
           for (let i = 0; i < this.Medication1_info.length; i++) {
             this.Medication1_info[i] = null;
           }
-          this.medCount--;
         } else if (this.selectedmedication.name == this.Medication2_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.filter(this.Medication2_info[3]);
+          this.UsedCabinets = this.UsedCabinets.splice(this.Medication2_info[3],1);
           console.log("Removed the cabinet id");
           for (let i = 0; i < this.Medication2_info.length; i++) {
             this.Medication2_info[i] = null;
           }
-          this.medCount--;
         } else if (this.selectedmedication.name == this.Medication3_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
-          this.UsedCabinets = this.UsedCabinets.filter(this.Medication3_info[3]);
+          this.UsedCabinets = this.UsedCabinets.splice(this.Medication3_info[3],1);
           console.log("Removed the cabinet id");
           for (let i = 0; i < this.Medication3_info.length; i++) {
             this.Medication3_info[i] = null;
           }
-          this.medCount--;
         }
       });
   }
