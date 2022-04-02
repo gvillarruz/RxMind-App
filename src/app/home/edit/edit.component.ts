@@ -227,7 +227,11 @@ export class EditComponent {
           }
           //this.cabinetid.value = this.Medication1_info[3];
           //Add the cabinetid of this medication to the list of used ones
-          this.UsedCabinets.push(this.Medication1_info[3]);
+          //Check if the UsedCabinet list doesn't already have the selected cabinetid
+          if(!this.UsedCabinets.includes(this.Medication1_info[3])){
+            this.UsedCabinets.push(this.Medication1_info[3]);
+          }
+          //Otherwise don't load the cabinet id in the list-> to avoid duplicates
           console.log("Showing medication 1 with cabinetid", this.Medication1_info[3]);
 
           //Load the amount of pills left
@@ -322,7 +326,12 @@ export class EditComponent {
           }
           //this.cabinetid = this.Medication2_info[3];
           //Adding the cabinetid of the medication to the list of used ones
-          this.UsedCabinets.push(this.Medication2_info[3]);
+          //Check if the UsedCabinet list doesn't already have the selected cabinetid
+          if(!this.UsedCabinets.includes(this.Medication2_info[3])){
+            this.UsedCabinets.push(this.Medication2_info[3]);
+          }
+          //Otherwise don't load the cabinet id in the list-> to avoid duplicates
+          //this.UsedCabinets.push(this.Medication2_info[3]);
           console.log("Showing medication 2 with cabinetid", this.Medication2_info[3]);
 
           //Load the amount of pills left
@@ -417,7 +426,11 @@ export class EditComponent {
           }
           //this.cabinetid= this.Medication3_info[3];
           //Adding the cabinetid to the list of cabinets being used
-          this.UsedCabinets.push(this.Medication3_info[3]);
+          if(!this.UsedCabinets.includes(this.Medication3_info[3])){
+            this.UsedCabinets.push(this.Medication3_info[3]);
+          }
+          //Otherwise don't load the cabinet id in the list-> to avoid duplicates
+          //this.UsedCabinets.push(this.Medication3_info[3]);
           console.log("Showing medication 3 with cabinetid", this.Medication3_info[3]);
 
           //Load the amount of pills left
@@ -909,8 +922,9 @@ export class EditComponent {
         if (this.selectedmedication.name == this.Medication1_info[0]) {
          //Remove the cabinetid of the medication from the UseCabinetId list
           var indexofcabinet = this.UsedCabinets.indexOf(this.Medication1_info[3]);
+          console.log("UsedCabinets and Indexofcabinet", this.UsedCabinets, indexofcabinet);
           this.UsedCabinets.splice(indexofcabinet,1);
-          console.log("Removed the cabinet id", this.Medication1_info[3]);
+          console.log("Removed the cabinet id", this.Medication1_info[3], this.UsedCabinets);
           //Remove all elements of the array
           for (let i = 0; i < this.Medication1_info.length; i++) {
             this.Medication1_info[i] = null;
@@ -918,18 +932,20 @@ export class EditComponent {
         } else if (this.selectedmedication.name == this.Medication2_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
           var indexofcabinet = this.UsedCabinets.indexOf(this.Medication2_info[3]);
+          console.log("UsedCabinets and Indexofcabinet", this.UsedCabinets, indexofcabinet);
           this.UsedCabinets.splice(indexofcabinet,1);
           //this.UsedCabinets = this.UsedCabinets.splice(this.Medication2_info[3],1);
-          console.log("Removed the cabinet id", this.Medication2_info[3]);
+          console.log("Removed the cabinet id", this.Medication2_info[3], this.UsedCabinets);
           for (let i = 0; i < this.Medication2_info.length; i++) {
             this.Medication2_info[i] = null;
           }
         } else if (this.selectedmedication.name == this.Medication3_info[0]) {
           //Remove the cabinetid of the medication from the UseCabinetId list
           var indexofcabinet = this.UsedCabinets.indexOf(this.Medication3_info[3]);
+          console.log("UsedCabinets and Indexofcabinet", this.UsedCabinets, indexofcabinet);
           this.UsedCabinets.splice(indexofcabinet,1);
           //this.UsedCabinets = this.UsedCabinets.splice(this.Medication3_info[3],1);
-          console.log("Removed the cabinet id", this.Medication3_info[3]);
+          console.log("Removed the cabinet id", this.Medication3_info[3],this.UsedCabinets);
           for (let i = 0; i < this.Medication3_info.length; i++) {
             this.Medication3_info[i] = null;
           }
