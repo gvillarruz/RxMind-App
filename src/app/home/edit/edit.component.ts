@@ -44,7 +44,7 @@ export class EditComponent {
   selected_medperdose!: med_per_dose;
 
   //Create local med list to push onto and update public one to update UI
-  localmedication_list : medication[];
+  //localmedication_list : medication[];
   medication_list: medication[];
   selectedmedication?: medication;
 
@@ -103,12 +103,12 @@ export class EditComponent {
         ];
 
         this.medication_list = [];
-        this.localmedication_list = [];
+        //this.localmedication_list = [];
 
         this.medication_list = this.serverData.medications.map((med) => {
           return { name: med.name };
         });
-        this.localmedication_list = this.medication_list;
+        //this.localmedication_list = this.medication_list;
 
         let nmeds = this.serverData.medications.length;
         if (nmeds >= 1) {
@@ -599,14 +599,26 @@ export class EditComponent {
         .subscribe((data: any) => {
           console.log(data);
           if (data) {
-           this.localmedication_list.push({ name: this.AddMedication[0] });
+           this.medication_list.push({ name: this.AddMedication[0] });
             this.messageService.add({
               severity: "success",
               summary: "Success",
               detail: `${this.AddMedication[0]} Successfully Added`,
               life: 60000,
             });
-            this.medication_list = this.localmedication_list;
+            //this.medication_list = this.localmedication_list;
+            //Updating the medication list in the UI
+            if(this.medication_list.length == 1){
+              this.medication_list = [this.medication_list[0]];
+              console.log("Re-loading medication_list with ", this.medication_list[0]);
+            } else if(this.medication_list.length == 2){
+              this.medication_list = [this.medication_list[0], this.medication_list[1]];
+              console.log("Re-loading medication_list with ", this.medication_list[0], this.medication_list[1]);
+            }
+            else if(this.medication_list.length ==3){
+              this.medication_list = [this.medication_list[0], this.medication_list[1], this.medication_list[2]];
+              console.log("Re-loading medication_list with ", this.medication_list[0], this.medication_list[1], this.medication_list[2]);
+            }
 
             //Show success message to the user
             //this.AddSuccess = true;
@@ -879,10 +891,10 @@ export class EditComponent {
         if (data) {
           //this.RemoveSuccess = true;
 
-          this.localmedication_list = this.localmedication_list.filter(
+          this.medication_list = this.medication_list.filter(
             (med) => med.name != this.selectedmedication.name
           );
-          this.medication_list = this.localmedication_list;
+          //this.medication_list = this.localmedication_list;
           console.log("HERE");
           this.messageService.add({
             severity: "success",
@@ -923,5 +935,18 @@ export class EditComponent {
           }
         }
       });
+
+      //Updating the medication list in the UI
+      if(this.medication_list.length == 1){
+        this.medication_list = [this.medication_list[0]];
+        console.log("Re-loading medication_list with ", this.medication_list[0]);
+      } else if(this.medication_list.length == 2){
+        this.medication_list = [this.medication_list[0], this.medication_list[1]];
+        console.log("Re-loading medication_list with ", this.medication_list[0], this.medication_list[1]);
+      }
+      else if(this.medication_list.length ==3){
+        this.medication_list = [this.medication_list[0], this.medication_list[1], this.medication_list[2]];
+        console.log("Re-loading medication_list with ", this.medication_list[0], this.medication_list[1], this.medication_list[2]);
+      }
   }
 }
