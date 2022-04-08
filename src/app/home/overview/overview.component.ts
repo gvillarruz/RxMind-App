@@ -73,15 +73,15 @@ export class OverviewComponent implements OnInit {
         if (nmeds >= 1) {
           this.Medication1_info.push(data.medications[0].name);
           //Gathering the remaining pills info
-          this.Medication1_info.push(data.medications[0].pillsAdded);
+          this.Medication1_info.push(data.medications[0].remainingPills);
           if (nmeds >= 2) {
             this.Medication2_info.push(data.medications[1].name);
             //Gathering remaining pills info
-            this.Medication2_info.push(data.medications[1].pillsAdded);
+            this.Medication2_info.push(data.medications[1].remainingPills);
             if (nmeds == 3) {
               this.Medication3_info.push(data.medications[2].name);
               //Gathering remaining pills info
-              this.Medication3_info.push(data.medications[2].pillsAdded);
+              this.Medication3_info.push(data.medications[2].remainingPills);
             }
           }
         }
@@ -113,6 +113,15 @@ export class OverviewComponent implements OnInit {
       this.medprogressnum = this.Medication3_info[1];
     }
   }
+
+  Dispense(){
+    //Dispense the medication when the 'Dispense' button is clicked in the UI
+    this.http
+    .post("https://www.rxmind.tech/demo", { })
+    .subscribe((data: any) => {
+      console.log(data); });
+  }
+
 
   onSelectDate(calendarvalue: Date) {
     if (
