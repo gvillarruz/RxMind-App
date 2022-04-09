@@ -73,15 +73,15 @@ export class OverviewComponent implements OnInit {
         if (nmeds >= 1) {
           this.Medication1_info.push(data.medications[0].name);
           //Gathering the remaining pills info
-          this.Medication1_info.push(data.medications[0].remainingPills);
+          this.Medication1_info.push(data.medications[0].pillsAdded);
           if (nmeds >= 2) {
             this.Medication2_info.push(data.medications[1].name);
             //Gathering remaining pills info
-            this.Medication2_info.push(data.medications[1].remainingPills);
+            this.Medication2_info.push(data.medications[1].pillsAdded);
             if (nmeds == 3) {
               this.Medication3_info.push(data.medications[2].name);
               //Gathering remaining pills info
-              this.Medication3_info.push(data.medications[2].remainingPills);
+              this.Medication3_info.push(data.medications[2].pillsAdded);
             }
           }
         }
@@ -117,21 +117,45 @@ export class OverviewComponent implements OnInit {
   Dispense1(){
     //Dispense the medication from cabinet 1 when the 'Dispense Cabinet 1' button is clicked in the UI
     this.http
-    .post("https://www.rxmind.tech/demo", { })
+    .post("https://www.rxmind.tech/demo", {
+        cabinetNo: 1  
+     })
     .subscribe((data: any) => {
-      console.log(data); });
+      console.log(data); 
+    });
   }
 
   Dispense2(){
      //Dispense the medication from cabinet 2 when the 'Dispense Cabinet 2' button is clicked in the UI
-  }
+     this.http
+     .post("https://www.rxmind.tech/demo", {
+         cabinetNo: 2 
+      })
+     .subscribe((data: any) => {
+       console.log(data); 
+     });
+   }
 
   Dispense3(){
      //Dispense the medication from cabinet 3 when the 'Dispense Cabinet 3' button is clicked in the UI
-  }
+     this.http
+     .post("https://www.rxmind.tech/demo", {
+         cabinetNo: 3 
+      })
+     .subscribe((data: any) => {
+       console.log(data); 
+     });
+   }
 
   Dispense4(){
     //Dispense two medications from cabinet 2 when the 'Dispense 2 Pills' button is clicked in the UI
+    this.http
+    .post("https://www.rxmind.tech/demo", {
+        cabinetNo: 4  
+     })
+    .subscribe((data: any) => {
+      console.log(data); 
+    });
   }
 
 
