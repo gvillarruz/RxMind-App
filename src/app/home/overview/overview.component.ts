@@ -114,12 +114,24 @@ export class OverviewComponent implements OnInit {
     }
   }
 
-  Dispense(){
-    //Dispense the medication when the 'Dispense' button is clicked in the UI
+  Dispense1(){
+    //Dispense the medication from cabinet 1 when the 'Dispense Cabinet 1' button is clicked in the UI
     this.http
     .post("https://www.rxmind.tech/demo", { })
     .subscribe((data: any) => {
       console.log(data); });
+  }
+
+  Dispense2(){
+     //Dispense the medication from cabinet 2 when the 'Dispense Cabinet 2' button is clicked in the UI
+  }
+
+  Dispense3(){
+     //Dispense the medication from cabinet 3 when the 'Dispense Cabinet 3' button is clicked in the UI
+  }
+
+  Dispense4(){
+    //Dispense two medications from cabinet 2 when the 'Dispense 2 Pills' button is clicked in the UI
   }
 
 
