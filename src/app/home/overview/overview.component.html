@@ -6,15 +6,18 @@
 
 <!---Add the same list that is implemented in the Edit page for medications-->
 <div class="meds-list-calendar">
-    <div class="med-list">
-        
-        <label><strong>Medication List:</strong></label>
-        <p-listbox [options]="this.medication_list"  optionLabel="name"  [style]="{'width':'15rem'}" (onClick)="onSelect($event)"></p-listbox>
-        <button type="button" pButton pRipple (click)="clear()" icon="pi pi-times" label="Clear Notifications" [style]="{'margin-top':'2em'}"></button>
-        <p>
-            <button pButton pRipple type="button" label="Dispense" (click)="Dispense()" style="margin: 10px 0px 0px 0px"></button>
-        </p>
-
+    <div class="med-list-dispense-btns">
+        <div class="med-list">
+            <label><strong>Medication List:</strong></label>
+            <p-listbox [options]="this.medication_list"  optionLabel="name"  [style]="{'width':'15rem'}" (onClick)="onSelect($event)"></p-listbox>
+            <button type="button" pButton pRipple (click)="clear()" icon="pi pi-times" label="Clear Notifications" [style]="{'margin-top':'2em'}"></button>
+        </div>
+        <div class="dispense-btn-div">
+        <p><button pButton pRipple class="p-button-secondary" type="button" label="Dispense Cabinet 1" (click)="Dispense1()" style="margin: 10px 0px 0px 0px"></button></p>
+        <p><button pButton pRipple class="p-button-secondary" type="button" label="Dispense Cabinet 2" (click)="Dispense2()" style="margin: 10px 0px 0px 0px"></button></p>
+        <p><button pButton pRipple class="p-button-secondary" type="button" label="Dispense Cabinet 3" (click)="Dispense3()" style="margin: 10px 0px 0px 0px"></button></p>
+        <p><button pButton pRipple class="p-button-secondary" type="button" label="Dispense Two Pills" (click)="Dispense4()" style="margin: 10px 0px 0px 0px"></button></p>
+        </div> 
     </div>
     <div class="med-calendar">
         <p-calendar [showWeek]="true" [inline]="true" [(ngModel)]="calendarvalue" (click)="onSelectDate(calendarvalue)"></p-calendar>
